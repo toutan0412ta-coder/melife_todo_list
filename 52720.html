@@ -224,8 +224,175 @@ header h1 { font-size: 1.05rem; font-weight: 700; letter-spacing: 0.04em; white-
 .save-indicator.ok{background:var(--success)}.save-indicator.err{background:var(--danger)}
 .error-box{background:#fff0f0;border:1.5px solid #f5a8a8;border-radius:var(--radius-sm);padding:10px 14px;font-size:0.82rem;color:#c0392b;margin-bottom:12px;display:none}
 .error-box.show{display:block}
-@media(max-width:760px){.main-wrap{padding:10px 7px}.todo-add-form{flex-direction:column}.form-group{width:100%}.todo-list{font-size:0.76rem}.todo-list td,.todo-list th{padding:5px 5px}.modal{padding:16px 12px}header h1{font-size:0.95rem}.inst-grid{grid-template-columns:1fr}}
-@media(max-width:520px){.header-btns .btn .lbl{display:none}.room-btn{padding:5px 12px;font-size:0.78rem}.header-datetime-weather{padding:3px 8px;}.header-date-str{font-size:0.74rem;}}
+@media (max-width: 760px) {
+  .main-wrap { padding: 10px 7px; }
+
+  /* フォーム縦並び */
+  .todo-add-form { flex-direction: column; gap: 6px; }
+  .form-group { width: 100%; }
+  .form-group input,
+  .form-group select { width: 100% !important; }
+
+  /* テーブル */
+  .todo-list { font-size: 0.76rem; }
+  .todo-list td,
+  .todo-list th { padding: 5px 5px; }
+
+  /* モーダル */
+  .modal { padding: 16px 12px; }
+
+  /* ヘッダー */
+  header h1 { font-size: 0.95rem; }
+
+  /* 設定グリッド */
+  .inst-grid { grid-template-columns: 1fr; }
+
+  /* カレンダーポップアップ */
+  .cal-popup { min-width: 190px; }
+}
+
+/* スマホ（480px以下） */
+@media (max-width: 480px) {
+
+  /* ===== ヘッダー ===== */
+  .sticky-top { position: sticky; top: 0; z-index: 200; }
+  .top-links-bar {
+    height: auto;
+    padding: 4px 10px;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  .top-link-btn {
+    font-size: 0.68rem;
+    padding: 3px 8px;
+  }
+  header {
+    padding: 6px 10px;
+    min-height: 50px;
+    gap: 6px;
+  }
+  header h1 { font-size: 0.85rem; }
+  #header-icon { width: 36px !important; height: 36px !important; }
+  #main-title-text { font-size: 0.82rem; }
+
+  /* 日付天気バッジ */
+  .header-datetime-weather {
+    padding: 3px 7px;
+    gap: 5px;
+  }
+  .header-date-str { font-size: 0.68rem; }
+  .header-weather-temp { font-size: 0.68rem; }
+
+  /* ヘッダーボタンのラベル非表示 */
+  .header-btns .btn .lbl { display: none; }
+  .header-btns .btn { padding: 5px 8px; font-size: 0.75rem; }
+
+  /* 教室切替ボタン */
+  .room-btn { padding: 4px 10px; font-size: 0.75rem; min-width: 60px; }
+
+  /* ===== メインコンテンツ ===== */
+  .main-wrap { padding: 8px 6px; }
+  .card { padding: 12px 10px; margin-bottom: 12px; }
+  .card-title { font-size: 0.88rem; }
+
+  /* ===== TODOフォーム ===== */
+  .todo-add-form {
+    padding: 10px 8px;
+    gap: 8px;
+  }
+  .bold-check-wrap label { font-size: 0.76rem; }
+
+  /* カレンダーポップアップ：画面からはみ出さないよう */
+  .cal-popup {
+    min-width: 200px;
+    max-width: calc(100vw - 28px);
+    left: 0;
+  }
+
+  /* ===== TODOテーブル ===== */
+  .todo-list { font-size: 0.72rem; }
+  .todo-list th { font-size: 0.66rem; padding: 6px 4px; }
+  .todo-list td { padding: 6px 4px; font-size: 0.72rem; }
+
+  /* 日付列・項目列・時間列を狭く */
+  .todo-list th:nth-child(1),
+  .todo-list td:nth-child(1) { width: 56px !important; }
+  .todo-list th:nth-child(2),
+  .todo-list td:nth-child(2) { width: 58px !important; }
+  .todo-list th:nth-child(3),
+  .todo-list td:nth-child(3) { width: 44px !important; }
+
+  /* ソートボタン：スマホでは非表示（タップしにくいため） */
+  .th-sort-btn { display: none; }
+
+  /* タグ */
+  .item-tag { font-size: 0.62rem; padding: 2px 5px; }
+
+  /* 操作ボタン列 */
+  .btn-action-row {
+    flex-direction: column;
+    gap: 3px;
+    align-items: flex-end;
+  }
+  .btn-xs { padding: 4px 6px; font-size: 0.68rem; }
+
+  /* 期限バッジ */
+  .deadline-badge { font-size: 0.6rem; }
+  .date-normal { font-size: 0.72rem; }
+
+  /* ===== インライン編集 ===== */
+  .edit-inline input,
+  .edit-inline select { font-size: 0.72rem; padding: 3px 4px; }
+
+  /* ===== モーダル ===== */
+  .modal {
+    padding: 14px 10px;
+    max-height: 88vh;
+    width: 96%;
+  }
+  .modal-title { font-size: 0.92rem; }
+
+  /* 引継ぎタブ */
+  .tab-btn { padding: 6px 10px; font-size: 0.75rem; }
+  .hiki-saved-item { padding: 8px 72px 8px 8px; font-size: 0.78rem; }
+  .hiki-author-badge { font-size: 0.6rem; }
+
+  /* リッチエディタ */
+  .rich-toolbar { gap: 3px; padding: 5px 6px; }
+  .rich-toolbar button { padding: 3px 6px; font-size: 0.7rem; }
+  .rich-toolbar select { font-size: 0.68rem; padding: 2px 3px; }
+  .rich-editor { min-height: 80px; font-size: 0.82rem; padding: 8px 10px; }
+
+  /* メモ */
+  .memo-saved-item { padding: 10px 68px 10px 10px; font-size: 0.78rem; }
+
+  /* ===== 出勤状況 ===== */
+  .attendance-controls { gap: 6px; }
+  .attendance-controls .btn { font-size: 0.75rem; padding: 5px 10px; }
+
+  /* ===== 設定モーダル ===== */
+  .setting-id-display { font-size: 0.78rem; }
+  .add-room-input-row { flex-direction: column; }
+  .add-room-input-row input { width: 100%; }
+
+  /* ===== セーブインジケーター ===== */
+  .save-indicator {
+    bottom: 10px;
+    right: 10px;
+    font-size: 0.72rem;
+    padding: 5px 12px;
+  }
+}
+
+/* 極小スマホ（360px以下） */
+@media (max-width: 360px) {
+  header { padding: 5px 7px; }
+  #header-icon { width: 28px !important; height: 28px !important; }
+  .main-wrap { padding: 6px 4px; }
+  .card { padding: 10px 8px; }
+  .todo-list { font-size: 0.68rem; }
+  .room-btn { padding: 3px 7px; font-size: 0.7rem; min-width: 50px; }
+}
 @media print{body>*:not(#print-area){display:none!important}#print-area{display:block!important;position:fixed;inset:0;background:#fff;padding:24px;font-family:'Yu Gothic','Hiragino Sans',sans-serif;font-size:11pt;color:#000;z-index:99999}}
 #print-area{display:none}
 </style>
@@ -338,6 +505,11 @@ header h1 { font-size: 1.05rem; font-weight: 700; letter-spacing: 0.04em; white-
           <div class="bold-check-wrap">
             <input type="checkbox" id="todo-bold">
             <label for="todo-bold">太字</label>
+          </div>
+          <!-- ★追加: 赤字チェックボックス -->
+          <div class="bold-check-wrap" style="margin-top:4px;">
+            <input type="checkbox" id="todo-red">
+            <label for="todo-red" style="color:#e74c3c;">赤字</label>
           </div>
         </div>
         <div class="form-group" style="align-self:flex-end;">
@@ -1120,73 +1292,232 @@ function renderAll(){renderTodos();buildHikitsugiModal();renderAttendance();rend
 // ============================================================
 // カレンダー
 // ============================================================
-function buildCal(pid,year,month,inputId){
-  const popup=document.getElementById(pid);if(!popup)return;
-  const today=new Date();
-  const fd=new Date(year,month,1).getDay(),dim=new Date(year,month+1,0).getDate(),dip=new Date(year,month,0).getDate();
-  const mn=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
-  const iv=document.getElementById(inputId)?.value||'';let sm=0,sd=0;
-  if(iv){sm=parseInt(iv.split('/')[0]);sd=parseInt(iv.split('/')[1]);}
-  const nf=pid==='cal-popup'?'mainCalNav':'dlCalNav';
-  const sf=pid==='cal-popup'?'mainCalSel':'dlCalSel';
-  let h=`<div class="cal-header"><button onclick="${nf}(-1)">◀</button><span>${year}年 ${mn[month]}</span><button onclick="${nf}(1)">▶</button></div><div class="cal-grid">`;
-  ['日','月','火','水','木','金','土'].forEach((d,i)=>h+=`<div class="cal-day-label${i===0?' sun':i===6?' sat':''}">${d}</div>`);
-  for(let i=0;i<fd;i++)h+=`<div class="cal-cell other-month">${dip-fd+1+i}</div>`;
-  for(let d=1;d<=dim;d++){
-    const dw=new Date(year,month,d).getDay();let c='cal-cell';
-    if(dw===0)c+=' sun-cell';if(dw===6)c+=' sat-cell';
-    if(d===today.getDate()&&month===today.getMonth()&&year===today.getFullYear())c+=' today';
-    if(sm===month+1&&sd===d)c+=' selected';
-    h+=`<div class="${c}" onclick="${sf}(${d})">${d}</div>`;
+function buildCal(pid, year, month, inputId) {
+  const popup = document.getElementById(pid);
+  if (!popup) return;
+  const today = new Date();
+  const fd = new Date(year, month, 1).getDay(),
+        dim = new Date(year, month + 1, 0).getDate(),
+        dip = new Date(year, month, 0).getDate();
+  const mn = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  const iv = document.getElementById(inputId)?.value || '';
+  let sm = 0, sd = 0;
+  if (iv) {
+    const ivp = iv.split('/');
+    if (ivp.length === 3) {
+      // YYYY/MM/DD
+      sm = parseInt(ivp[1]);
+      sd = parseInt(ivp[2]);
+    } else if (ivp.length === 2) {
+      // MM/DD（旧データ互換）
+      sm = parseInt(ivp[0]);
+      sd = parseInt(ivp[1]);
+    }
   }
-  const rem=(fd+dim)%7===0?0:7-(fd+dim)%7;
-  for(let i=1;i<=rem;i++)h+=`<div class="cal-cell other-month">${i}</div>`;
-  h+='</div>';popup.innerHTML=h;
-}
-window.mainCalNav=d=>{calMonth+=d;if(calMonth<0){calMonth=11;calYear--;}if(calMonth>11){calMonth=0;calYear++;}buildCal('cal-popup',calYear,calMonth,'todo-date');};
-window.mainCalSel=d=>{document.getElementById('todo-date').value=`${String(calMonth+1).padStart(2,'0')}/${String(d).padStart(2,'0')}`;document.getElementById('cal-popup').classList.remove('open');buildCal('cal-popup',calYear,calMonth,'todo-date');};
-window.dlCalNav=d=>{dlCalMonth+=d;if(dlCalMonth<0){dlCalMonth=11;dlCalYear--;}if(dlCalMonth>11){dlCalMonth=0;dlCalYear++;}buildCal('cal-popup-deadline',dlCalYear,dlCalMonth,'todo-deadline');};
-window.dlCalSel=d=>{document.getElementById('todo-deadline').value=`${String(dlCalMonth+1).padStart(2,'0')}/${String(d).padStart(2,'0')}`;document.getElementById('cal-popup-deadline').classList.remove('open');buildCal('cal-popup-deadline',dlCalYear,dlCalMonth,'todo-deadline');};
+  const nf = pid === 'cal-popup' ? 'mainCalNav' : 'dlCalNav';
+  const sf = pid === 'cal-popup' ? 'mainCalSel' : 'dlCalSel';
 
-document.getElementById('todo-date').addEventListener('click',e=>{e.stopPropagation();document.getElementById('cal-popup').classList.toggle('open');buildCal('cal-popup',calYear,calMonth,'todo-date');});
-document.getElementById('todo-deadline').addEventListener('click',e=>{e.stopPropagation();document.getElementById('cal-popup-deadline').classList.toggle('open');buildCal('cal-popup-deadline',dlCalYear,dlCalMonth,'todo-deadline');});
+  // ★修正: ナビボタンに event.stopPropagation() を追加して
+  //         クリックが document まで伝播してカレンダーが閉じるのを防ぐ
+  let h = `<div class="cal-header">
+    <button onclick="event.stopPropagation();${nf}(-1)">◀</button>
+    <span>${year}年 ${mn[month]}</span>
+    <button onclick="event.stopPropagation();${nf}(1)">▶</button>
+  </div><div class="cal-grid">`;
+
+  ['日','月','火','水','木','金','土'].forEach((d, i) =>
+    h += `<div class="cal-day-label${i===0?' sun':i===6?' sat':''}">${d}</div>`
+  );
+  for (let i = 0; i < fd; i++)
+    h += `<div class="cal-cell other-month">${dip - fd + 1 + i}</div>`;
+  for (let d = 1; d <= dim; d++) {
+    const dw = new Date(year, month, d).getDay();
+    let c = 'cal-cell';
+    if (dw === 0) c += ' sun-cell';
+    if (dw === 6) c += ' sat-cell';
+    if (d === today.getDate() && month === today.getMonth() && year === today.getFullYear())
+      c += ' today';
+    if (sm === month + 1 && sd === d) c += ' selected';
+    // ★修正: 日付セルクリック時も stopPropagation 不要（選択後closeするので問題なし）
+    h += `<div class="${c}" onclick="${sf}(${d})">${d}</div>`;
+  }
+  const rem = (fd + dim) % 7 === 0 ? 0 : 7 - (fd + dim) % 7;
+  for (let i = 1; i <= rem; i++)
+    h += `<div class="cal-cell other-month">${i}</div>`;
+  h += '</div>';
+  popup.innerHTML = h;
+}
+
+// ★修正: ナビ関数でもポップアップを open のままにする（閉じない）
+window.mainCalNav = d => {
+  calMonth += d;
+  if (calMonth < 0)  { calMonth = 11; calYear--;  }
+  if (calMonth > 11) { calMonth = 0;  calYear++;  }
+  buildCal('cal-popup', calYear, calMonth, 'todo-date');
+  // ナビ後もポップアップを開いたまま維持
+  document.getElementById('cal-popup').classList.add('open');
+};
+window.mainCalSel = d => {
+  document.getElementById('todo-date').value =
+    `${calYear}/${String(calMonth + 1).padStart(2,'0')}/${String(d).padStart(2,'0')}`;
+  document.getElementById('cal-popup').classList.remove('open');
+  buildCal('cal-popup', calYear, calMonth, 'todo-date');
+};
+window.dlCalNav = d => {
+  dlCalMonth += d;
+  if (dlCalMonth < 0)  { dlCalMonth = 11; dlCalYear--;  }
+  if (dlCalMonth > 11) { dlCalMonth = 0;  dlCalYear++;  }
+  buildCal('cal-popup-deadline', dlCalYear, dlCalMonth, 'todo-deadline');
+  // ナビ後もポップアップを開いたまま維持
+  document.getElementById('cal-popup-deadline').classList.add('open');
+};
+window.dlCalSel = d => {
+  document.getElementById('todo-deadline').value =
+    `${dlCalYear}/${String(dlCalMonth + 1).padStart(2,'0')}/${String(d).padStart(2,'0')}`;
+  document.getElementById('cal-popup-deadline').classList.remove('open');
+  buildCal('cal-popup-deadline', dlCalYear, dlCalMonth, 'todo-deadline');
+};
+
+// カレンダー入力欄クリックで開閉（変更なし）
+document.getElementById('todo-date').addEventListener('click', e => {
+  e.stopPropagation();
+  document.getElementById('cal-popup').classList.toggle('open');
+  buildCal('cal-popup', calYear, calMonth, 'todo-date');
+});
+document.getElementById('todo-deadline').addEventListener('click', e => {
+  e.stopPropagation();
+  document.getElementById('cal-popup-deadline').classList.toggle('open');
+  buildCal('cal-popup-deadline', dlCalYear, dlCalMonth, 'todo-deadline');
+});
 
 // ============================================================
 // TODO
 // ============================================================
-function onItemChange(){const v=document.getElementById('todo-item').value;document.getElementById('deadline-wrap').style.display=(v==='koza'||v==='teishutsu')?'':'none';}
-window.onItemChange=onItemChange;
-function onTimeChange(){document.getElementById('time-custom-wrap').style.display=document.getElementById('todo-time').value==='その他'?'':'none';}
-window.onTimeChange=onTimeChange;
-function timeToNum(t){if(!t)return 99;if(TIME_ORDER[t]!==undefined)return TIME_ORDER[t];const m=t.match(/^(\d+)[時:]?\d*半?$/);if(m)return parseInt(m[1])+(t.includes('半')?0.5:0);return 99;}
-function dateToNum(d){if(!d)return 99999;const p=d.split('/');return p.length===2?parseInt(p[0])*100+parseInt(p[1]):99999;}
+function onItemChange() {
+  const v = document.getElementById('todo-item').value;
+  const timeSelect = document.getElementById('todo-time');
 
-async function addTodo(){
-  if(currentRoom!==1)return;
-  const date=document.getElementById('todo-date').value;
-  const item=document.getElementById('todo-item').value;
-  const tr=document.getElementById('todo-time').value;
-  const tc=document.getElementById('todo-time-custom').value.trim();
-  const time=tr==='その他'?(tc||'その他'):tr;
-  const content=document.getElementById('todo-content').value.trim();
-  const deadline=document.getElementById('todo-deadline').value;
-  const bold=document.getElementById('todo-bold').checked;
-  if(!item){alert('項目を選択してください');return;}
-  if(!content){alert('内容を入力してください');return;}
-  R1.todos.push({id:Date.now(),date,item,time,content,deadline:(item==='koza'||item==='teishutsu')?deadline:'',bold});
-  await saveR1();renderTodos();clearTodoFormPartial();
+  // ★② 講座を選んだら時間の選択肢を「閉講」「開講」に差し替え
+  //    それ以外は元の時間一覧に戻す
+  const kozaOptions = `
+    <option value="閉講">閉講</option>
+    <option value="開講">開講</option>
+  `;
+  const normalOptions = `
+    <option value="10時">10時</option>
+    <option value="11時">11時</option>
+    <option value="12時">12時</option>
+    <option value="13時">13時</option>
+    <option value="14時">14時</option>
+    <option value="15時">15時</option>
+    <option value="16時">16時</option>
+    <option value="18半">18半</option>
+    <option value="19半">19半</option>
+    <option value="その他">その他</option>
+  `;
+  if (v === 'koza') {
+    timeSelect.innerHTML = kozaOptions;
+    // 「その他」入力欄は非表示
+    document.getElementById('time-custom-wrap').style.display = 'none';
+  } else {
+    timeSelect.innerHTML = normalOptions;
+    // 「その他」選択状態をリセット
+    document.getElementById('time-custom-wrap').style.display = 'none';
+  }
+
+  // ★④ 期限欄：講座・提出物・注意 のとき表示（注意を追加）
+  const showDeadline = (v === 'koza' || v === 'teishutsu' || v === 'chui');
+  document.getElementById('deadline-wrap').style.display = showDeadline ? '' : 'none';
 }
-window.addTodo=addTodo;
+window.onItemChange = onItemChange;
 
-function clearTodoFormPartial(){
-  document.getElementById('todo-item').value='';
-  document.getElementById('todo-time-custom').value='';
-  document.getElementById('todo-content').value='';
-  document.getElementById('todo-deadline').value='';
-  document.getElementById('todo-time').value='10時';
-  document.getElementById('todo-bold').checked=false;
-  document.getElementById('deadline-wrap').style.display='none';
-  document.getElementById('time-custom-wrap').style.display='none';
+// ============================================================
+// onTimeChange（変更なし、念のため再掲）
+// ============================================================
+function onTimeChange() {
+  document.getElementById('time-custom-wrap').style.display =
+    document.getElementById('todo-time').value === 'その他' ? '' : 'none';
+}
+window.onTimeChange = onTimeChange;
+function timeToNum(t){if(!t)return 99;if(TIME_ORDER[t]!==undefined)return TIME_ORDER[t];const m=t.match(/^(\d+)[時:]?\d*半?$/);if(m)return parseInt(m[1])+(t.includes('半')?0.5:0);return 99;}
+function dateToNum(d) {
+  if (!d) return 99999999; // 日付なし → 最大値（①日付なし項目は別途先頭に出すので実質未使用）
+
+  const p = d.split('/');
+
+  if (p.length === 3) {
+    // YYYY/MM/DD 形式（新形式）
+    return parseInt(p[0]) * 10000 + parseInt(p[1]) * 100 + parseInt(p[2]);
+  } else if (p.length === 2) {
+    // MM/DD 形式（旧データ互換）→ 現在年を付与
+    const nowY = new Date().getFullYear();
+    return nowY * 10000 + parseInt(p[0]) * 100 + parseInt(p[1]);
+  }
+
+  return 99999999;
+}
+function formatDateDisp(d) {
+  if (!d) return '—';
+  const p = d.split('/');
+  if (p.length === 3) return `${p[1]}/${p[2]}`; // YYYY/MM/DD → MM/DD
+  return d; // MM/DD のまま（旧データ互換）
+}
+async function addTodo() {
+  if (currentRoom !== 1) return;
+  const date    = document.getElementById('todo-date').value;
+  const item    = document.getElementById('todo-item').value;
+  const tr      = document.getElementById('todo-time').value;
+  const tc      = document.getElementById('todo-time-custom').value.trim();
+  const time    = tr === 'その他' ? (tc || 'その他') : tr;
+  const content = document.getElementById('todo-content').value.trim();
+  const deadline = document.getElementById('todo-deadline').value;
+  const bold    = document.getElementById('todo-bold').checked;
+  const red     = document.getElementById('todo-red').checked; // ★③ 赤字フラグ
+
+  if (!item)    { alert('項目を選択してください'); return; }
+  if (!content) { alert('内容を入力してください'); return; }
+
+  // ★④ 期限保存対象に 'chui' を追加
+  const saveDeadline = (item === 'koza' || item === 'teishutsu' || item === 'chui')
+    ? deadline : '';
+
+  R1.todos.push({
+    id: Date.now(), date, item, time, content,
+    deadline: saveDeadline,
+    bold,
+    red  // ★③
+  });
+  await saveR1();
+  renderTodos();
+  clearTodoFormPartial();
+}
+window.addTodo = addTodo;
+
+function clearTodoFormPartial() {
+  document.getElementById('todo-item').value     = '';
+  document.getElementById('todo-time-custom').value = '';
+  document.getElementById('todo-content').value  = '';
+  document.getElementById('todo-deadline').value  = '';
+  document.getElementById('todo-bold').checked   = false;
+  document.getElementById('todo-red').checked    = false;
+  document.getElementById('deadline-wrap').style.display    = 'none';
+  document.getElementById('time-custom-wrap').style.display = 'none';
+
+  // ★ innerHTML の書き換えを先に行い、その後 value をセットする（順序が重要）
+  const timeSelect = document.getElementById('todo-time');
+  timeSelect.innerHTML = `
+    <option value="10時">10時</option>
+    <option value="11時">11時</option>
+    <option value="12時">12時</option>
+    <option value="13時">13時</option>
+    <option value="14時">14時</option>
+    <option value="15時">15時</option>
+    <option value="16時">16時</option>
+    <option value="18半">18半</option>
+    <option value="19半">19半</option>
+    <option value="その他">その他</option>
+  `;
+  timeSelect.value = '10時'; // ★ innerHTML 書き換え後に value をセット
 }
 
 async function deleteTodo(id){if(!confirm('削除しますか？'))return;R1.todos=R1.todos.filter(t=>t.id!==id);await saveR1();renderTodos();}
@@ -1223,90 +1554,276 @@ function sortedTodos(){
   return list;
 }
 
-function editTodo(id){
-  if(currentRoom!==1)return;
-  const todo=R1.todos.find(t=>t.id===id);if(!todo)return;
-  const row=document.getElementById('todo-row-'+id);if(!row)return;
-  const isCT=!Object.keys(TIME_ORDER).includes(todo.time)&&todo.time!=='';
-  const hasDL=todo.item==='koza'||todo.item==='teishutsu';
-  row.innerHTML=`
-    <td class="edit-inline"><div class="cal-wrap" style="position:relative;"><input type="text" class="cal-input" id="ed-date-${id}" value="${todo.date||''}" readonly placeholder="MM/DD" style="width:80px"><div class="cal-popup" id="ed-cal-${id}"></div></div></td>
-    <td class="edit-inline"><select id="ed-item-${id}" onchange="onEIC(${id})">${Object.entries(ITEM_LABELS).map(([k,v])=>`<option value="${k}"${todo.item===k?' selected':''}>${v}</option>`).join('')}</select><div id="ed-dl-${id}" style="margin-top:3px;display:${hasDL?'block':'none'};"><div class="cal-wrap" style="position:relative;"><input type="text" class="cal-input" id="ed-dl-d-${id}" value="${todo.deadline||''}" readonly placeholder="期限" style="width:90px;font-size:0.74rem;"><div class="cal-popup" id="ed-dl-cal-${id}"></div></div></div></td>
-    <td class="edit-inline"><select id="ed-time-${id}" onchange="onETC(${id})">${['10時','11時','12時','13時','14時','15時','16時','18半','19半','その他'].map(t=>`<option value="${t}"${(isCT?'その他':todo.time)===t?' selected':''}>${t}</option>`).join('')}</select><input type="text" id="ed-tc-${id}" style="display:${isCT?'block':'none'};margin-top:2px;" value="${isCT?todo.time:''}" placeholder="時間"></td>
-    <td class="edit-inline" colspan="2">
-      <input type="text" id="ed-ct-${id}" value="${escHtml(todo.content)}" style="width:100%">
-      <div style="margin-top:4px;display:flex;align-items:center;gap:5px;">
-        <input type="checkbox" id="ed-bold-${id}" ${todo.bold?'checked':''} style="width:14px;height:14px;accent-color:var(--primary);">
-        <label for="ed-bold-${id}" style="font-size:0.76rem;color:var(--text-light);cursor:pointer;">太字</label>
+function editTodo(id) {
+  if (currentRoom !== 1) return;
+  const todo = R1.todos.find(t => t.id === id);
+  if (!todo) return;
+  const row = document.getElementById('todo-row-' + id);
+  if (!row) return;
+
+  const isCT = !Object.keys(TIME_ORDER).includes(todo.time) && todo.time !== ''
+               && todo.time !== '閉講' && todo.time !== '開講'; // ★② 閉講/開講はカスタムではない
+
+  // ★② 講座かどうかで時間選択肢を切り替え
+  const isKoza = todo.item === 'koza';
+  const timeOpts = isKoza
+    ? `<option value="閉講" ${todo.time==='閉講'?'selected':''}>閉講</option>
+       <option value="開講" ${todo.time==='開講'?'selected':''}>開講</option>`
+    : ['10時','11時','12時','13時','14時','15時','16時','18半','19半','その他']
+        .map(t => `<option value="${t}" ${(isCT?'その他':todo.time)===t?'selected':''}>${t}</option>`)
+        .join('');
+
+  // ★④ 期限欄表示条件に 'chui' を追加
+  const hasDL = todo.item === 'koza' || todo.item === 'teishutsu' || todo.item === 'chui';
+
+  row.innerHTML = `
+    <td class="edit-inline">
+      <div class="cal-wrap" style="position:relative;">
+        <input type="text" class="cal-input" id="ed-date-${id}"
+               value="${todo.date || ''}" readonly placeholder="MM/DD" style="width:80px">
+        <div class="cal-popup" id="ed-cal-${id}"></div>
       </div>
     </td>
-    <td><div class="btn-action-row"><button class="btn btn-success btn-xs" onclick="saveET(${id})">保存</button><button class="btn btn-gray btn-xs" onclick="renderTodos()">取消</button></div></td>`;
-  let eY=calYear,eM=todo.date?parseInt(todo.date.split('/')[0])-1:calMonth;
-  let dY=calYear,dM=todo.deadline?parseInt(todo.deadline.split('/')[0])-1:calMonth;
-  const bEC=(pid,yr,mo,inp,sf,nf)=>{
-    const p=document.getElementById(pid);if(!p)return;
-    const td2=new Date(),fd=new Date(yr,mo,1).getDay(),dim=new Date(yr,mo+1,0).getDate(),dip=new Date(yr,mo,0).getDate();
-    const mn2=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
-    const iv=document.getElementById(inp)?.value||'';let sm=0,sd=0;if(iv){sm=parseInt(iv.split('/')[0]);sd=parseInt(iv.split('/')[1]);}
-    let h=`<div class="cal-header"><button type="button" onclick="${nf}(-1)">◀</button><span>${yr}年 ${mn2[mo]}</span><button type="button" onclick="${nf}(1)">▶</button></div><div class="cal-grid">${['日','月','火','水','木','金','土'].map((d,i)=>`<div class="cal-day-label${i===0?' sun':i===6?' sat':''}">${d}</div>`).join('')}`;
-    for(let i=0;i<fd;i++)h+=`<div class="cal-cell other-month">${dip-fd+1+i}</div>`;
-    for(let d=1;d<=dim;d++){const dw=new Date(yr,mo,d).getDay();let c='cal-cell';if(dw===0)c+=' sun-cell';if(dw===6)c+=' sat-cell';if(d===td2.getDate()&&mo===td2.getMonth()&&yr===td2.getFullYear())c+=' today';if(sm===mo+1&&sd===d)c+=' selected';h+=`<div class="${c}" onclick="${sf}(${d})">${d}</div>`;}
-    const r=(fd+dim)%7===0?0:7-(fd+dim)%7;for(let i=1;i<=r;i++)h+=`<div class="cal-cell other-month">${i}</div>`;
-    h+='</div>';p.innerHTML=h;
-  };
-  window[`en_${id}`]=d=>{eM+=d;if(eM<0){eM=11;eY--;}if(eM>11){eM=0;eY++;}bEC(`ed-cal-${id}`,eY,eM,`ed-date-${id}`,`es_${id}`,`en_${id}`);};
-  window[`es_${id}`]=d=>{document.getElementById(`ed-date-${id}`).value=`${String(eM+1).padStart(2,'0')}/${String(d).padStart(2,'0')}`;document.getElementById(`ed-cal-${id}`).classList.remove('open');bEC(`ed-cal-${id}`,eY,eM,`ed-date-${id}`,`es_${id}`,`en_${id}`);};
-  document.getElementById(`ed-date-${id}`).addEventListener('click',e=>{e.stopPropagation();document.getElementById(`ed-cal-${id}`).classList.toggle('open');bEC(`ed-cal-${id}`,eY,eM,`ed-date-${id}`,`es_${id}`,`en_${id}`);});
-  window[`dn_${id}`]=d=>{dM+=d;if(dM<0){dM=11;dY--;}if(dM>11){dM=0;dY++;}bEC(`ed-dl-cal-${id}`,dY,dM,`ed-dl-d-${id}`,`ds_${id}`,`dn_${id}`);};
-  window[`ds_${id}`]=d=>{document.getElementById(`ed-dl-d-${id}`).value=`${String(dM+1).padStart(2,'0')}/${String(d).padStart(2,'0')}`;document.getElementById(`ed-dl-cal-${id}`).classList.remove('open');bEC(`ed-dl-cal-${id}`,dY,dM,`ed-dl-d-${id}`,`ds_${id}`,`dn_${id}`);};
-  const dlI=document.getElementById(`ed-dl-d-${id}`);
-  if(dlI)dlI.addEventListener('click',e=>{e.stopPropagation();document.getElementById(`ed-dl-cal-${id}`).classList.toggle('open');bEC(`ed-dl-cal-${id}`,dY,dM,`ed-dl-d-${id}`,`ds_${id}`,`dn_${id}`);});
-}
-window.editTodo=editTodo;
+    <td class="edit-inline">
+      <select id="ed-item-${id}" onchange="onEIC(${id})">
+        ${Object.entries(ITEM_LABELS).map(([k,v]) =>
+          `<option value="${k}" ${todo.item===k?'selected':''}>${v}</option>`
+        ).join('')}
+      </select>
+      <div id="ed-dl-${id}" style="margin-top:3px;display:${hasDL?'block':'none'};">
+        <div class="cal-wrap" style="position:relative;">
+          <input type="text" class="cal-input" id="ed-dl-d-${id}"
+                 value="${todo.deadline || ''}" readonly placeholder="期限"
+                 style="width:90px;font-size:0.74rem;">
+          <div class="cal-popup" id="ed-dl-cal-${id}"></div>
+        </div>
+      </div>
+    </td>
+    <td class="edit-inline">
+      <select id="ed-time-${id}" onchange="onETC(${id})">${timeOpts}</select>
+      <input type="text" id="ed-tc-${id}"
+             style="display:${isCT?'block':'none'};margin-top:2px;"
+             value="${isCT ? todo.time : ''}" placeholder="時間">
+    </td>
+    <td class="edit-inline" colspan="2">
+      <input type="text" id="ed-ct-${id}" value="${escHtml(todo.content)}" style="width:100%">
+      <div style="margin-top:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:5px;">
+          <input type="checkbox" id="ed-bold-${id}" ${todo.bold ? 'checked' : ''}
+                 style="width:14px;height:14px;accent-color:var(--primary);">
+          <label for="ed-bold-${id}" style="font-size:0.76rem;color:var(--text-light);cursor:pointer;">太字</label>
+        </div>
+        <!-- ★③ 赤字チェックを編集行にも追加 -->
+        <div style="display:flex;align-items:center;gap:5px;">
+          <input type="checkbox" id="ed-red-${id}" ${todo.red ? 'checked' : ''}
+                 style="width:14px;height:14px;accent-color:#e74c3c;">
+          <label for="ed-red-${id}" style="font-size:0.76rem;color:#e74c3c;cursor:pointer;">赤字</label>
+        </div>
+      </div>
+    </td>
+    <td>
+      <div class="btn-action-row">
+        <button class="btn btn-success btn-xs" onclick="saveET(${id})">保存</button>
+        <button class="btn btn-gray btn-xs" onclick="renderTodos()">取消</button>
+      </div>
+    </td>`;
 
-function onEIC(id){const v=document.getElementById(`ed-item-${id}`).value;const dw=document.getElementById(`ed-dl-${id}`);if(dw)dw.style.display=(v==='koza'||v==='teishutsu')?'block':'none';}
-window.onEIC=onEIC;
+  // ---- 以下、インライン編集用カレンダー構築（既存コードと同じ） ----
+  let eY = calYear,
+      eM = todo.date ? parseInt(todo.date.split('/')[0]) - 1 : calMonth;
+  let dY = calYear,
+      dM = todo.deadline ? parseInt(todo.deadline.split('/')[0]) - 1 : calMonth;
+
+  const bEC = (pid, yr, mo, inp, sf, nf) => {
+    const p = document.getElementById(pid); if (!p) return;
+    const td2 = new Date(),
+          fd   = new Date(yr, mo, 1).getDay(),
+          dim  = new Date(yr, mo + 1, 0).getDate(),
+          dip  = new Date(yr, mo, 0).getDate();
+    const mn2 = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+    const iv = document.getElementById(inp)?.value || '';
+    let sm = 0, sd = 0;
+    if (iv) {
+      const ivp = iv.split('/');
+      if (ivp.length === 3) { sm = parseInt(ivp[1]); sd = parseInt(ivp[2]); }
+      else if (ivp.length === 2) { sm = parseInt(ivp[0]); sd = parseInt(ivp[1]); }
+    }
+    let h = `<div class="cal-header">
+      <button type="button" onclick="event.stopPropagation();${nf}(-1)">◀</button>
+      <span>${yr}年 ${mn2[mo]}</span>
+      <button type="button" onclick="event.stopPropagation();${nf}(1)">▶</button>
+    </div><div class="cal-grid">
+      ${['日','月','火','水','木','金','土'].map((d,i) =>
+        `<div class="cal-day-label${i===0?' sun':i===6?' sat':''}">${d}</div>`).join('')}`;
+    for (let i = 0; i < fd; i++)
+      h += `<div class="cal-cell other-month">${dip - fd + 1 + i}</div>`;
+    for (let d = 1; d <= dim; d++) {
+      const dw = new Date(yr, mo, d).getDay();
+      let c = 'cal-cell';
+      if (dw === 0) c += ' sun-cell'; if (dw === 6) c += ' sat-cell';
+      if (d === td2.getDate() && mo === td2.getMonth() && yr === td2.getFullYear()) c += ' today';
+      if (sm === mo + 1 && sd === d) c += ' selected';
+      h += `<div class="${c}" onclick="${sf}(${d})">${d}</div>`;
+    }
+    const r = (fd + dim) % 7 === 0 ? 0 : 7 - (fd + dim) % 7;
+    for (let i = 1; i <= r; i++) h += `<div class="cal-cell other-month">${i}</div>`;
+    h += '</div>'; p.innerHTML = h;
+  };
+
+  window[`en_${id}`] = d => {
+    eM += d;
+    if (eM < 0) { eM = 11; eY--; } if (eM > 11) { eM = 0; eY++; }
+    bEC(`ed-cal-${id}`, eY, eM, `ed-date-${id}`, `es_${id}`, `en_${id}`);
+    document.getElementById(`ed-cal-${id}`).classList.add('open'); // ★修正①
+  };
+  window[`es_${id}`] = d => {
+    document.getElementById(`ed-date-${id}`).value =
+      `${eY}/${String(eM + 1).padStart(2,'0')}/${String(d).padStart(2,'0')}`;
+    document.getElementById(`ed-cal-${id}`).classList.remove('open');
+    bEC(`ed-cal-${id}`, eY, eM, `ed-date-${id}`, `es_${id}`, `en_${id}`);
+  };
+  document.getElementById(`ed-date-${id}`).addEventListener('click', e => {
+    e.stopPropagation();
+    document.getElementById(`ed-cal-${id}`).classList.toggle('open');
+    bEC(`ed-cal-${id}`, eY, eM, `ed-date-${id}`, `es_${id}`, `en_${id}`);
+  });
+
+  window[`dn_${id}`] = d => {
+    dM += d;
+    if (dM < 0) { dM = 11; dY--; } if (dM > 11) { dM = 0; dY++; }
+    bEC(`ed-dl-cal-${id}`, dY, dM, `ed-dl-d-${id}`, `ds_${id}`, `dn_${id}`);
+    document.getElementById(`ed-dl-cal-${id}`).classList.add('open'); // ★修正①
+  };
+  window[`ds_${id}`] = d => {
+    document.getElementById(`ed-dl-d-${id}`).value =
+      `${dY}/${String(dM + 1).padStart(2,'0')}/${String(d).padStart(2,'0')}`;
+    document.getElementById(`ed-dl-cal-${id}`).classList.remove('open');
+    bEC(`ed-dl-cal-${id}`, dY, dM, `ed-dl-d-${id}`, `ds_${id}`, `dn_${id}`);
+  };
+  const dlI = document.getElementById(`ed-dl-d-${id}`);
+  if (dlI) dlI.addEventListener('click', e => {
+    e.stopPropagation();
+    document.getElementById(`ed-dl-cal-${id}`).classList.toggle('open');
+    bEC(`ed-dl-cal-${id}`, dY, dM, `ed-dl-d-${id}`, `ds_${id}`, `dn_${id}`);
+  });
+}
+window.editTodo = editTodo;
+
+function onEIC(id) {
+  const v = document.getElementById(`ed-item-${id}`).value;
+
+  // ★② 講座なら閉講/開講、それ以外は通常の時間へ
+  const timeSelect = document.getElementById(`ed-time-${id}`);
+  if (timeSelect) {
+    if (v === 'koza') {
+      timeSelect.innerHTML = `
+        <option value="閉講">閉講</option>
+        <option value="開講">開講</option>`;
+      const tcInput = document.getElementById(`ed-tc-${id}`);
+      if (tcInput) tcInput.style.display = 'none';
+    } else {
+      timeSelect.innerHTML = `
+        <option value="10時">10時</option><option value="11時">11時</option>
+        <option value="12時">12時</option><option value="13時">13時</option>
+        <option value="14時">14時</option><option value="15時">15時</option>
+        <option value="16時">16時</option><option value="18半">18半</option>
+        <option value="19半">19半</option><option value="その他">その他</option>`;
+    }
+  }
+
+  // ★④ 期限欄表示条件に 'chui' を追加
+  const dw = document.getElementById(`ed-dl-${id}`);
+  if (dw) dw.style.display = (v === 'koza' || v === 'teishutsu' || v === 'chui') ? 'block' : 'none';
+}
+window.onEIC = onEIC;
 function onETC(id){document.getElementById(`ed-tc-${id}`).style.display=document.getElementById(`ed-time-${id}`).value==='その他'?'block':'none';}
 window.onETC=onETC;
 
-async function saveET(id){
-  const t=R1.todos.find(t=>t.id===id);if(!t)return;
-  const ts=document.getElementById(`ed-time-${id}`).value,tc=document.getElementById(`ed-tc-${id}`).value.trim();
-  const item=document.getElementById(`ed-item-${id}`).value;
-  t.date=document.getElementById(`ed-date-${id}`).value;t.item=item;
-  t.time=ts==='その他'?(tc||'その他'):ts;
-  t.content=document.getElementById(`ed-ct-${id}`).value.trim();
-  t.bold=document.getElementById(`ed-bold-${id}`)?.checked||false;
-  t.deadline=(item==='koza'||item==='teishutsu')?(document.getElementById(`ed-dl-d-${id}`)?.value||''):'';
-  await saveR1();renderTodos();
-}
-window.saveET=saveET;
+async function saveET(id) {
+  const t = R1.todos.find(t => t.id === id);
+  if (!t) return;
+  const ts   = document.getElementById(`ed-time-${id}`).value;
+  const tc   = document.getElementById(`ed-tc-${id}`)?.value.trim() || '';
+  const item = document.getElementById(`ed-item-${id}`).value;
 
-function renderTodos(){
-  const tbody=document.getElementById('todo-tbody');
-  const empty=document.getElementById('todo-empty');
-  const sorted=sortedTodos();const isR2=currentRoom===2;
-  if(sorted.length===0){tbody.innerHTML='';empty.style.display='';return;}
-  empty.style.display='none';
-  let prev='__init__';
-  tbody.innerHTML=sorted.map((todo,idx)=>{
-    const isSpec=DATE_SORT_ITEMS.includes(todo.item),hasDate=!!todo.date,showSB=isSpec&&!hasDate;
-    const rCls=ROW_CLASS[todo.item]||'',tCls=ITEM_TAG[todo.item]||'';
-    let dp=[];
-    if(showSB)dp.push(`<span class="date-special ${todo.item==='chui'?'chui':'kakunin'}">${ITEM_LABELS[todo.item]}</span>`);
-    else dp.push(`<span class="date-normal">${todo.date||'—'}</span>`);
-    if(todo.deadline)dp.push(`<span class="deadline-badge">期限:${todo.deadline}</span>`);
-    const cH=todo.bold?`<strong>${escHtml(todo.content)}</strong>`:escHtml(todo.content);
-    let act='';
-    if(!isR2){const hC=todo.item==='setsumeikai'||todo.item==='nyugakusha';act=`<div class="btn-action-row">${hC?`<button class="btn btn-xs" style="background:#27ae60;color:#fff;" title="コピー" onclick="copyTodoText(${todo.id})">📋</button>`:''}<button class="btn btn-xs" style="background:#6c5ce7;color:#fff;" title="編集" onclick="editTodo(${todo.id})">✏️</button><button class="btn btn-danger btn-xs" title="削除" onclick="deleteTodo(${todo.id})">🗑️</button></div>`;}
-    const dk=todo.date||'nodate';let bc='';
-    if(idx>0&&dk!==prev&&(currentSort==='default'||currentSort.startsWith('date')))bc='date-boundary';
-    prev=dk;
-    return `<tr class="todo-row ${rCls} ${bc}" id="todo-row-${todo.id}"><td><div class="date-label-cell">${dp.join('')}</div></td><td><span class="item-tag ${tCls}">${ITEM_LABELS[todo.item]||todo.item}</span></td><td class="no-wrap">${escHtml(todo.time||'')}</td><td>${cH}</td>${!isR2?`<td>${act}</td>`:''}</tr>`;
+  t.date    = document.getElementById(`ed-date-${id}`).value;
+  t.item    = item;
+  t.time    = ts === 'その他' ? (tc || 'その他') : ts;
+  t.content = document.getElementById(`ed-ct-${id}`).value.trim();
+  t.bold    = document.getElementById(`ed-bold-${id}`)?.checked || false;
+  t.red     = document.getElementById(`ed-red-${id}`)?.checked  || false; // ★③
+
+  // ★④ 注意も期限保存対象に追加
+  t.deadline = (item === 'koza' || item === 'teishutsu' || item === 'chui')
+    ? (document.getElementById(`ed-dl-d-${id}`)?.value || '')
+    : '';
+
+  await saveR1();
+  renderTodos();
+}
+window.saveET = saveET;
+
+function renderTodos() {
+  const tbody = document.getElementById('todo-tbody');
+  const empty = document.getElementById('todo-empty');
+  const sorted = sortedTodos();
+  const isR2 = currentRoom === 2;
+
+  if (sorted.length === 0) { tbody.innerHTML = ''; empty.style.display = ''; return; }
+  empty.style.display = 'none';
+
+  let prev = '__init__';
+  tbody.innerHTML = sorted.map((todo, idx) => {
+    const isSpec  = DATE_SORT_ITEMS.includes(todo.item);
+    const hasDate = !!todo.date;
+    const showSB  = isSpec && !hasDate;
+    const rCls    = ROW_CLASS[todo.item] || '';
+    const tCls    = ITEM_TAG[todo.item]  || '';
+
+    let dp = [];
+    if (showSB)
+      dp.push(`<span class="date-special ${todo.item==='chui'?'chui':'kakunin'}">${ITEM_LABELS[todo.item]}</span>`);
+    else
+    dp.push(`<span class="date-normal">${formatDateDisp(todo.date)}</span>`);
+    if (todo.deadline)
+      dp.push(`<span class="deadline-badge">期限:${formatDateDisp(todo.deadline)}</span>`);
+
+    // ★③ bold / red の組み合わせに対応
+    let cH = escHtml(todo.content);
+    if (todo.bold && todo.red) {
+      cH = `<strong style="color:#e74c3c;">${cH}</strong>`;
+    } else if (todo.bold) {
+      cH = `<strong>${cH}</strong>`;
+    } else if (todo.red) {
+      cH = `<span style="color:#e74c3c;">${cH}</span>`;
+    }
+
+    let act = '';
+    if (!isR2) {
+      const hC = todo.item === 'setsumeikai' || todo.item === 'nyugakusha';
+      act = `<div class="btn-action-row">
+        ${hC ? `<button class="btn btn-xs" style="background:#27ae60;color:#fff;" title="コピー" onclick="copyTodoText(${todo.id})">📋</button>` : ''}
+        <button class="btn btn-xs" style="background:#6c5ce7;color:#fff;" title="編集" onclick="editTodo(${todo.id})">✏️</button>
+        <button class="btn btn-danger btn-xs" title="削除" onclick="deleteTodo(${todo.id})">🗑️</button>
+      </div>`;
+    }
+
+    const dk = todo.date || 'nodate';
+    let bc = '';
+    if (idx > 0 && dk !== prev && (currentSort === 'default' || currentSort.startsWith('date')))
+      bc = 'date-boundary';
+    prev = dk;
+
+    return `<tr class="todo-row ${rCls} ${bc}" id="todo-row-${todo.id}">
+      <td><div class="date-label-cell">${dp.join('')}</div></td>
+      <td><span class="item-tag ${tCls}">${ITEM_LABELS[todo.item] || todo.item}</span></td>
+      <td class="no-wrap">${escHtml(todo.time || '')}</td>
+      <td>${cH}</td>
+      ${!isR2 ? `<td>${act}</td>` : ''}
+    </tr>`;
   }).join('');
 }
-window.renderTodos=renderTodos;
-
+window.renderTodos = renderTodos;
 // ============================================================
 // 引継ぎ
 // ============================================================
