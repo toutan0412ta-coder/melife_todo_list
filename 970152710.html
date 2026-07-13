@@ -15,7 +15,7 @@
   --shadow: 0 2px 12px rgba(0,0,0,0.10); --radius: 12px; --radius-sm: 8px;
   --c-setsumeikai: #8e44ad; --c-nyugakusha: #2980b9; --c-kakunin: #e67e22;
   --c-chui: #e74c3c; --c-kojin: #7f8c8d; --c-sonota: #95a5a6;
-  --c-koza: #16a085; --c-teishutsu: #c0392b;
+  --c-koza: #16a085; --c-teishutsu: #c0392b; --c-shiken: #d35400;
 }
 html { scroll-behavior: smooth; }
 body { font-family: 'Segoe UI','Hiragino Sans','Yu Gothic',sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
@@ -37,13 +37,12 @@ body { font-family: 'Segoe UI','Hiragino Sans','Yu Gothic',sans-serif; backgroun
 .login-bound-notice { margin-top:14px;padding:9px 13px;background:#f0f7ff;border:1.5px solid #b8d4f7;border-radius:8px;font-size:0.76rem;color:#2471a3;line-height:1.6;display:none; }
 .login-bound-notice.show { display:block; }
 .sticky-top { position:sticky;top:0;z-index:200; }
-.top-links-bar { background:#2c3e50;display:flex;align-items:center;gap:8px;padding:0 20px;height:36px;flex-wrap:wrap; }
+.top-links-bar { background:#2c3e50;display:flex;align-items:center;gap:8px;padding:4px 20px;min-height:36px;flex-wrap:wrap; }
 .top-link-btn { display:inline-flex;align-items:center;gap:5px;padding:4px 14px;border-radius:4px;border:none;cursor:pointer;font-size:0.75rem;font-weight:600;text-decoration:none;color:#fff;transition:all 0.15s;background:rgba(255,255,255,0.12); }
 .top-link-btn:hover { background:rgba(255,255,255,0.28); }
 header { background:linear-gradient(135deg,#4f6ef7 0%,#6c8cfa 100%);color:#fff;padding:0 20px;display:flex;align-items:center;justify-content:space-between;min-height:58px;box-shadow:0 2px 8px rgba(79,110,247,0.3);gap:8px;flex-wrap:wrap; }
 .header-left { display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1; }
 header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:nowrap; }
-#classroom-name-display { font-size:0.82rem;opacity:0.85; }
 .header-right { display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap; }
 #hiki-notify-wrap { display:flex;align-items:center;gap:6px;flex-wrap:wrap; }
 .hiki-notify-chip { display:inline-flex;align-items:center;gap:8px;padding:8px 12px 8px 14px;border-radius:28px;font-size:0.88rem;font-weight:700;white-space:nowrap;animation:chip-pop 0.28s cubic-bezier(0.34,1.56,0.64,1);border:2px solid rgba(255,255,255,0.5);box-shadow:0 3px 12px rgba(0,0,0,0.22);line-height:1.3;cursor:pointer;min-height:44px; }
@@ -60,7 +59,7 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
 .header-datetime-weather { display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);border-radius:20px;padding:5px 14px;white-space:nowrap;cursor:pointer;transition:background 0.15s;user-select:none;border:1.5px solid rgba(255,255,255,0.25); }
 .header-datetime-weather:hover { background:rgba(255,255,255,0.28); }
 .header-date-str { font-size:0.82rem;font-weight:700;color:#fff; }
-.header-weather-icon { font-size:1.2rem;line-height:1; }
+.header-weather-icon { font-size:1.3rem;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.35)); }
 .header-weather-temp { font-size:0.85rem;color:rgba(255,255,255,0.95);font-weight:700; }
 .header-weather-desc { font-size:0.72rem;color:rgba(255,255,255,0.82);margin-left:2px; }
 .weather-caret { font-size:0.6rem;color:rgba(255,255,255,0.7);margin-left:2px;transition:transform 0.2s; }
@@ -72,7 +71,7 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
 .wp-header-left { display:flex;flex-direction:column;gap:2px; }
 .wp-location { font-size:0.72rem;opacity:0.85;font-weight:600; }
 .wp-today-info { display:flex;align-items:center;gap:10px; }
-.wp-today-icon { font-size:2rem;line-height:1; }
+.wp-today-icon { font-size:2.1rem;line-height:1;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.3)); }
 .wp-today-detail { display:flex;flex-direction:column;gap:2px; }
 .wp-today-temp { font-size:1.2rem;font-weight:800; }
 .wp-today-desc { font-size:0.78rem;opacity:0.9; }
@@ -87,7 +86,7 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
 .wp-hour-card.is-now { background:#eef1ff;border-color:var(--primary); }
 .wp-hour-card.is-now .wp-h-time { color:var(--primary);font-weight:800; }
 .wp-h-time { font-size:0.72rem;font-weight:700;color:var(--text-light); }
-.wp-h-icon { font-size:1.3rem;line-height:1; }
+.wp-h-icon { font-size:1.4rem;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.25)); }
 .wp-h-temp { font-size:0.82rem;font-weight:800;color:var(--text); }
 .wp-h-precip { font-size:0.65rem;font-weight:700;color:#2980b9;display:flex;align-items:center;gap:1px; }
 .wp-h-precip.high { color:#e74c3c; }
@@ -98,7 +97,7 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
 .wp-day-label { font-weight:700;width:52px;flex-shrink:0;color:var(--text); }
 .wp-day-label.sun { color:#e74c3c; }
 .wp-day-label.sat { color:var(--primary); }
-.wp-day-icon { font-size:1.1rem;flex-shrink:0; }
+.wp-day-icon { font-size:1.2rem;flex-shrink:0;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.25)); }
 .wp-day-desc { flex:1;font-size:0.75rem;color:var(--text-light); }
 .wp-day-temps { display:flex;gap:6px;flex-shrink:0;font-weight:700;font-size:0.8rem; }
 .wp-day-hi { color:#e74c3c; }
@@ -106,7 +105,7 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
 .wp-day-precip { font-size:0.7rem;color:#2980b9;font-weight:700;min-width:32px;text-align:right;flex-shrink:0; }
 .wp-footer { text-align:center;font-size:0.65rem;color:var(--text-light);padding:6px;border-top:1px solid var(--border);background:#f7f9ff; }
 .wp-loading { padding:24px;text-align:center;color:var(--text-light);font-size:0.85rem; }
-.room-switch { display:flex;gap:6px; }
+.room-switch { display:flex;gap:6px;flex-wrap:wrap; }
 .room-btn { padding:6px 18px;border-radius:20px;border:2px solid rgba(255,255,255,0.6);background:rgba(255,255,255,0.15);color:#fff;cursor:pointer;font-size:0.85rem;font-weight:700;transition:all 0.15s;white-space:nowrap;min-width:80px;text-align:center; }
 .room-btn.active { background:#fff;color:var(--primary);border-color:#fff; }
 .room-btn:hover:not(.active) { background:rgba(255,255,255,0.3); }
@@ -158,7 +157,7 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
 .todo-list tr:hover td{background:#fafbff;}
 .todo-list tr.date-boundary td{border-top:2.5px solid #b0b8d8 !important;}
 .item-tag{display:inline-block;padding:2px 7px;border-radius:20px;font-size:0.7rem;font-weight:700;color:#fff;white-space:nowrap;}
-.tag-setsumeikai{background:var(--c-setsumeikai)}.tag-nyugakusha{background:var(--c-nyugakusha)}.tag-kakunin{background:var(--c-kakunin)}.tag-chui{background:var(--c-chui)}.tag-kojin{background:var(--c-kojin)}.tag-sonota{background:var(--c-sonota)}.tag-koza{background:var(--c-koza)}.tag-teishutsu{background:var(--c-teishutsu)}
+.tag-setsumeikai{background:var(--c-setsumeikai)}.tag-nyugakusha{background:var(--c-nyugakusha)}.tag-kakunin{background:var(--c-kakunin)}.tag-chui{background:var(--c-chui)}.tag-kojin{background:var(--c-kojin)}.tag-sonota{background:var(--c-sonota)}.tag-koza{background:var(--c-koza)}.tag-teishutsu{background:var(--c-teishutsu)}.tag-shiken{background:var(--c-shiken)}
 .row-chui td{background:#fff5f5!important}.row-kakunin td{background:#fff8ef!important}
 .row-chui:hover td{background:#ffe8e8!important}.row-kakunin:hover td{background:#ffefd8!important}
 .date-label-cell{display:flex;flex-direction:column;gap:2px;}
@@ -166,6 +165,8 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
 .date-special.chui{background:var(--c-chui)}.date-special.kakunin{background:var(--c-kakunin)}
 .date-normal{font-size:0.82rem;white-space:nowrap;}
 .deadline-badge{font-size:0.65rem;color:var(--danger);font-weight:700;white-space:nowrap;}
+.shiken-badge{font-size:0.65rem;font-weight:700;white-space:nowrap;padding:1px 5px;border-radius:4px;color:#fff;display:inline-block;}
+.shiken-badge.gaibu{background:#8e44ad;}.shiken-badge.jukosei{background:#16a085;}
 .time-badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:0.76rem;font-weight:700;color:#fff;white-space:nowrap;}
 .time-badge.kaiko{background:#27ae60;}.time-badge.heiko{background:#e74c3c;}.time-badge.kenshu{background:#d35400;}
 .th-sort-btn{display:inline-flex;align-items:center;justify-content:center;margin-left:3px;padding:1px 4px;font-size:0.6rem;background:rgba(255,255,255,0.7);border:1px solid var(--border);border-radius:3px;cursor:pointer;color:var(--text-light);transition:all 0.12s;vertical-align:middle;}
@@ -185,6 +186,11 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
 .setting-row input{width:100%;border:1.5px solid var(--border);border-radius:6px;padding:7px 10px;font-size:0.88rem;font-family:inherit}
 .setting-row input:focus{outline:none;border-color:var(--primary)}
 .setting-id-display{background:#f0f2f7;border:1.5px solid var(--border);border-radius:6px;padding:7px 10px;font-size:0.88rem;font-family:'Courier New',monospace;letter-spacing:0.05em;color:var(--text);width:100%;user-select:all;display:block;min-height:38px}
+.weather-loc-row{display:flex;gap:8px;align-items:center}
+.weather-loc-row input{flex:1}
+.weather-loc-status{font-size:0.75rem;margin-top:5px;color:var(--text-light);min-height:16px}
+.weather-loc-status.ok{color:var(--success);font-weight:600}
+.weather-loc-status.err{color:var(--danger);font-weight:600}
 .setting-io-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 12px;background:#f7f9ff;border:1.5px solid var(--border);border-radius:var(--radius-sm);margin-bottom:14px}
 .setting-io-row .io-label{font-size:0.73rem;color:var(--text-light);font-weight:600;width:100%}
 .inst-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin-bottom:14px;}
@@ -198,45 +204,26 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
 .add-room-input-row{display:flex;gap:8px;align-items:center}
 .add-room-input-row input{flex:1;border:1.5px solid var(--border);border-radius:6px;padding:7px 10px;font-size:0.88rem;font-family:'Courier New',monospace;letter-spacing:0.05em}
 .add-room-input-row input:focus{outline:none;border-color:var(--primary)}
-.att-tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:14px;}
-.att-tab-btn{padding:7px 20px;border:none;background:none;cursor:pointer;font-size:0.85rem;font-weight:600;color:var(--text-light);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all 0.14s;white-space:nowrap;font-family:inherit;display:flex;align-items:center;gap:5px;}
+.extra-room-list{margin-top:10px;display:flex;flex-direction:column;gap:6px;}
+.extra-room-item{display:flex;align-items:center;gap:8px;padding:7px 10px;background:#fff;border:1.5px solid var(--border);border-radius:6px;font-size:0.8rem;}
+.extra-room-item .er-name{font-weight:700;color:var(--text);flex:1;}
+.extra-room-item .er-id{font-family:'Courier New',monospace;font-size:0.72rem;color:var(--text-light);}
+.att-tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid var(--border);margin-bottom:14px;align-items:center;}
+.att-tab-btn{padding:7px 14px;border:none;background:none;cursor:pointer;font-size:0.85rem;font-weight:600;color:var(--text-light);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all 0.14s;white-space:nowrap;font-family:inherit;display:flex;align-items:center;gap:5px;}
 .att-tab-btn.active{color:var(--primary);border-bottom-color:var(--primary);}
 .att-tab-btn:hover:not(.active){color:var(--text);background:#f7f9ff;}
+.att-tab-add{padding:6px 12px;border:1.5px dashed var(--border);background:#fafbff;border-radius:6px;color:var(--primary);cursor:pointer;font-size:0.8rem;font-weight:700;margin-bottom:2px;font-family:inherit;}
+.att-tab-add:hover{background:#eef1ff;border-color:var(--primary);}
 .att-tab-content{display:none;}
 .att-tab-content.active{display:block;}
+.att-tab-toolbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:10px;padding:8px 10px;background:#f7f9ff;border:1.5px solid var(--border);border-radius:var(--radius-sm);}
+.att-tab-toolbar .tab-added-at{font-size:0.72rem;color:var(--text-light);margin-left:auto;}
 .attendance-images{display:flex;flex-direction:column;gap:10px;background:#fff;padding:10px;border-radius:var(--radius-sm);border:1.5px solid var(--border);min-height:60px;margin-bottom:10px}
 .attendance-img-wrap{position:relative;cursor:pointer;border-radius:6px;overflow:hidden;border:2px solid var(--border);transition:border 0.15s;width:100%}
 .attendance-img-wrap:hover{border-color:var(--primary)}
 .attendance-img-wrap img{display:block;width:100%;height:auto;background:#fff;object-fit:contain}
 .attendance-img-del{position:absolute;top:6px;right:6px;background:rgba(231,76,60,0.85);color:#fff;border:none;border-radius:50%;width:24px;height:24px;font-size:0.75rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .attendance-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.pdf-tab-wrap{display:flex;flex-direction:column;gap:14px;}
-.pdf-list{display:flex;flex-direction:column;gap:10px;}
-.pdf-item{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;transition:box-shadow 0.15s;}
-.pdf-item:hover{box-shadow:0 2px 12px rgba(79,110,247,0.12);}
-.pdf-item-header{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f0f2f7;border-bottom:1px solid var(--border);user-select:none;}
-.pdf-item-icon{font-size:1.6rem;flex-shrink:0;line-height:1;}
-.pdf-item-info{flex:1;min-width:0;}
-.pdf-item-name{font-size:0.85rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.pdf-item-meta{font-size:0.72rem;color:var(--text-light);margin-top:2px;display:flex;gap:10px;align-items:center;}
-.pdf-item-actions{display:flex;gap:5px;flex-shrink:0;align-items:center;}
-.pdf-preview-always{width:100%;background:#525659;display:block;}
-.pdf-preview-always iframe{width:100%;height:500px;border:none;display:block;}
-.pdf-add-area{border:2px solid var(--border);border-radius:var(--radius-sm);background:#fafbff;overflow:hidden;}
-.pdf-add-area-title{padding:10px 14px;background:#f0f2f7;border-bottom:1px solid var(--border);font-size:0.82rem;font-weight:700;color:var(--text-light);display:flex;align-items:center;gap:6px;}
-.pdf-drop-zone{border:2.5px dashed var(--border);border-radius:var(--radius-sm);background:#fafbff;padding:24px 20px;text-align:center;cursor:pointer;transition:all 0.18s;margin:12px;}
-.pdf-drop-zone:hover,.pdf-drop-zone.drag-over{border-color:var(--primary);background:#eef1ff;}
-.pdf-drop-zone .dz-icon{font-size:2rem;margin-bottom:6px;}
-.pdf-drop-zone .dz-text{font-size:0.85rem;color:var(--text-light);font-weight:600;}
-.pdf-drop-zone .dz-sub{font-size:0.72rem;color:var(--text-light);margin-top:4px;}
-#pdf-lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;flex-direction:column;}
-#pdf-lightbox.open{display:flex;}
-.pdf-lb-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:#2c3e50;flex-shrink:0;}
-.pdf-lb-title{color:#fff;font-size:0.9rem;font-weight:700;}
-.pdf-lb-actions{display:flex;gap:8px;align-items:center;}
-.pdf-lb-close{background:rgba(255,255,255,0.15);border:none;color:#fff;border-radius:6px;padding:5px 12px;font-size:0.82rem;cursor:pointer;font-family:inherit;font-weight:600;}
-.pdf-lb-close:hover{background:rgba(255,255,255,0.3);}
-#pdf-lightbox iframe{flex:1;width:100%;border:none;}
 .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;padding:16px}
 .lightbox.open{display:flex}
 .lightbox img{max-width:96vw;max-height:92vh;border-radius:8px;object-fit:contain}
@@ -296,9 +283,9 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
 .save-indicator.ok{background:var(--success)}.save-indicator.err{background:var(--danger)}
 .error-box{background:#fff0f0;border:1.5px solid #f5a8a8;border-radius:var(--radius-sm);padding:10px 14px;font-size:0.82rem;color:#c0392b;margin-bottom:12px;display:none}
 .error-box.show{display:block}
-@media(max-width:760px){.main-wrap{padding:10px 7px;}.todo-add-form{flex-direction:column;gap:6px;}.form-group{width:100%;}.form-group input,.form-group select{width:100%!important;}.todo-list{font-size:0.76rem;}.todo-list td,.todo-list th{padding:5px 5px;}.modal{padding:16px 12px;}header h1{font-size:0.95rem;}.inst-grid{grid-template-columns:1fr;}.cal-popup{min-width:190px;}#weather-panel{width:300px;}.pdf-preview-always iframe{height:380px;}}
-@media(max-width:480px){.sticky-top{position:sticky;top:0;z-index:200;}.top-links-bar{height:auto;padding:4px 10px;gap:5px;flex-wrap:wrap;}.top-link-btn{font-size:0.68rem;padding:3px 8px;}header{padding:6px 10px;min-height:50px;gap:6px;}header h1{font-size:0.85rem;}#header-icon{width:36px!important;height:36px!important;}.header-btns .btn .lbl{display:none;}.header-btns .btn{padding:5px 8px;font-size:0.75rem;}.room-btn{padding:4px 10px;font-size:0.75rem;min-width:60px;}.main-wrap{padding:8px 6px;}.card{padding:12px 10px;margin-bottom:12px;}.todo-add-form{padding:10px 8px;gap:8px;}.cal-popup{min-width:200px;max-width:calc(100vw - 28px);left:0;}.todo-list{font-size:0.72rem;}.todo-list th{font-size:0.66rem;padding:6px 4px;}.todo-list td{padding:6px 4px;font-size:0.72rem;}.th-sort-btn{display:none;}.item-tag{font-size:0.62rem;padding:2px 5px;}.btn-action-row{flex-direction:column;gap:3px;align-items:flex-end;}.btn-xs{padding:4px 6px;font-size:0.68rem;}.deadline-badge{font-size:0.6rem;}.date-normal{font-size:0.72rem;}.edit-inline input,.edit-inline select{font-size:0.72rem;padding:3px 4px;}.modal{padding:14px 10px;max-height:88vh;width:96%;}.modal-title{font-size:0.92rem;}.hiki-tab-btn-item{padding:6px 10px;font-size:0.75rem;}.hiki-saved-item{padding:8px 72px 8px 8px;font-size:0.78rem;}.rich-toolbar{gap:3px;padding:5px 6px;}.rich-toolbar button{padding:3px 6px;font-size:0.7rem;}.rich-toolbar select{font-size:0.68rem;padding:2px 3px;}.rich-editor{min-height:80px;font-size:0.82rem;padding:8px 10px;}.memo-saved-item{padding:10px 68px 10px 10px;font-size:0.78rem;}.save-indicator{bottom:10px;right:10px;font-size:0.72rem;padding:5px 12px;}.hiki-notify-chip{font-size:0.78rem;padding:6px 10px 6px 12px;min-height:38px;}.hiki-notify-chip-title{font-size:0.76rem;}.hiki-notify-chip-sub{font-size:0.68rem;}.pdf-preview-always iframe{height:280px;}#weather-panel{width:calc(100vw - 20px);right:-10px;}.header-datetime-weather{padding:4px 10px;}.header-date-str{font-size:0.72rem;}.header-weather-temp{font-size:0.78rem;}.header-weather-desc{display:none;}.att-tab-btn{padding:6px 12px;font-size:0.78rem;}}
-@media(max-width:360px){header{padding:5px 7px;}#header-icon{width:28px!important;height:28px!important;}.main-wrap{padding:6px 4px;}.card{padding:10px 8px;}.todo-list{font-size:0.68rem;}.room-btn{padding:3px 7px;font-size:0.7rem;min-width:50px;}}
+@media(max-width:760px){.main-wrap{padding:10px 7px;}.top-links-bar{padding:5px 10px;gap:6px;}.top-link-btn{font-size:0.72rem;padding:3px 10px;}.todo-add-form{flex-direction:column;gap:6px;}.form-group{width:100%;}.form-group input,.form-group select{width:100%!important;}.todo-list{font-size:0.76rem;}.todo-list td,.todo-list th{padding:5px 5px;}.modal{padding:16px 12px;}header h1{font-size:0.95rem;}.inst-grid{grid-template-columns:1fr;}.cal-popup{min-width:190px;}#weather-panel{width:300px;}}
+@media(max-width:480px){.sticky-top{position:sticky;top:0;z-index:200;}.top-links-bar{min-height:auto;padding:4px 8px;gap:4px;justify-content:center;flex-wrap:wrap;}.top-link-btn{font-size:0.68rem;padding:3px 8px;}header{padding:6px 10px;min-height:50px;gap:6px;}header h1{font-size:0.85rem;}#header-icon{width:36px!important;height:36px!important;}.header-right{gap:6px;}.header-btns .btn .lbl{display:none;}.header-btns .btn{padding:5px 8px;font-size:0.75rem;}.room-btn{padding:4px 10px;font-size:0.75rem;min-width:60px;}.main-wrap{padding:8px 6px;}.card{padding:12px 10px;margin-bottom:12px;}.todo-add-form{padding:10px 8px;gap:8px;}.cal-popup{min-width:200px;max-width:calc(100vw - 28px);left:0;}.todo-list{font-size:0.72rem;}.todo-list th{font-size:0.66rem;padding:6px 4px;}.todo-list td{padding:6px 4px;font-size:0.72rem;}.th-sort-btn{display:none;}.item-tag{font-size:0.62rem;padding:2px 5px;}.btn-action-row{flex-direction:column;gap:3px;align-items:flex-end;}.btn-xs{padding:4px 6px;font-size:0.68rem;}.deadline-badge{font-size:0.6rem;}.date-normal{font-size:0.72rem;}.edit-inline input,.edit-inline select{font-size:0.72rem;padding:3px 4px;}.modal{padding:14px 10px;max-height:88vh;width:96%;}.modal-title{font-size:0.92rem;}.hiki-tab-btn-item{padding:6px 10px;font-size:0.75rem;}.hiki-saved-item{padding:8px 72px 8px 8px;font-size:0.78rem;}.rich-toolbar{gap:3px;padding:5px 6px;}.rich-toolbar button{padding:3px 6px;font-size:0.7rem;}.rich-toolbar select{font-size:0.68rem;padding:2px 3px;}.rich-editor{min-height:80px;font-size:0.82rem;padding:8px 10px;}.memo-saved-item{padding:10px 68px 10px 10px;font-size:0.78rem;}.save-indicator{bottom:10px;right:10px;font-size:0.72rem;padding:5px 12px;}.hiki-notify-chip{font-size:0.78rem;padding:6px 10px 6px 12px;min-height:38px;}.hiki-notify-chip-title{font-size:0.76rem;}.hiki-notify-chip-sub{font-size:0.68rem;}#weather-panel{width:calc(100vw - 20px);right:-10px;}.header-datetime-weather{padding:4px 10px;}.header-date-str{font-size:0.72rem;}.header-weather-temp{font-size:0.78rem;}.header-weather-desc{display:none;}.att-tab-btn{padding:6px 12px;font-size:0.78rem;}}
+@media(max-width:360px){header{padding:5px 7px;}#header-icon{width:28px!important;height:28px!important;}.main-wrap{padding:6px 4px;}.card{padding:10px 8px;}.todo-list{font-size:0.68rem;}.room-btn{padding:3px 7px;font-size:0.7rem;min-width:50px;}.top-link-btn{font-size:0.64rem;padding:2px 6px;}}
 @media print{body>*:not(#print-area){display:none!important}#print-area{display:block!important;position:fixed;inset:0;background:#fff;padding:24px;font-family:'Yu Gothic','Hiragino Sans',sans-serif;font-size:11pt;color:#000;z-index:99999}}
 #print-area{display:none}
 </style>
@@ -318,9 +305,12 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
 </div>
 <div class="save-indicator" id="save-indicator"></div>
 <div class="sticky-top">
-  <div class="top-links-bar">
+    <div class="top-links-bar">
     <a class="top-link-btn" href="https://pcci-school.jp/Default.aspx" target="_blank" rel="noopener">🌐 WEB管理システム</a>
     <a class="top-link-btn" href="https://www.pcci-school.com/free-trial/staff/trial-register/login.php" target="_blank" rel="noopener">📨 受信管理システム</a>
+    <a class="top-link-btn" href="https://melife.jp/intr/syorui/syorui.htm" target="_blank" rel="noopener noreferrer">📄 提出書類一覧</a>
+    <a class="top-link-btn" href="https://melife.jp/intr/kakunin/kakunin2.html" target="_blank" rel="noopener noreferrer">🖨️ 補助プリント</a>
+    <a class="top-link-btn" href="https://toutan0412ta-coder.github.io/melife_todo_list/manual.html" target="_blank" rel="noopener">📖 マニュアル</a>
   </div>
   <header>
     <div class="header-left">
@@ -329,14 +319,13 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
         <span id="main-title-text">教室Todoリスト</span>
       </h1>
       <div class="room-switch" id="room-switch"><button class="room-btn active" id="room-btn-1" onclick="switchRoom(1)">教室1</button></div>
-      <span id="classroom-name-display"></span>
     </div>
     <div class="header-right">
       <div id="hiki-notify-wrap"></div>
       <div class="header-weather-wrap" id="weather-wrap">
         <div class="header-datetime-weather" id="header-datetime-weather" onclick="toggleWeatherPanel(event)">
           <span class="header-date-str" id="header-date-str">—</span>
-          <span class="header-weather-icon" id="header-weather-icon">🌤</span>
+          <span class="header-weather-icon" id="header-weather-icon">🌤️</span>
           <span class="header-weather-temp" id="header-weather-temp"></span>
           <span class="header-weather-desc" id="header-weather-desc"></span>
           <span class="weather-caret">▼</span>
@@ -365,7 +354,7 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
             <option value="setsumeikai">説明会</option><option value="nyugakusha">入学者</option>
             <option value="kakunin">確認</option><option value="chui">注意</option>
             <option value="kojin">個人レッスン</option><option value="koza">講座</option>
-            <option value="teishutsu">提出物</option><option value="sonota">その他</option>
+            <option value="teishutsu">提出物</option><option value="shiken">試験</option><option value="sonota">その他</option>
           </select>
         </div>
         <div class="form-group"><label>時間</label>
@@ -379,6 +368,11 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
         <div class="form-group" id="time-custom-wrap" style="display:none"><label>時間入力</label><input type="text" id="todo-time-custom" placeholder="例:13時" style="width:76px"></div>
         <div class="form-group" style="flex:1;min-width:130px;"><label>内容</label><input type="text" id="todo-content" placeholder="内容を入力" style="width:100%"></div>
         <div class="form-group" id="deadline-wrap" style="display:none"><label>期限</label><div class="cal-wrap"><input type="text" class="cal-input" id="todo-deadline" readonly placeholder="MM/DD" style="width:86px"><div class="cal-popup" id="cal-popup-deadline"></div></div></div>
+        <div class="form-group" id="shiken-type-wrap" style="display:none"><label>区分</label>
+          <select id="todo-shiken-type">
+            <option value="gaibu">外部</option><option value="jukosei">受講生</option>
+          </select>
+        </div>
         <div class="form-group" style="align-self:flex-end;">
           <div class="bold-check-wrap"><input type="checkbox" id="todo-bold"><label for="todo-bold">太字</label></div>
           <div class="bold-check-wrap" style="margin-top:4px;"><input type="checkbox" id="todo-red"><label for="todo-red" style="color:#e74c3c;">赤字</label></div>
@@ -386,7 +380,7 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
         <div class="form-group" style="align-self:flex-end;"><button class="btn btn-primary" onclick="addTodo()">＋ 追加</button></div>
       </div>
     </div>
-    <div id="todo-readonly-banner" class="readonly-banner" style="display:none">👁️ 教室2のTODOリストは表示のみです（編集不可）</div>
+    <div id="todo-readonly-banner" class="readonly-banner" style="display:none">👁️ この教室のTODOリストは表示のみです（編集不可）</div>
     <div style="overflow-x:auto;">
       <table class="todo-list">
         <thead><tr>
@@ -403,31 +397,8 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
   </div>
   <div class="card" id="card-attendance">
     <div class="card-title">📅 出勤状況</div>
-    <div class="att-tabs">
-      <button class="att-tab-btn active" id="att-tab-img-btn" onclick="switchAttTab('img')">🖼️ 画像</button>
-      <button class="att-tab-btn" id="att-tab-pdf-btn" onclick="switchAttTab('pdf')">📄 PDF<span id="pdf-count-badge" class="badge" style="display:none;background:var(--info);">0</span></button>
-    </div>
-    <div class="att-tab-content active" id="att-tab-img">
-      <div class="attendance-images" id="attendance-images"></div>
-      <div class="attendance-controls">
-        <button class="btn btn-info" onclick="pasteAttendanceImage()">📋 画像を貼り付け</button>
-        <span class="text-muted">※ Ctrl+V でも貼り付けできます</span>
-      </div>
-    </div>
-    <div class="att-tab-content" id="att-tab-pdf">
-      <div class="pdf-tab-wrap">
-        <div class="pdf-list" id="pdf-list"></div>
-        <div class="pdf-add-area">
-          <div class="pdf-add-area-title">📎 PDFを追加</div>
-          <div class="pdf-drop-zone" id="pdf-drop-zone" onclick="document.getElementById('pdf-file-input').click()" ondragover="onPdfDragOver(event)" ondragleave="onPdfDragLeave(event)" ondrop="onPdfDrop(event)">
-            <div class="dz-icon">📄</div>
-            <div class="dz-text">クリックまたはドラッグ＆ドロップでPDFを追加</div>
-            <div class="dz-sub">PDFファイル（複数選択可・上限約1MB/件）</div>
-          </div>
-          <input type="file" id="pdf-file-input" accept="application/pdf" multiple style="display:none" onchange="onPdfFileSelect(event)">
-        </div>
-      </div>
-    </div>
+    <div class="att-tabs" id="att-tabs"></div>
+    <div id="att-contents"></div>
   </div>
   <div class="card" id="card-memo">
     <div class="card-title">📝 メモ</div>
@@ -452,16 +423,6 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
   <button class="lightbox-close" onclick="closeLightbox()">✕</button>
   <img id="lightbox-img" src="" alt="">
 </div>
-<div id="pdf-lightbox">
-  <div class="pdf-lb-header">
-    <span class="pdf-lb-title" id="pdf-lb-title">PDF</span>
-    <div class="pdf-lb-actions">
-      <button class="pdf-lb-close" onclick="downloadPdfLb()">⬇️ ダウンロード</button>
-      <button class="pdf-lb-close" onclick="closePdfLightbox()">✕ 閉じる</button>
-    </div>
-  </div>
-  <iframe id="pdf-lb-iframe" src="" title="PDF"></iframe>
-</div>
 <div class="modal-overlay" id="modal-settings">
   <div class="modal" style="max-width:500px;">
     <div class="modal-title">⚙️ 設定 — <span id="settings-room-label"></span></div>
@@ -471,6 +432,14 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
       <div class="setting-row"><label>アイコン選択</label><div id="icon-selector" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:8px 0;"></div></div>
       <div class="setting-row"><label>教室ID（Firestoreドキュメント）</label><span class="setting-id-display" id="disp-r1-id"></span></div>
       <div class="setting-row"><label>教室名</label><input type="text" id="s-classroom" placeholder="例: ○○教室"></div>
+      <div class="setting-row">
+        <label>🌤️ 天気予報の地域</label>
+        <div class="weather-loc-row">
+          <input type="text" id="s-weather-loc" placeholder="例: 大阪市, 京橋, 札幌 など" onkeydown="if(event.key==='Enter'){event.preventDefault();lookupWeatherLoc();}">
+          <button class="btn btn-teal btn-sm" onclick="lookupWeatherLoc()">🔍 検索</button>
+        </div>
+        <div class="weather-loc-status" id="weather-loc-status"></div>
+      </div>
       <div style="font-size:0.8rem;font-weight:600;margin-bottom:6px;color:var(--text-light);">講師名</div>
       <div class="inst-grid">
         <div class="inst-cell"><label>講師1</label><input type="text" id="s-inst1" placeholder="例: 田中"></div>
@@ -484,10 +453,16 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
         <button class="btn btn-info btn-sm" onclick="triggerImport(1)">⬆️ インポート</button>
         <input type="file" id="import-input-1" accept=".json" style="display:none" onchange="importJson(event,1)">
       </div>
-      <div class="add-room-box">
-        <label>🏫 教室を追加する</label>
-        <p>連携する教室のFirestore ドキュメントIDを入力してください。<br>Firestoreの <strong>rooms/{ID}</strong> を読み込みます。</p>
+      <div class="add-room-box" id="add-room-box-r2">
+        <label>🏫 教室2を追加する（フル機能）</label>
+        <p>連携する教室のFirestore ドキュメントIDを入力してください。<br>教室2は引継ぎ・出勤閲覧に対応します。</p>
         <div class="add-room-input-row"><input type="text" id="add-room-id" placeholder="例: 19001946"><button class="btn btn-teal btn-sm" onclick="addRoomById()">📂 読み込む</button></div>
+      </div>
+      <div class="add-room-box" id="add-room-box-extra" style="display:none;">
+        <label>🏫 表示専用教室を追加する（教室3〜6）</label>
+        <p>Firestore ドキュメントIDを入力してください。<br>追加した教室は<strong>TODOリストの表示のみ</strong>で、引継ぎ・出勤・メモには含まれません。</p>
+        <div class="add-room-input-row"><input type="text" id="add-extra-room-id" placeholder="例: 19001946"><button class="btn btn-teal btn-sm" onclick="addExtraRoomById()">📂 読み込む</button></div>
+        <div class="extra-room-list" id="extra-room-list"></div>
       </div>
     </div>
     <div id="settings-r2" style="display:none;">
@@ -499,6 +474,11 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
         <button class="btn btn-info btn-sm" onclick="triggerImport(2)">⬆️ インポート</button>
         <input type="file" id="import-input-2" accept=".json" style="display:none" onchange="importJson(event,2)">
       </div>
+    </div>
+    <div id="settings-extra" style="display:none;">
+      <div class="setting-row"><label>教室ID</label><span class="setting-id-display" id="disp-extra-id"></span></div>
+      <div class="setting-row"><label>教室名（この端末での表示名）</label><input type="text" id="s-classroom-extra" placeholder="例: ○○教室"></div>
+      <div class="readonly-banner" style="margin-bottom:0;">👁️ この教室は表示専用です（TODOリストのみ）</div>
     </div>
     <div class="modal-footer"><button class="btn btn-gray" onclick="closeSettings()">キャンセル</button><button class="btn btn-primary" onclick="saveSettings()">💾 保存</button></div>
   </div>
@@ -525,29 +505,29 @@ import { getAuth, signInWithEmailAndPassword, setPersistence, browserLocalPersis
 
 const firebaseConfig={apiKey:"AIzaSyBvwviVEJsmntJJtaLnfvoimYdpN5ra9aM",authDomain:"melife-todo-list.firebaseapp.com",projectId:"melife-todo-list",storageBucket:"melife-todo-list.firebasestorage.app",messagingSenderId:"85925765821",appId:"1:85925765821:web:9ceb459eabe62ee73d4dd4"};
 const HTML_ID=(()=>{const p=location.pathname.split('/').pop()||'index.html';return p.replace(/\.html?$/i,'');})();
+// 52720 のみ最大6教室（教室3〜6は表示専用）。それ以外は最大2教室
+const ALLOW_EXTRA_ROOMS=(HTML_ID==='52720');
+const MAX_EXTRA_ROOMS=4; // 教室3,4,5,6
 const BOUND_EMAIL_KEY=`bound_email_${HTML_ID}`;
 const app=initializeApp(firebaseConfig);
 const db=getFirestore(app);
 const auth=getAuth(app);
-const PDF_WARN_SIZE=700*1024,PDF_MAX_SIZE=1000*1024;
 
 function getBoundEmail(){return localStorage.getItem(BOUND_EMAIL_KEY)||null;}
 function setBoundEmail(e){localStorage.setItem(BOUND_EMAIL_KEY,e.toLowerCase().trim());}
 
 // ============================================================
 // アラートフラグ管理
-// alertFlags = { "r1_0": {on:true, type:"add", label:"田中宛て"}, ... }
-// Firestoreの R1ドキュメントに alertFlags フィールドとして保存
 // ============================================================
-// alertFlagsはR1.alertFlagsとしてFirestoreに保存・同期する
-// 引継ぎ追加/返信時 → alertFlags[key] = {on:true, type, label} をセットしてsaveR1
-// OKボタン押下時   → alertFlags[key].on = false をセットしてsaveR1
-// onSnapshotで受信  → alertFlagsをそのままR1に反映 → renderAlerts()
-
+function mergedAlertFlags(){
+  const flags={...(R1.alertFlags||{})};
+  if(R2&&R2.alertFlags){Object.keys(R2.alertFlags).forEach(k=>{if(k.startsWith('r2_'))flags[k]=R2.alertFlags[k];});}
+  return flags;
+}
 function renderAlerts(){
   const wrap=document.getElementById('hiki-notify-wrap');
   if(!wrap)return;
-  const flags=R1.alertFlags||{};
+  const flags=mergedAlertFlags();
   const activeKeys=Object.keys(flags).filter(k=>flags[k]&&flags[k].on);
   if(activeKeys.length===0){wrap.innerHTML='';return;}
   wrap.innerHTML=activeKeys.map(key=>{
@@ -567,17 +547,27 @@ function renderAlerts(){
 }
 
 async function setAlertOn(key,type,label){
-  if(!R1.alertFlags)R1.alertFlags={};
-  R1.alertFlags[key]={on:true,type,label};
-  renderAlerts();
-  await saveR1();
+  const flag={on:true,type,label};
+  if(key.startsWith('r2_')){
+    if(R2){if(!R2.alertFlags)R2.alertFlags={};R2.alertFlags[key]=flag;}
+    if(!R1.alertFlags)R1.alertFlags={};R1.alertFlags[key]=flag;
+    renderAlerts();
+    await saveR1();await saveR2();
+  }else{
+    if(!R1.alertFlags)R1.alertFlags={};R1.alertFlags[key]=flag;
+    renderAlerts();await saveR1();
+  }
 }
 
 async function dismissAlert(key){
-  if(!R1.alertFlags)R1.alertFlags={};
-  if(R1.alertFlags[key])R1.alertFlags[key].on=false;
-  renderAlerts();
-  await saveR1();
+  if(key.startsWith('r2_')){
+    if(R2&&R2.alertFlags&&R2.alertFlags[key])R2.alertFlags[key].on=false;
+    if(R1.alertFlags&&R1.alertFlags[key])R1.alertFlags[key].on=false;
+    renderAlerts();await saveR1();await saveR2();
+  }else{
+    if(R1.alertFlags&&R1.alertFlags[key])R1.alertFlags[key].on=false;
+    renderAlerts();await saveR1();
+  }
 }
 window.dismissAlert=dismissAlert;
 
@@ -615,6 +605,7 @@ onAuthStateChanged(auth,async user=>{
 // ============================================================
 const COLLECTION='rooms';
 let unsubscribeR1=null,unsubscribeR2=null;
+const extraUnsubs={}; // {roomId: unsubscribe}
 
 async function fsGet(id){const r=doc(db,COLLECTION,id),s=await getDoc(r);if(!s.exists())throw new Error(`ドキュメント ${id} が存在しません`);return s.data();}
 async function fsPut(id,data){
@@ -622,7 +613,6 @@ async function fsPut(id,data){
   catch(e){showSaveInd('err','❌ 保存失敗: '+e.message);console.error(e);return false;}
 }
 
-// onSnapshotはシンプルに「Firestoreが更新されたらそのまま反映」のみ
 function startSnapshotR1(){
   if(unsubscribeR1)unsubscribeR1();
   const r=doc(db,COLLECTION,HTML_ID);
@@ -635,10 +625,11 @@ function startSnapshotR1(){
     if(!initialized){
       initialized=true;
       if(R1.room2Id&&!room2Loaded){loadRoom2(R1.room2Id).catch(e=>console.warn('教室2読み込み失敗:',e.message));}
+      if(ALLOW_EXTRA_ROOMS&&Array.isArray(R1.extraRooms)){R1.extraRooms.forEach(er=>{if(er&&er.id&&!extraRooms[er.id])loadExtraRoom(er.id,er.name).catch(e=>console.warn('表示専用教室読み込み失敗:',e.message));});}
       applyRoomButtons();renderAll();applySettings();updateHikitsugiBadge();updateSortButtons();
     }else{
       if(document.getElementById('modal-hikitsugi').classList.contains('open'))buildHikitsugiModal();
-      updateHikitsugiBadge();renderTodos();
+      updateHikitsugiBadge();renderTodos();applyRoomButtons();
     }
   },err=>{console.error('snapshot R1:',err);});
 }
@@ -656,14 +647,30 @@ function startSnapshotR2(id){
       applyData(data,2);
       Object.keys(R2.hikitsugi).forEach(k=>{if(k.startsWith('r2_'))R1.hikitsugi[k]=R2.hikitsugi[k];});
       room2Loaded=true;
-      applyRoomButtons();buildHikitsugiModal();updateHikitsugiBadge();
+      applyRoomButtons();buildHikitsugiModal();updateHikitsugiBadge();renderAlerts();
     }else{
       applyData(data,2);
       Object.keys(R2.hikitsugi).forEach(k=>{if(k.startsWith('r2_'))R1.hikitsugi[k]=R2.hikitsugi[k];});
       if(document.getElementById('modal-hikitsugi').classList.contains('open'))buildHikitsugiModal();
-      updateHikitsugiBadge();
+      updateHikitsugiBadge();renderAlerts();
     }
   },err=>{console.error('snapshot R2:',err);});
+}
+
+// 表示専用教室（3〜6）のスナップショット
+function startSnapshotExtra(id){
+  if(extraUnsubs[id])extraUnsubs[id]();
+  const r=doc(db,COLLECTION,id);
+  extraUnsubs[id]=onSnapshot(r,snap=>{
+    if(!snap.exists())return;
+    const data=snap.data();
+    const room=extraRooms[id];if(!room)return;
+    // TODOと教室名（fetch時保存の表示名は保持しつつ、元教室名も参照可能に）
+    room.todos=Array.isArray(data.todos)?data.todos:[];
+    room.remoteClassroom=(data.settings&&data.settings.classroom)||'';
+    applyRoomButtons();
+    if(currentRoom&&typeof currentRoom==='string'&&currentRoom===id)renderTodos();
+  },err=>{console.error('snapshot extra '+id+':',err);});
 }
 
 // ============================================================
@@ -671,25 +678,34 @@ function startSnapshotR2(id){
 // ============================================================
 const KOZA_TIME_OPTS=['開講','閉講','研修'];
 const TIME_ORDER={'10時':10,'11時':11,'12時':12,'13時':13,'14時':14,'15時':15,'16時':16,'18半':18.5,'19半':19.5,'開講':20,'閉講':21,'研修':22};
-const ITEM_ORDER=['chui','kakunin','setsumeikai','nyugakusha','kojin','koza','teishutsu','sonota'];
-const ITEM_LABELS={setsumeikai:'説明会',nyugakusha:'入学者',kakunin:'確認',chui:'注意',kojin:'個人レッスン',koza:'講座',teishutsu:'提出物',sonota:'その他'};
-const ITEM_TAG={setsumeikai:'tag-setsumeikai',nyugakusha:'tag-nyugakusha',kakunin:'tag-kakunin',chui:'tag-chui',kojin:'tag-kojin',sonota:'tag-sonota',koza:'tag-koza',teishutsu:'tag-teishutsu'};
+const ITEM_ORDER=['chui','kakunin','setsumeikai','nyugakusha','kojin','koza','shiken','teishutsu','sonota'];
+const ITEM_LABELS={setsumeikai:'説明会',nyugakusha:'入学者',kakunin:'確認',chui:'注意',kojin:'個人レッスン',koza:'講座',teishutsu:'提出物',shiken:'試験',sonota:'その他'};
+const ITEM_TAG={setsumeikai:'tag-setsumeikai',nyugakusha:'tag-nyugakusha',kakunin:'tag-kakunin',chui:'tag-chui',kojin:'tag-kojin',sonota:'tag-sonota',koza:'tag-koza',teishutsu:'tag-teishutsu',shiken:'tag-shiken'};
 const ROW_CLASS={chui:'row-chui',kakunin:'row-kakunin'};
 const DATE_SORT_ITEMS=['chui','kakunin'];
-const WMO={0:{e:'☀️',j:'快晴'},1:{e:'🌤',j:'晴れ'},2:{e:'⛅',j:'曇り時々晴'},3:{e:'☁️',j:'曇り'},45:{e:'🌫',j:'霧'},48:{e:'🌫',j:'霧氷'},51:{e:'🌦',j:'霧雨'},53:{e:'🌦',j:'霧雨'},55:{e:'🌧',j:'強い霧雨'},61:{e:'🌧',j:'小雨'},63:{e:'🌧',j:'雨'},65:{e:'🌧',j:'大雨'},71:{e:'🌨',j:'小雪'},73:{e:'🌨',j:'雪'},75:{e:'❄️',j:'大雪'},77:{e:'❄️',j:'みぞれ'},80:{e:'🌦',j:'にわか雨'},81:{e:'🌧',j:'にわか雨'},82:{e:'⛈',j:'激しいにわか雨'},85:{e:'🌨',j:'にわか雪'},86:{e:'❄️',j:'強いにわか雪'},95:{e:'⛈',j:'雷雨'},96:{e:'⛈',j:'雷・雹'},99:{e:'⛈',j:'激しい雷・雹'}};
-function wmoEmoji(c){return(WMO[c]||{e:'🌡'}).e;}
+const SHIKEN_TYPE_LABELS={gaibu:'外部',jukosei:'受講生'};
+const WMO={0:{e:'☀️',j:'快晴'},1:{e:'🌤️',j:'晴れ'},2:{e:'⛅',j:'曇り時々晴'},3:{e:'☁️',j:'曇り'},45:{e:'🌫️',j:'霧'},48:{e:'🌫️',j:'霧氷'},51:{e:'🌦️',j:'霧雨'},53:{e:'🌦️',j:'霧雨'},55:{e:'🌧️',j:'強い霧雨'},61:{e:'🌧️',j:'小雨'},63:{e:'🌧️',j:'雨'},65:{e:'🌧️',j:'大雨'},71:{e:'🌨️',j:'小雪'},73:{e:'🌨️',j:'雪'},75:{e:'❄️',j:'大雪'},77:{e:'❄️',j:'みぞれ'},80:{e:'🌦️',j:'にわか雨'},81:{e:'🌧️',j:'にわか雨'},82:{e:'⛈️',j:'激しいにわか雨'},85:{e:'🌨️',j:'にわか雪'},86:{e:'❄️',j:'強いにわか雪'},95:{e:'⛈️',j:'雷雨'},96:{e:'⛈️',j:'雷・雹'},99:{e:'⛈️',j:'激しい雷・雹'}};
+function wmoEmoji(c){return(WMO[c]||{e:'🌡️'}).e;}
 function wmoDesc(c){return(WMO[c]||{j:'--'}).j;}
 
 // ============================================================
 // 状態
+// currentRoom: 1 | 2 | (表示専用の) roomId文字列
 // ============================================================
 let currentRoom=1,room2Loaded=false,currentHikiTab=0,currentSort='default';
 let calYear,calMonth,dlCalYear,dlCalMonth;
 let weatherData=null,weatherPanelOpen=false;
-const weatherLat=34.6961,weatherLon=135.5322,weatherCity='大阪・京橋';
-let currentAttTab='img',currentPdfLbData=null;
+const DEFAULT_LAT=34.6961,DEFAULT_LON=135.5322,DEFAULT_CITY='大阪・京橋';
+let currentAttTab=0;
 let R1=emptyRoom(HTML_ID),R2=null,room2Id='';
-function emptyRoom(id){return{id,settings:{classroom:'',inst1:'',inst2:'',inst3:'',inst4:''},todos:[],hikitsugi:{},attendanceImages:[],attendancePdfs:[],memos:[],room2Id:'',alertFlags:{}};}
+const extraRooms={}; // {id: {id, name, todos:[], remoteClassroom:''}}
+function emptyRoom(id){return{id,settings:{classroom:'',inst1:'',inst2:'',inst3:'',inst4:'',weatherLat:DEFAULT_LAT,weatherLon:DEFAULT_LON,weatherCity:DEFAULT_CITY},todos:[],hikitsugi:{},attendanceTabs:[],memos:[],room2Id:'',alertFlags:{},extraRooms:[]};}
+
+function getWeatherLat(){return R1.settings.weatherLat!=null?R1.settings.weatherLat:DEFAULT_LAT;}
+function getWeatherLon(){return R1.settings.weatherLon!=null?R1.settings.weatherLon:DEFAULT_LON;}
+function getWeatherCity(){return R1.settings.weatherCity||DEFAULT_CITY;}
+
+function isExtraRoom(r){return typeof r==='string';}
 
 // ============================================================
 // ペイロード
@@ -697,14 +713,14 @@ function emptyRoom(id){return{id,settings:{classroom:'',inst1:'',inst2:'',inst3:
 function payload1(){
   const h={};
   Object.keys(R1.hikitsugi).forEach(k=>{if(k.startsWith('r1_'))h[k]=R1.hikitsugi[k];});
-  return{schemaVersion:2,id:HTML_ID,settings:R1.settings,todos:R1.todos,hikitsugi:h,attendanceImages:R1.attendanceImages,attendancePdfs:R1.attendancePdfs||[],memos:R1.memos,room2Id:R1.room2Id,alertFlags:R1.alertFlags||{}};
+  return{schemaVersion:3,id:HTML_ID,settings:R1.settings,todos:R1.todos,hikitsugi:h,attendanceTabs:R1.attendanceTabs||[],memos:R1.memos,room2Id:R1.room2Id,alertFlags:R1.alertFlags||{},extraRooms:R1.extraRooms||[]};
 }
 function payload2(){
   if(!R2)return null;
   const h={};
   Object.keys(R1.hikitsugi).forEach(k=>{if(k.startsWith('r2_'))h[k]=R1.hikitsugi[k];});
   Object.keys(R2.hikitsugi).forEach(k=>{if(k.startsWith('r2_')&&!h[k])h[k]=R2.hikitsugi[k];});
-  return{schemaVersion:2,id:room2Id,settings:R2.settings,todos:R2.todos,hikitsugi:h,attendanceImages:R2.attendanceImages,attendancePdfs:R2.attendancePdfs||[],memos:R2.memos,room2Id:''};
+  return{schemaVersion:3,id:room2Id,settings:R2.settings,todos:R2.todos,hikitsugi:h,attendanceTabs:R2.attendanceTabs||[],memos:R2.memos,room2Id:'',alertFlags:R2.alertFlags||{}};
 }
 async function saveR1(){await fsPut(HTML_ID,payload1());}
 async function saveR2(){if(!room2Loaded||!room2Id)return;const p=payload2();if(p)await fsPut(room2Id,p);}
@@ -728,12 +744,13 @@ function applyData(data,rn){
   const t=rn===1?R1:R2;if(!t)return;
   if(data.settings){t.settings={...t.settings,...data.settings};if(Array.isArray(data.settings.instructors)){t.settings.inst1=data.settings.instructors[0]||'';t.settings.inst2=data.settings.instructors[1]||'';t.settings.inst3=data.settings.instructors[2]||'';t.settings.inst4=data.settings.instructors[3]||'';}}
   if(data.todos)t.todos=data.todos;
-  if(data.attendanceImages)t.attendanceImages=data.attendanceImages;
-  if(data.attendancePdfs)t.attendancePdfs=data.attendancePdfs;else t.attendancePdfs=[];
+  if(data.attendanceTabs)t.attendanceTabs=data.attendanceTabs;
+  else if(data.attendanceImages&&data.attendanceImages.length>0){t.attendanceTabs=[{id:Date.now(),name:'出勤表',addedAt:new Date().toISOString(),images:data.attendanceImages.slice()}];}
+  else if(!t.attendanceTabs)t.attendanceTabs=[];
   if(data.memos)t.memos=data.memos;
   if(data.room2Id!==undefined)t.room2Id=data.room2Id;
-  // alertFlagsはR1のみ
-  if(rn===1){t.alertFlags=data.alertFlags||{};}
+  t.alertFlags=data.alertFlags||{};
+  if(rn===1)t.extraRooms=Array.isArray(data.extraRooms)?data.extraRooms:[];
   if(data.hikitsugi){
     const pf=`r${rn}_`;
     if(Array.isArray(data.hikitsugi)){t.hikitsugi[pf+'0']=data.hikitsugi[0]||[];t.hikitsugi[pf+'1']=data.hikitsugi[1]||[];}
@@ -758,9 +775,9 @@ async function startApp(){
   const now=new Date();calYear=now.getFullYear();calMonth=now.getMonth();dlCalYear=now.getFullYear();dlCalMonth=now.getMonth();
   buildCal('cal-popup',calYear,calMonth,'todo-date');
   updateDateDisplay();setInterval(updateDateDisplay,60000);
-  await fetchWeatherData();
-  setInterval(()=>{weatherData=null;fetchWeatherData();},30*60*1000);
   startSnapshotR1();
+  setTimeout(()=>fetchWeatherData(),800);
+  setInterval(()=>{weatherData=null;fetchWeatherData();},30*60*1000);
   document.addEventListener('click',e=>{
     document.querySelectorAll('.cal-popup.open').forEach(p=>{if(!p.closest('.cal-wrap')?.contains(e.target))p.classList.remove('open');});
     const wp=document.getElementById('weather-wrap');if(weatherPanelOpen&&wp&&!wp.contains(e.target)){closeWeatherPanel();}
@@ -774,6 +791,13 @@ async function loadRoom2(id){
   Object.keys(R2.hikitsugi).forEach(k=>{if(k.startsWith('r2_'))R1.hikitsugi[k]=R2.hikitsugi[k];});
   room2Loaded=true;
   startSnapshotR2(id);
+}
+
+// 表示専用教室のロード
+async function loadExtraRoom(id,name){
+  const d=await fsGet(id);
+  extraRooms[id]={id,name:name||((d.settings&&d.settings.classroom)||`教室`),todos:Array.isArray(d.todos)?d.todos:[],remoteClassroom:(d.settings&&d.settings.classroom)||''};
+  startSnapshotExtra(id);
 }
 
 // ============================================================
@@ -793,10 +817,12 @@ function updateDateDisplay(){
 // ============================================================
 async function fetchWeatherData(){
   try{
-    const url=`https://api.open-meteo.com/v1/forecast?latitude=${weatherLat}&longitude=${weatherLon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,precipitation_probability&hourly=temperature_2m,weather_code,precipitation_probability,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTokyo&forecast_days=4`;
+    const lat=getWeatherLat(),lon=getWeatherLon();
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,precipitation_probability&hourly=temperature_2m,weather_code,precipitation_probability,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTokyo&forecast_days=4`;
     const res=await fetch(url);if(!res.ok)throw new Error();
     weatherData=await res.json();renderWeatherHeader();
-  }catch(e){document.getElementById('header-weather-icon').textContent='🌡';document.getElementById('header-weather-temp').textContent='--';document.getElementById('header-weather-desc').textContent='';}
+    if(weatherPanelOpen)renderWeatherPanel();
+  }catch(e){document.getElementById('header-weather-icon').textContent='🌡️';document.getElementById('header-weather-temp').textContent='--';document.getElementById('header-weather-desc').textContent='';}
 }
 function renderWeatherHeader(){if(!weatherData)return;const c=weatherData.current;document.getElementById('header-weather-icon').textContent=wmoEmoji(c.weather_code);document.getElementById('header-weather-temp').textContent=`${Math.round(c.temperature_2m)}°C`;document.getElementById('header-weather-desc').textContent=`体感${Math.round(c.apparent_temperature)}°C`;}
 function toggleWeatherPanel(e){e.stopPropagation();if(weatherPanelOpen){closeWeatherPanel();}else{openWeatherPanel();}}
@@ -817,37 +843,194 @@ function renderWeatherPanel(){
   for(let i=startIdx;i<endIdx;i++){const dt=new Date(hourly.time[i]);const h=dt.getHours();const isNow=dt.getDate()===now.getDate()&&dt.getMonth()===now.getMonth()&&h===nowH;const pp=hourly.precipitation_probability[i]||0;const ws=Math.round(hourly.wind_speed_10m[i]||0);hourCards.push(`<div class="wp-hour-card${isNow?' is-now':''}"><div class="wp-h-time">${isNow?'今':''}${h}時</div><div class="wp-h-icon">${wmoEmoji(hourly.weather_code[i])}</div><div class="wp-h-temp">${Math.round(hourly.temperature_2m[i])}°</div><div class="wp-h-precip${pp>=50?' high':''}">💧${pp}%</div><div class="wp-h-wind">💨${ws}km/h</div></div>`);}
   const dayNames=['日','月','火','水','木','金','土'];
   const dayRows=daily.time.map((t,i)=>{const dt=new Date(t+'T00:00');const dow=dayNames[dt.getDay()];const isToday=t===todayStr2;const cls=dt.getDay()===0?'sun':dt.getDay()===6?'sat':'';const hi=Math.round(daily.temperature_2m_max[i]),lo=Math.round(daily.temperature_2m_min[i]),pp=daily.precipitation_probability_max[i]||0;return`<div class="wp-day-row"><div class="wp-day-label ${cls}">${isToday?'今日':`${dow}曜`}</div><div class="wp-day-icon">${wmoEmoji(daily.weather_code[i])}</div><div class="wp-day-desc">${wmoDesc(daily.weather_code[i])}</div><div class="wp-day-temps"><span class="wp-day-hi">${hi}°</span><span class="wp-day-lo">${lo}°</span></div><div class="wp-day-precip">💧${pp}%</div></div>`;}).join('');
-  content.innerHTML=`<div class="wp-header"><div class="wp-header-left"><div class="wp-location">📍 ${escHtml(weatherCity)}</div><div class="wp-today-info"><div class="wp-today-icon">${icon}</div><div class="wp-today-detail"><div class="wp-today-temp">${temp}°C</div><div class="wp-today-desc">${desc}</div><div class="wp-today-sub"><span>🌡体感 ${appar}°C</span><span>💧${precip}%</span><span>💨${wind}km/h</span><span>🌊${humid}%</span></div></div></div></div></div><div class="wp-section-label">⏰ 時間別予報</div><div class="wp-hourly">${hourCards.join('')}</div><div class="wp-section-label">📅 4日間予報</div><div class="wp-daily">${dayRows}</div><div class="wp-footer">Open-Meteo / 大阪・京橋</div>`;
+  const city=escHtml(getWeatherCity());
+  content.innerHTML=`<div class="wp-header"><div class="wp-header-left"><div class="wp-location">📍 ${city}</div><div class="wp-today-info"><div class="wp-today-icon">${icon}</div><div class="wp-today-detail"><div class="wp-today-temp">${temp}°C</div><div class="wp-today-desc">${desc}</div><div class="wp-today-sub"><span>🌡️体感 ${appar}°C</span><span>💧${precip}%</span><span>💨${wind}km/h</span><span>🌊${humid}%</span></div></div></div></div></div><div class="wp-section-label">⏰ 時間別予報</div><div class="wp-hourly">${hourCards.join('')}</div><div class="wp-section-label">📅 4日間予報</div><div class="wp-daily">${dayRows}</div><div class="wp-footer">Open-Meteo / ${city}</div>`;
 }
 
+// 天気地域検索
+let pendingWeatherLoc=null;
+async function lookupWeatherLoc(){
+  const inp=document.getElementById('s-weather-loc'),status=document.getElementById('weather-loc-status');
+  const name=(inp.value||'').trim();
+  if(!name){status.className='weather-loc-status err';status.textContent='地域名を入力してください';return;}
+  status.className='weather-loc-status';status.textContent='🔍 検索中...';
+  try{
+    const url=`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(name)}&language=ja&count=1`;
+    const res=await fetch(url);const data=await res.json();
+    if(!data.results||data.results.length===0){status.className='weather-loc-status err';status.textContent='❌ 該当する地域が見つかりませんでした';pendingWeatherLoc=null;return;}
+    const r=data.results[0];
+    const parts=[r.name];if(r.admin1&&r.admin1!==r.name)parts.push(r.admin1);
+    const cityLabel=parts.join('・');
+    pendingWeatherLoc={lat:r.latitude,lon:r.longitude,city:cityLabel};
+    status.className='weather-loc-status ok';status.textContent=`✅ ${cityLabel}（緯度${r.latitude.toFixed(2)}, 経度${r.longitude.toFixed(2)}）※保存で反映`;
+  }catch(e){status.className='weather-loc-status err';status.textContent='❌ 検索に失敗しました';pendingWeatherLoc=null;}
+}
+window.lookupWeatherLoc=lookupWeatherLoc;
+
 // ============================================================
-// 教室2
+// 教室2追加（フル機能）
 // ============================================================
 async function addRoomById(){const id=(document.getElementById('add-room-id').value||'').trim();if(!id){alert('IDを入力してください');return;}if(id===HTML_ID){alert('自分自身のIDは指定できません');return;}if(room2Loaded&&room2Id===id){showToast('すでに読み込まれています');return;}try{showToast('📂 読み込み中...');await loadRoom2(id);R1.room2Id=id;await saveR1();document.getElementById('add-room-id').value='';applyRoomButtons();buildHikitsugiModal();updateHikitsugiBadge();switchRoom(2);showToast(`✅ 教室2「${R2.settings.classroom||id}」を読み込みました`);}catch(e){alert(`読み込みに失敗しました。\n${e.message}`);}}
 window.addRoomById=addRoomById;
 
 // ============================================================
+// 表示専用教室（3〜6）追加
+// ============================================================
+async function addExtraRoomById(){
+  if(!ALLOW_EXTRA_ROOMS)return;
+  const id=(document.getElementById('add-extra-room-id').value||'').trim();
+  if(!id){alert('IDを入力してください');return;}
+  if(id===HTML_ID){alert('自分自身のIDは指定できません');return;}
+  if(room2Loaded&&room2Id===id){alert('この教室はすでに教室2として読み込まれています');return;}
+  if(!R1.extraRooms)R1.extraRooms=[];
+  if(R1.extraRooms.some(er=>er.id===id)||extraRooms[id]){showToast('すでに読み込まれています');return;}
+  if(R1.extraRooms.length>=MAX_EXTRA_ROOMS){alert(`表示専用教室は最大${MAX_EXTRA_ROOMS}件までです`);return;}
+  try{
+    showToast('📂 読み込み中...');
+    await loadExtraRoom(id);
+    const defName=extraRooms[id].remoteClassroom||`教室${3+R1.extraRooms.length}`;
+    R1.extraRooms.push({id,name:defName});
+    extraRooms[id].name=defName;
+    await saveR1();
+    document.getElementById('add-extra-room-id').value='';
+    renderExtraRoomList();applyRoomButtons();
+    switchRoom(id);
+    showToast(`✅ 表示専用教室「${defName}」を読み込みました`);
+  }catch(e){alert(`読み込みに失敗しました。\n${e.message}`);}
+}
+window.addExtraRoomById=addExtraRoomById;
+
+async function removeExtraRoom(id){
+  if(!confirm('この表示専用教室を削除しますか？'))return;
+  if(extraUnsubs[id]){extraUnsubs[id]();delete extraUnsubs[id];}
+  delete extraRooms[id];
+  R1.extraRooms=(R1.extraRooms||[]).filter(er=>er.id!==id);
+  if(currentRoom===id)currentRoom=1;
+  await saveR1();
+  renderExtraRoomList();applyRoomButtons();switchRoom(currentRoom);
+  showToast('表示専用教室を削除しました');
+}
+window.removeExtraRoom=removeExtraRoom;
+
+function renderExtraRoomList(){
+  const box=document.getElementById('extra-room-list');if(!box)return;
+  const list=R1.extraRooms||[];
+  if(list.length===0){box.innerHTML='<span class="text-muted">追加済みの表示専用教室はありません</span>';return;}
+  box.innerHTML=list.map((er,i)=>`<div class="extra-room-item"><span class="er-name">教室${3+i}：${escHtml(extraRooms[er.id]?.name||er.name||'')}</span><span class="er-id">${escHtml(er.id)}</span><button class="btn btn-danger btn-xs" onclick="removeExtraRoom('${escHtml(er.id)}')">🗑️</button></div>`).join('');
+}
+
+// ============================================================
 // 教室切替
 // ============================================================
-function switchRoom(n){if(n===2&&!room2Loaded){showToast('教室2が読み込まれていません');return;}currentRoom=n;currentHikiTab=0;currentSort='default';applyRoomButtons();renderAll();applySettings();updateHikitsugiBadge();updateSortButtons();}
+function switchRoom(n){
+  if(n===2&&!room2Loaded){showToast('教室2が読み込まれていません');return;}
+  if(isExtraRoom(n)&&!extraRooms[n]){showToast('教室が読み込まれていません');return;}
+  currentRoom=n;currentHikiTab=0;currentSort='default';currentAttTab=0;applyRoomButtons();renderAll();applySettings();updateHikitsugiBadge();updateSortButtons();
+}
 window.switchRoom=switchRoom;
 function applyRoomButtons(){
-  const sw=document.getElementById('room-switch'),b1=document.getElementById('room-btn-1');b1.textContent=R1.settings.classroom||'教室1';b1.classList.toggle('active',currentRoom===1);
-  let b2=document.getElementById('room-btn-2');if(room2Loaded&&R2){if(!b2){b2=document.createElement('button');b2.id='room-btn-2';b2.className='room-btn';b2.onclick=()=>switchRoom(2);sw.appendChild(b2);}b2.textContent=R2.settings.classroom||'教室2';b2.classList.toggle('active',currentRoom===2);}else{b2?.remove();}
-  const isR2=currentRoom===2;document.getElementById('card-attendance').style.display=isR2?'none':'';document.getElementById('card-memo').style.display=isR2?'none':'';document.getElementById('todo-add-area').style.display=isR2?'none':'';document.getElementById('todo-readonly-banner').style.display=isR2?'':'none';document.getElementById('th-actions').style.display=isR2?'none':'';
+  const sw=document.getElementById('room-switch');
+  const b1=document.getElementById('room-btn-1');b1.textContent=R1.settings.classroom||'教室1';b1.classList.toggle('active',currentRoom===1);
+  // 教室2ボタン
+  let b2=document.getElementById('room-btn-2');
+  if(room2Loaded&&R2){if(!b2){b2=document.createElement('button');b2.id='room-btn-2';b2.className='room-btn';b2.onclick=()=>switchRoom(2);sw.appendChild(b2);}b2.textContent=R2.settings.classroom||'教室2';b2.classList.toggle('active',currentRoom===2);}else{b2?.remove();}
+  // 表示専用教室ボタン（3〜6）
+  // 既存の extra ボタンを一旦削除
+  document.querySelectorAll('#room-switch .room-btn-extra').forEach(el=>el.remove());
+  if(ALLOW_EXTRA_ROOMS&&Array.isArray(R1.extraRooms)){
+    R1.extraRooms.forEach((er,i)=>{
+      if(!extraRooms[er.id])return;
+      const btn=document.createElement('button');
+      btn.className='room-btn room-btn-extra';
+      btn.dataset.roomId=er.id;
+      btn.onclick=()=>switchRoom(er.id);
+      btn.textContent=extraRooms[er.id].name||er.name||`教室${3+i}`;
+      btn.classList.toggle('active',currentRoom===er.id);
+      sw.appendChild(btn);
+    });
+  }
+  // 表示制御：フル機能は教室1のみ編集。教室2・表示専用は閲覧
+  const editable=(currentRoom===1);
+  const isViewOnly=!editable;
+  document.getElementById('card-memo').style.display=editable?'':'none';
+  document.getElementById('todo-add-area').style.display=editable?'':'none';
+  document.getElementById('todo-readonly-banner').style.display=isViewOnly?'':'none';
+  document.getElementById('th-actions').style.display=editable?'':'none';
+  // 出勤カード：教室1・教室2は表示、表示専用教室は非表示
+  const showAtt=(currentRoom===1||currentRoom===2);
+  document.getElementById('card-attendance').style.display=showAtt?'':'none';
+  // 引継ぎボタン：表示専用教室では非表示にはせず、常にr1/r2のみ扱う
 }
 function updatePageTitle(){const cn=R1.settings.classroom,t=cn?`${cn}Todoリスト`:'教室Todoリスト';document.title=t;document.getElementById('page-title').textContent=t;}
 
 // ============================================================
 // 設定
 // ============================================================
-function openSettings(){const r=currentRoom;document.getElementById('settings-room-label').textContent=`教室${r}`;document.getElementById('settings-error').className='error-box';if(r===1){document.getElementById('settings-r1').style.display='';document.getElementById('settings-r2').style.display='none';document.getElementById('disp-r1-id').textContent=HTML_ID;document.getElementById('s-classroom').value=R1.settings.classroom||'';document.getElementById('s-inst1').value=R1.settings.inst1||'';document.getElementById('s-inst2').value=R1.settings.inst2||'';document.getElementById('s-inst3').value=R1.settings.inst3||'';document.getElementById('s-inst4').value=R1.settings.inst4||'';buildIconSelector();}else{document.getElementById('settings-r1').style.display='none';document.getElementById('settings-r2').style.display='';document.getElementById('disp-r2-id').textContent=room2Id;document.getElementById('s-classroom-r2').value=R2?.settings.classroom||'';}document.getElementById('modal-settings').classList.add('open');}
+function openSettings(){
+  const r=currentRoom;
+  document.getElementById('settings-error').className='error-box';pendingWeatherLoc=null;
+  const r1El=document.getElementById('settings-r1'),r2El=document.getElementById('settings-r2'),exEl=document.getElementById('settings-extra');
+  r1El.style.display='none';r2El.style.display='none';exEl.style.display='none';
+  if(r===1){
+    document.getElementById('settings-room-label').textContent='教室1';
+    r1El.style.display='';
+    document.getElementById('disp-r1-id').textContent=HTML_ID;
+    document.getElementById('s-classroom').value=R1.settings.classroom||'';
+    document.getElementById('s-inst1').value=R1.settings.inst1||'';
+    document.getElementById('s-inst2').value=R1.settings.inst2||'';
+    document.getElementById('s-inst3').value=R1.settings.inst3||'';
+    document.getElementById('s-inst4').value=R1.settings.inst4||'';
+    document.getElementById('s-weather-loc').value=getWeatherCity();
+    document.getElementById('weather-loc-status').className='weather-loc-status';
+    document.getElementById('weather-loc-status').textContent=`現在の地域：${getWeatherCity()}`;
+    // 表示専用教室追加ボックスの表示制御
+    document.getElementById('add-room-box-extra').style.display=ALLOW_EXTRA_ROOMS?'':'none';
+    if(ALLOW_EXTRA_ROOMS)renderExtraRoomList();
+    buildIconSelector();
+  }else if(r===2){
+    document.getElementById('settings-room-label').textContent='教室2';
+    r2El.style.display='';
+    document.getElementById('disp-r2-id').textContent=room2Id;
+    document.getElementById('s-classroom-r2').value=R2?.settings.classroom||'';
+  }else if(isExtraRoom(r)){
+    const room=extraRooms[r];const idx=(R1.extraRooms||[]).findIndex(er=>er.id===r);
+    document.getElementById('settings-room-label').textContent=`教室${3+(idx<0?0:idx)}（表示専用）`;
+    exEl.style.display='';
+    document.getElementById('disp-extra-id').textContent=r;
+    document.getElementById('s-classroom-extra').value=room?.name||'';
+  }
+  document.getElementById('modal-settings').classList.add('open');
+}
 window.openSettings=openSettings;
 function closeSettings(){document.getElementById('modal-settings').classList.remove('open');}
 window.closeSettings=closeSettings;
-async function saveSettings(){const eb=document.getElementById('settings-error');eb.className='error-box';if(currentRoom===1){R1.settings.classroom=document.getElementById('s-classroom').value.trim();R1.settings.inst1=document.getElementById('s-inst1').value.trim()||'講師1';R1.settings.inst2=document.getElementById('s-inst2').value.trim();R1.settings.inst3=document.getElementById('s-inst3').value.trim();R1.settings.inst4=document.getElementById('s-inst4').value.trim();const ok=await fsPut(HTML_ID,payload1());if(!ok){eb.textContent='❌ 保存できませんでした。';eb.className='error-box show';return;}}else{if(R2){R2.settings.classroom=document.getElementById('s-classroom-r2').value.trim();const p=payload2();if(p){const ok=await fsPut(room2Id,p);if(!ok){eb.textContent='❌ 保存できませんでした。';eb.className='error-box show';return;}}}}closeSettings();applySettings();applyRoomButtons();buildHikitsugiModal();updatePageTitle();showToast('設定を保存しました');}
+async function saveSettings(){
+  const eb=document.getElementById('settings-error');eb.className='error-box';
+  if(currentRoom===1){
+    R1.settings.classroom=document.getElementById('s-classroom').value.trim();
+    R1.settings.inst1=document.getElementById('s-inst1').value.trim()||'講師1';
+    R1.settings.inst2=document.getElementById('s-inst2').value.trim();
+    R1.settings.inst3=document.getElementById('s-inst3').value.trim();
+    R1.settings.inst4=document.getElementById('s-inst4').value.trim();
+    let weatherChanged=false;
+    if(pendingWeatherLoc){R1.settings.weatherLat=pendingWeatherLoc.lat;R1.settings.weatherLon=pendingWeatherLoc.lon;R1.settings.weatherCity=pendingWeatherLoc.city;pendingWeatherLoc=null;weatherChanged=true;}
+    const ok=await fsPut(HTML_ID,payload1());if(!ok){eb.textContent='❌ 保存できませんでした。';eb.className='error-box show';return;}
+    if(weatherChanged){weatherData=null;fetchWeatherData();}
+  }else if(currentRoom===2){
+    if(R2){R2.settings.classroom=document.getElementById('s-classroom-r2').value.trim();const p=payload2();if(p){const ok=await fsPut(room2Id,p);if(!ok){eb.textContent='❌ 保存できませんでした。';eb.className='error-box show';return;}}}
+  }else if(isExtraRoom(currentRoom)){
+    const newName=document.getElementById('s-classroom-extra').value.trim();
+    const er=(R1.extraRooms||[]).find(e=>e.id===currentRoom);
+    if(er){er.name=newName||er.name;if(extraRooms[currentRoom])extraRooms[currentRoom].name=er.name;}
+    const ok=await fsPut(HTML_ID,payload1());if(!ok){eb.textContent='❌ 保存できませんでした。';eb.className='error-box show';return;}
+  }
+  closeSettings();applySettings();applyRoomButtons();buildHikitsugiModal();updatePageTitle();showToast('設定を保存しました');
+}
 window.saveSettings=saveSettings;
-function applySettings(){const s=currentRoom===2?R2?.settings:R1.settings;if(!s)return;const cn=R1.settings.classroom;document.getElementById('main-title-text').textContent=cn?`${cn}教室Todoリスト`:'教室Todoリスト';document.getElementById('classroom-name-display').textContent=s.classroom?`【${s.classroom}】`:'';updateIcon();updatePageTitle();updatePrintBtnLabel();renderTodos();}
+function applySettings(){
+  document.getElementById('main-title-text').textContent=R1.settings.classroom?`${R1.settings.classroom}教室Todoリスト`:'教室Todoリスト';
+  updateIcon();updatePageTitle();updatePrintBtnLabel();renderTodos();
+}
 function renderAll(){renderTodos();buildHikitsugiModal();renderAttendance();renderMemos();}
 
 // ============================================================
@@ -864,27 +1047,37 @@ document.getElementById('todo-deadline').addEventListener('click',e=>{e.stopProp
 // ============================================================
 // TODO
 // ============================================================
+function getCurrentTodoData(){
+  if(currentRoom===1)return R1;
+  if(currentRoom===2)return R2;
+  if(isExtraRoom(currentRoom))return extraRooms[currentRoom];
+  return R1;
+}
 function kozaTimeOpts(cur=''){return KOZA_TIME_OPTS.map(t=>`<option value="${t}" ${cur===t?'selected':''}>${t}</option>`).join('');}
 function normalTimeOpts(cur=''){return['10時','11時','12時','13時','14時','15時','16時','18半','19半','その他'].map(t=>`<option value="${t}" ${cur===t?'selected':''}>${t}</option>`).join('');}
-function onItemChange(){const v=document.getElementById('todo-item').value,ts=document.getElementById('todo-time');if(v==='koza'){ts.innerHTML=kozaTimeOpts();document.getElementById('time-custom-wrap').style.display='none';}else{ts.innerHTML=normalTimeOpts();document.getElementById('time-custom-wrap').style.display='none';}document.getElementById('deadline-wrap').style.display=(v==='koza'||v==='teishutsu'||v==='chui')?'':'none';}
+function onItemChange(){const v=document.getElementById('todo-item').value,ts=document.getElementById('todo-time');if(v==='koza'){ts.innerHTML=kozaTimeOpts();}else{ts.innerHTML=normalTimeOpts();}document.getElementById('time-custom-wrap').style.display='none';
+  const isShiken=v==='shiken';
+  document.getElementById('shiken-type-wrap').style.display=isShiken?'':'none';
+  document.getElementById('deadline-wrap').style.display=(!isShiken&&(v==='koza'||v==='teishutsu'||v==='chui'))?'':'none';
+}
 window.onItemChange=onItemChange;
 function onTimeChange(){document.getElementById('time-custom-wrap').style.display=document.getElementById('todo-time').value==='その他'?'':'none';}
 window.onTimeChange=onTimeChange;
 function timeToNum(t){if(!t)return 99;if(TIME_ORDER[t]!==undefined)return TIME_ORDER[t];const m=t.match(/^(\d+)[時:]?\d*半?$/);if(m)return parseInt(m[1])+(t.includes('半')?0.5:0);return 99;}
 function dateToNum(d){if(!d)return 99999999;const p=d.split('/');if(p.length===3)return parseInt(p[0])*10000+parseInt(p[1])*100+parseInt(p[2]);if(p.length===2){const ny=new Date().getFullYear();return ny*10000+parseInt(p[0])*100+parseInt(p[1]);}return 99999999;}
 function formatDateDisp(d){if(!d)return'—';const p=d.split('/');if(p.length===3)return`${p[1]}/${p[2]}`;return d;}
-async function addTodo(){if(currentRoom!==1)return;const date=document.getElementById('todo-date').value,item=document.getElementById('todo-item').value,tr=document.getElementById('todo-time').value,tc=document.getElementById('todo-time-custom').value.trim();const time=tr==='その他'?(tc||'その他'):tr,content=document.getElementById('todo-content').value.trim();const deadline=document.getElementById('todo-deadline').value,bold=document.getElementById('todo-bold').checked,red=document.getElementById('todo-red').checked;if(!item){alert('項目を選択してください');return;}if(!content){alert('内容を入力してください');return;}const saveDL=(item==='koza'||item==='teishutsu'||item==='chui')?deadline:'';R1.todos.push({id:Date.now(),date,item,time,content,deadline:saveDL,bold,red});await saveR1();renderTodos();clearTodoFormPartial();}
+async function addTodo(){if(currentRoom!==1)return;const date=document.getElementById('todo-date').value,item=document.getElementById('todo-item').value,tr=document.getElementById('todo-time').value,tc=document.getElementById('todo-time-custom').value.trim();const time=tr==='その他'?(tc||'その他'):tr,content=document.getElementById('todo-content').value.trim();const deadline=document.getElementById('todo-deadline').value,bold=document.getElementById('todo-bold').checked,red=document.getElementById('todo-red').checked;const shikenType=document.getElementById('todo-shiken-type').value;if(!item){alert('項目を選択してください');return;}if(!content){alert('内容を入力してください');return;}const saveDL=(item==='koza'||item==='teishutsu'||item==='chui')?deadline:'';const saveST=item==='shiken'?shikenType:'';R1.todos.push({id:Date.now(),date,item,time,content,deadline:saveDL,shikenType:saveST,bold,red});await saveR1();renderTodos();clearTodoFormPartial();}
 window.addTodo=addTodo;
-function clearTodoFormPartial(){document.getElementById('todo-item').value='';document.getElementById('todo-time-custom').value='';document.getElementById('todo-content').value='';document.getElementById('todo-deadline').value='';document.getElementById('todo-bold').checked=false;document.getElementById('todo-red').checked=false;document.getElementById('deadline-wrap').style.display='none';document.getElementById('time-custom-wrap').style.display='none';const ts=document.getElementById('todo-time');ts.innerHTML=normalTimeOpts();ts.value='10時';}
+function clearTodoFormPartial(){document.getElementById('todo-item').value='';document.getElementById('todo-time-custom').value='';document.getElementById('todo-content').value='';document.getElementById('todo-deadline').value='';document.getElementById('todo-shiken-type').value='gaibu';document.getElementById('todo-bold').checked=false;document.getElementById('todo-red').checked=false;document.getElementById('deadline-wrap').style.display='none';document.getElementById('shiken-type-wrap').style.display='none';document.getElementById('time-custom-wrap').style.display='none';const ts=document.getElementById('todo-time');ts.innerHTML=normalTimeOpts();ts.value='10時';}
 async function deleteTodo(id){if(!confirm('削除しますか？'))return;R1.todos=R1.todos.filter(t=>t.id!==id);await saveR1();renderTodos();}
 window.deleteTodo=deleteTodo;
-function copyTodoText(id){const t=(currentRoom===2?R2:R1).todos.find(t=>t.id===id);if(!t)return;const tx=(t.item==='setsumeikai'?'説：':'入：')+t.content;if(navigator.clipboard?.writeText)navigator.clipboard.writeText(tx).then(()=>showToast('コピーしました'));else{const ta=document.createElement('textarea');ta.value=tx;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('コピーしました');}}
+function copyTodoText(id){const rd=getCurrentTodoData();const t=rd?.todos.find(t=>t.id===id);if(!t)return;const tx=(t.item==='setsumeikai'?'説：':'入：')+t.content;if(navigator.clipboard?.writeText)navigator.clipboard.writeText(tx).then(()=>showToast('コピーしました'));else{const ta=document.createElement('textarea');ta.value=tx;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('コピーしました');}}
 window.copyTodoText=copyTodoText;
 function setSort(m){currentSort=m;updateSortButtons();renderTodos();}
 window.setSort=setSort;
 function updateSortButtons(){document.querySelectorAll('.th-sort-btn').forEach(b=>b.classList.remove('active'));document.getElementById(`th-sort-${currentSort}`)?.classList.add('active');}
 function sortedTodos(){
-  const rd=currentRoom===2?R2:R1;if(!rd)return[];
+  const rd=getCurrentTodoData();if(!rd||!Array.isArray(rd.todos))return[];
   const list=rd.todos.map((t,i)=>({...t,_origIdx:i}));
   if(currentSort==='default'){return list.sort((a,b)=>{const aHD=!!a.date,bHD=!!b.date,aIS=DATE_SORT_ITEMS.includes(a.item),bIS=DATE_SORT_ITEMS.includes(b.item);const aNDS=aIS&&!aHD,bNDS=bIS&&!bHD;if(aNDS&&!bNDS)return -1;if(!aNDS&&bNDS)return 1;if(aNDS&&bNDS)return ITEM_ORDER.indexOf(a.item)-ITEM_ORDER.indexOf(b.item);const ad=dateToNum(a.date),bd=dateToNum(b.date);if(ad!==bd)return ad-bd;const td=timeToNum(a.time)-timeToNum(b.time);if(td!==0)return td;return a._origIdx-b._origIdx;});}
   if(currentSort.startsWith('date')){const dir=currentSort==='date-asc'?1:-1;return list.sort((a,b)=>{const dd=(dateToNum(a.date)-dateToNum(b.date))*dir;if(dd!==0)return dd;const td=timeToNum(a.time)-timeToNum(b.time);if(td!==0)return td;return a._origIdx-b._origIdx;});}
@@ -893,7 +1086,7 @@ function sortedTodos(){
   return list;
 }
 function renderTimeCell(time,item){if(item==='koza'){if(time==='開講')return`<span class="time-badge kaiko">開講</span>`;if(time==='閉講')return`<span class="time-badge heiko">閉講</span>`;if(time==='研修')return`<span class="time-badge kenshu">研修</span>`;}return escHtml(time||'');}
-function editTodo(id){if(currentRoom!==1)return;const todo=R1.todos.find(t=>t.id===id);if(!todo)return;const row=document.getElementById('todo-row-'+id);if(!row)return;const isKoza=todo.item==='koza';const isCT=!isKoza&&!Object.keys(TIME_ORDER).includes(todo.time)&&todo.time!=='';const timeOpts=isKoza?kozaTimeOpts(todo.time):['10時','11時','12時','13時','14時','15時','16時','18半','19半','その他'].map(t=>`<option value="${t}" ${(isCT?'その他':todo.time)===t?'selected':''}>${t}</option>`).join('');const hasDL=todo.item==='koza'||todo.item==='teishutsu'||todo.item==='chui';row.innerHTML=`<td class="edit-inline"><div class="cal-wrap" style="position:relative;"><input type="text" class="cal-input" id="ed-date-${id}" value="${todo.date||''}" readonly placeholder="MM/DD" style="width:80px"><div class="cal-popup" id="ed-cal-${id}"></div></div></td><td class="edit-inline"><select id="ed-item-${id}" onchange="onEIC(${id})">${Object.entries(ITEM_LABELS).map(([k,v])=>`<option value="${k}" ${todo.item===k?'selected':''}>${v}</option>`).join('')}</select><div id="ed-dl-${id}" style="margin-top:3px;display:${hasDL?'block':'none'};"><div class="cal-wrap" style="position:relative;"><input type="text" class="cal-input" id="ed-dl-d-${id}" value="${todo.deadline||''}" readonly placeholder="期限" style="width:90px;font-size:0.74rem;"><div class="cal-popup" id="ed-dl-cal-${id}"></div></div></div></td><td class="edit-inline"><select id="ed-time-${id}" onchange="onETC(${id})">${timeOpts}</select><input type="text" id="ed-tc-${id}" style="display:${isCT?'block':'none'};margin-top:2px;" value="${isCT?todo.time:''}" placeholder="時間"></td><td class="edit-inline" colspan="2"><input type="text" id="ed-ct-${id}" value="${escHtml(todo.content)}" style="width:100%"><div style="margin-top:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="display:flex;align-items:center;gap:5px;"><input type="checkbox" id="ed-bold-${id}" ${todo.bold?'checked':''} style="width:14px;height:14px;accent-color:var(--primary);"><label for="ed-bold-${id}" style="font-size:0.76rem;color:var(--text-light);cursor:pointer;">太字</label></div><div style="display:flex;align-items:center;gap:5px;"><input type="checkbox" id="ed-red-${id}" ${todo.red?'checked':''} style="width:14px;height:14px;accent-color:#e74c3c;"><label for="ed-red-${id}" style="font-size:0.76rem;color:#e74c3c;cursor:pointer;">赤字</label></div></div></td><td><div class="btn-action-row"><button class="btn btn-success btn-xs" onclick="saveET(${id})">保存</button><button class="btn btn-gray btn-xs" onclick="renderTodos()">取消</button></div></td>`;
+function editTodo(id){if(currentRoom!==1)return;const todo=R1.todos.find(t=>t.id===id);if(!todo)return;const row=document.getElementById('todo-row-'+id);if(!row)return;const isKoza=todo.item==='koza';const isCT=!isKoza&&!Object.keys(TIME_ORDER).includes(todo.time)&&todo.time!=='';const timeOpts=isKoza?kozaTimeOpts(todo.time):['10時','11時','12時','13時','14時','15時','16時','18半','19半','その他'].map(t=>`<option value="${t}" ${(isCT?'その他':todo.time)===t?'selected':''}>${t}</option>`).join('');const hasDL=todo.item==='koza'||todo.item==='teishutsu'||todo.item==='chui';const isShiken=todo.item==='shiken';const stOpts=`<option value="gaibu" ${todo.shikenType==='gaibu'?'selected':''}>外部</option><option value="jukosei" ${todo.shikenType==='jukosei'?'selected':''}>受講生</option>`;row.innerHTML=`<td class="edit-inline"><div class="cal-wrap" style="position:relative;"><input type="text" class="cal-input" id="ed-date-${id}" value="${todo.date||''}" readonly placeholder="MM/DD" style="width:80px"><div class="cal-popup" id="ed-cal-${id}"></div></div></td><td class="edit-inline"><select id="ed-item-${id}" onchange="onEIC(${id})">${Object.entries(ITEM_LABELS).map(([k,v])=>`<option value="${k}" ${todo.item===k?'selected':''}>${v}</option>`).join('')}</select><div id="ed-dl-${id}" style="margin-top:3px;display:${hasDL?'block':'none'};"><div class="cal-wrap" style="position:relative;"><input type="text" class="cal-input" id="ed-dl-d-${id}" value="${todo.deadline||''}" readonly placeholder="期限" style="width:90px;font-size:0.74rem;"><div class="cal-popup" id="ed-dl-cal-${id}"></div></div></div><div id="ed-st-${id}" style="margin-top:3px;display:${isShiken?'block':'none'};"><select id="ed-st-sel-${id}" style="font-size:0.74rem;">${stOpts}</select></div></td><td class="edit-inline"><select id="ed-time-${id}" onchange="onETC(${id})">${timeOpts}</select><input type="text" id="ed-tc-${id}" style="display:${isCT?'block':'none'};margin-top:2px;" value="${isCT?todo.time:''}" placeholder="時間"></td><td class="edit-inline" colspan="2"><input type="text" id="ed-ct-${id}" value="${escHtml(todo.content)}" style="width:100%"><div style="margin-top:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div style="display:flex;align-items:center;gap:5px;"><input type="checkbox" id="ed-bold-${id}" ${todo.bold?'checked':''} style="width:14px;height:14px;accent-color:var(--primary);"><label for="ed-bold-${id}" style="font-size:0.76rem;color:var(--text-light);cursor:pointer;">太字</label></div><div style="display:flex;align-items:center;gap:5px;"><input type="checkbox" id="ed-red-${id}" ${todo.red?'checked':''} style="width:14px;height:14px;accent-color:#e74c3c;"><label for="ed-red-${id}" style="font-size:0.76rem;color:#e74c3c;cursor:pointer;">赤字</label></div></div></td><td><div class="btn-action-row"><button class="btn btn-success btn-xs" onclick="saveET(${id})">保存</button><button class="btn btn-gray btn-xs" onclick="renderTodos()">取消</button></div></td>`;
   let eY=calYear,eM=calMonth;if(todo.date){const ep=todo.date.split('/');if(ep.length===3){eY=parseInt(ep[0]);eM=parseInt(ep[1])-1;}else if(ep.length===2)eM=parseInt(ep[0])-1;}let dY=calYear,dM=calMonth;if(todo.deadline){const dp=todo.deadline.split('/');if(dp.length===3){dY=parseInt(dp[0]);dM=parseInt(dp[1])-1;}else if(dp.length===2)dM=parseInt(dp[0])-1;}
   const bEC=(pid,yr,mo,inp,sf,nf)=>{const p=document.getElementById(pid);if(!p)return;const td2=new Date(),fd=new Date(yr,mo,1).getDay(),dim=new Date(yr,mo+1,0).getDate(),dip=new Date(yr,mo,0).getDate();const mn2=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];const iv=document.getElementById(inp)?.value||'';let sm=0,sd=0;if(iv){const ivp=iv.split('/');if(ivp.length===3){sm=parseInt(ivp[1]);sd=parseInt(ivp[2]);}else if(ivp.length===2){sm=parseInt(ivp[0]);sd=parseInt(ivp[1]);}}let h=`<div class="cal-header"><button type="button" onclick="event.stopPropagation();${nf}(-1)">◀</button><span>${yr}年 ${mn2[mo]}</span><button type="button" onclick="event.stopPropagation();${nf}(1)">▶</button></div><div class="cal-grid">${['日','月','火','水','木','金','土'].map((d,i)=>`<div class="cal-day-label${i===0?' sun':i===6?' sat':''}">${d}</div>`).join('')}`;for(let i=0;i<fd;i++)h+=`<div class="cal-cell other-month">${dip-fd+1+i}</div>`;for(let d=1;d<=dim;d++){const dw=new Date(yr,mo,d).getDay();let c='cal-cell';if(dw===0)c+=' sun-cell';if(dw===6)c+=' sat-cell';if(d===td2.getDate()&&mo===td2.getMonth()&&yr===td2.getFullYear())c+=' today';if(sm===mo+1&&sd===d)c+=' selected';h+=`<div class="${c}" onclick="${sf}(${d})">${d}</div>`;}const r=(fd+dim)%7===0?0:7-(fd+dim)%7;for(let i=1;i<=r;i++)h+=`<div class="cal-cell other-month">${i}</div>`;h+='</div>';p.innerHTML=h;};
   window[`en_${id}`]=d=>{eM+=d;if(eM<0){eM=11;eY--;}if(eM>11){eM=0;eY++;}bEC(`ed-cal-${id}`,eY,eM,`ed-date-${id}`,`es_${id}`,`en_${id}`);document.getElementById(`ed-cal-${id}`).classList.add('open');};
@@ -904,57 +1097,75 @@ function editTodo(id){if(currentRoom!==1)return;const todo=R1.todos.find(t=>t.id
   const dlI=document.getElementById(`ed-dl-d-${id}`);if(dlI)dlI.addEventListener('click',e=>{e.stopPropagation();document.getElementById(`ed-dl-cal-${id}`).classList.toggle('open');bEC(`ed-dl-cal-${id}`,dY,dM,`ed-dl-d-${id}`,`ds_${id}`,`dn_${id}`);});
 }
 window.editTodo=editTodo;
-function onEIC(id){const v=document.getElementById(`ed-item-${id}`).value,ts=document.getElementById(`ed-time-${id}`);if(ts){if(v==='koza'){ts.innerHTML=kozaTimeOpts();const tc=document.getElementById(`ed-tc-${id}`);if(tc)tc.style.display='none';}else{ts.innerHTML=normalTimeOpts();}}const dw=document.getElementById(`ed-dl-${id}`);if(dw)dw.style.display=(v==='koza'||v==='teishutsu'||v==='chui')?'block':'none';}
+function onEIC(id){const v=document.getElementById(`ed-item-${id}`).value,ts=document.getElementById(`ed-time-${id}`);if(ts){if(v==='koza'){ts.innerHTML=kozaTimeOpts();const tc=document.getElementById(`ed-tc-${id}`);if(tc)tc.style.display='none';}else{ts.innerHTML=normalTimeOpts();}}const isShiken=v==='shiken';const dw=document.getElementById(`ed-dl-${id}`);if(dw)dw.style.display=(!isShiken&&(v==='koza'||v==='teishutsu'||v==='chui'))?'block':'none';const stw=document.getElementById(`ed-st-${id}`);if(stw)stw.style.display=isShiken?'block':'none';}
 window.onEIC=onEIC;
 function onETC(id){document.getElementById(`ed-tc-${id}`).style.display=document.getElementById(`ed-time-${id}`).value==='その他'?'block':'none';}
 window.onETC=onETC;
-async function saveET(id){const t=R1.todos.find(t=>t.id===id);if(!t)return;const ts=document.getElementById(`ed-time-${id}`).value,tc=document.getElementById(`ed-tc-${id}`)?.value.trim()||'',item=document.getElementById(`ed-item-${id}`).value;t.date=document.getElementById(`ed-date-${id}`).value;t.item=item;t.time=ts==='その他'?(tc||'その他'):ts;t.content=document.getElementById(`ed-ct-${id}`).value.trim();t.bold=document.getElementById(`ed-bold-${id}`)?.checked||false;t.red=document.getElementById(`ed-red-${id}`)?.checked||false;t.deadline=(item==='koza'||item==='teishutsu'||item==='chui')?(document.getElementById(`ed-dl-d-${id}`)?.value||''):'';await saveR1();renderTodos();}
+async function saveET(id){const t=R1.todos.find(t=>t.id===id);if(!t)return;const ts=document.getElementById(`ed-time-${id}`).value,tc=document.getElementById(`ed-tc-${id}`)?.value.trim()||'',item=document.getElementById(`ed-item-${id}`).value;t.date=document.getElementById(`ed-date-${id}`).value;t.item=item;t.time=ts==='その他'?(tc||'その他'):ts;t.content=document.getElementById(`ed-ct-${id}`).value.trim();t.bold=document.getElementById(`ed-bold-${id}`)?.checked||false;t.red=document.getElementById(`ed-red-${id}`)?.checked||false;t.deadline=(item==='koza'||item==='teishutsu'||item==='chui')?(document.getElementById(`ed-dl-d-${id}`)?.value||''):'';t.shikenType=item==='shiken'?(document.getElementById(`ed-st-sel-${id}`)?.value||'gaibu'):'';await saveR1();renderTodos();}
 window.saveET=saveET;
-function renderTodos(){const tbody=document.getElementById('todo-tbody'),empty=document.getElementById('todo-empty');const sorted=sortedTodos(),isR2=currentRoom===2;if(sorted.length===0){tbody.innerHTML='';empty.style.display='';return;}empty.style.display='none';let prev=null;tbody.innerHTML=sorted.map(todo=>{const isSpec=DATE_SORT_ITEMS.includes(todo.item),hasDate=!!todo.date,showSB=isSpec&&!hasDate;const rCls=ROW_CLASS[todo.item]||'',tCls=ITEM_TAG[todo.item]||'';let dp=[];if(showSB)dp.push(`<span class="date-special ${todo.item==='chui'?'chui':'kakunin'}">${ITEM_LABELS[todo.item]}</span>`);else dp.push(`<span class="date-normal">${formatDateDisp(todo.date)}</span>`);if(todo.deadline)dp.push(`<span class="deadline-badge">期限:${formatDateDisp(todo.deadline)}</span>`);const isKoza=todo.item==='koza';let cH=escHtml(todo.content);if((todo.bold||isKoza)&&todo.red)cH=`<strong style="color:#e74c3c;">${cH}</strong>`;else if(todo.bold||isKoza)cH=`<strong>${cH}</strong>`;else if(todo.red)cH=`<span style="color:#e74c3c;">${cH}</span>`;let act='';if(!isR2){const hC=todo.item==='setsumeikai'||todo.item==='nyugakusha';act=`<div class="btn-action-row">${hC?`<button class="btn btn-xs" style="background:#27ae60;color:#fff;" title="コピー" onclick="copyTodoText(${todo.id})">📋</button>`:''}<button class="btn btn-xs" style="background:#6c5ce7;color:#fff;" title="編集" onclick="editTodo(${todo.id})">✏️</button><button class="btn btn-danger btn-xs" title="削除" onclick="deleteTodo(${todo.id})">🗑️</button></div>`;}const dk=todo.date||'nodate';let bc='';if(prev!==null&&dk!==prev&&(currentSort==='default'||currentSort.startsWith('date')))bc='date-boundary';prev=dk;return`<tr class="todo-row ${rCls} ${bc}" id="todo-row-${todo.id}"><td><div class="date-label-cell">${dp.join('')}</div></td><td><span class="item-tag ${tCls}">${ITEM_LABELS[todo.item]||todo.item}</span></td><td class="no-wrap">${renderTimeCell(todo.time,todo.item)}</td><td>${cH}</td>${!isR2?`<td>${act}</td>`:''}</tr>`;}).join('');}
+function renderTodos(){const tbody=document.getElementById('todo-tbody'),empty=document.getElementById('todo-empty');const sorted=sortedTodos(),isViewOnly=(currentRoom!==1);if(sorted.length===0){tbody.innerHTML='';empty.style.display='';return;}empty.style.display='none';let prev=null;tbody.innerHTML=sorted.map(todo=>{const isSpec=DATE_SORT_ITEMS.includes(todo.item),hasDate=!!todo.date,showSB=isSpec&&!hasDate;const rCls=ROW_CLASS[todo.item]||'',tCls=ITEM_TAG[todo.item]||'';let dp=[];if(showSB)dp.push(`<span class="date-special ${todo.item==='chui'?'chui':'kakunin'}">${ITEM_LABELS[todo.item]}</span>`);else dp.push(`<span class="date-normal">${formatDateDisp(todo.date)}</span>`);if(todo.deadline)dp.push(`<span class="deadline-badge">期限:${formatDateDisp(todo.deadline)}</span>`);if(todo.item==='shiken'&&todo.shikenType)dp.push(`<span class="shiken-badge ${todo.shikenType==='gaibu'?'gaibu':'jukosei'}">${SHIKEN_TYPE_LABELS[todo.shikenType]||''}</span>`);const isKoza=todo.item==='koza';let cH=escHtml(todo.content);if((todo.bold||isKoza)&&todo.red)cH=`<strong style="color:#e74c3c;">${cH}</strong>`;else if(todo.bold||isKoza)cH=`<strong>${cH}</strong>`;else if(todo.red)cH=`<span style="color:#e74c3c;">${cH}</span>`;let act='';if(!isViewOnly){const hC=todo.item==='setsumeikai'||todo.item==='nyugakusha';act=`<div class="btn-action-row">${hC?`<button class="btn btn-xs" style="background:#27ae60;color:#fff;" title="コピー" onclick="copyTodoText(${todo.id})">📋</button>`:''}<button class="btn btn-xs" style="background:#6c5ce7;color:#fff;" title="編集" onclick="editTodo(${todo.id})">✏️</button><button class="btn btn-danger btn-xs" title="削除" onclick="deleteTodo(${todo.id})">🗑️</button></div>`;}const dk=todo.date||'nodate';let bc='';if(prev!==null&&dk!==prev&&(currentSort==='default'||currentSort.startsWith('date')))bc='date-boundary';prev=dk;return`<tr class="todo-row ${rCls} ${bc}" id="todo-row-${todo.id}"><td><div class="date-label-cell">${dp.join('')}</div></td><td><span class="item-tag ${tCls}">${ITEM_LABELS[todo.item]||todo.item}</span></td><td class="no-wrap">${renderTimeCell(todo.time,todo.item)}</td><td>${cH}</td>${!isViewOnly?`<td>${act}</td>`:''}</tr>`;}).join('');}
 window.renderTodos=renderTodos;
 
 // ============================================================
-// 出勤状況タブ
+// 出勤状況（教室1=編集、教室2=閲覧。表示専用教室ではカード自体非表示）
 // ============================================================
-function switchAttTab(tab){currentAttTab=tab;document.getElementById('att-tab-img-btn').classList.toggle('active',tab==='img');document.getElementById('att-tab-pdf-btn').classList.toggle('active',tab==='pdf');document.getElementById('att-tab-img').classList.toggle('active',tab==='img');document.getElementById('att-tab-pdf').classList.toggle('active',tab==='pdf');}
+function getAttData(){return currentRoom===2?R2:R1;}
+function isAttEditable(){return currentRoom===1;}
+function renderAttendance(){if(currentRoom!==1&&currentRoom!==2)return;const rd=getAttData();if(!rd)return;if(!rd.attendanceTabs)rd.attendanceTabs=[];const tabs=rd.attendanceTabs;if(currentAttTab>=tabs.length)currentAttTab=Math.max(0,tabs.length-1);renderAttTabs();renderAttTabContent();}
+function renderAttTabs(){
+  const rd=getAttData();const tabs=rd.attendanceTabs||[];const editable=isAttEditable();
+  const bar=document.getElementById('att-tabs');
+  let html=tabs.map((t,i)=>`<button class="att-tab-btn${i===currentAttTab?' active':''}" onclick="switchAttTab(${i})">🖼️ ${escHtml(t.name||'出勤表'+(i+1))}</button>`).join('');
+  if(editable)html+=`<button class="att-tab-add" onclick="addAttTab()">＋ タブ追加</button>`;
+  if(tabs.length===0&&!editable)html=`<span class="text-muted" style="padding:8px;">出勤表がありません</span>`;
+  bar.innerHTML=html;
+}
+function renderAttTabContent(){
+  const rd=getAttData();const tabs=rd.attendanceTabs||[];const editable=isAttEditable();
+  const cont=document.getElementById('att-contents');
+  if(tabs.length===0){cont.innerHTML=`<div class="empty-state" style="padding:20px 0;"><div class="icon">📂</div>出勤表タブがありません${editable?'<br><span style="font-size:0.75rem;">「＋ タブ追加」から作成してください</span>':''}</div>`;return;}
+  const tab=tabs[currentAttTab];if(!tab)return;
+  const addedStr=tab.addedAt?new Date(tab.addedAt).toLocaleString('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}):'';
+  const imgs=tab.images||[];
+  let toolbar='';
+  if(editable){
+    toolbar=`<div class="att-tab-toolbar">
+      <button class="btn btn-info btn-xs" onclick="pasteAttendanceImage()">📋 画像を貼り付け</button>
+      <button class="btn btn-warning btn-xs" onclick="renameAttTab(${currentAttTab})">✏️ 名前変更</button>
+      <button class="btn btn-gray btn-xs" onclick="moveAttTab(${currentAttTab},-1)" ${currentAttTab===0?'disabled':''}>◀ 左へ</button>
+      <button class="btn btn-gray btn-xs" onclick="moveAttTab(${currentAttTab},1)" ${currentAttTab===tabs.length-1?'disabled':''}>右へ ▶</button>
+      <button class="btn btn-danger btn-xs" onclick="deleteAttTab(${currentAttTab})">🗑️ タブ削除</button>
+      <span class="tab-added-at">🕒 追加日時：${addedStr}</span>
+    </div>`;
+  }else{
+    toolbar=`<div class="att-tab-toolbar"><span class="tab-added-at" style="margin-left:0;">🕒 追加日時：${addedStr}</span></div>`;
+  }
+  const imgHtml=imgs.length===0?`<div class="text-muted" style="padding:8px;">画像がありません。${editable?'「画像を貼り付け」またはCtrl+Vで登録してください。':''}</div>`:imgs.map((s,i)=>`<div class="attendance-img-wrap" onclick="openLightbox(${currentAttTab},${i})"><img src="${s}" alt="出勤${i+1}">${editable?`<button class="attendance-img-del" onclick="event.stopPropagation();delAttImg(${currentAttTab},${i})">✕</button>`:''}</div>`).join('');
+  cont.innerHTML=`<div class="att-tab-content active">${toolbar}<div class="attendance-images">${imgHtml}</div>${editable?'<span class="text-muted">※ この出勤表を選択した状態で Ctrl+V を押すと画像が貼り付けられます</span>':''}</div>`;
+}
+function switchAttTab(i){currentAttTab=i;renderAttTabs();renderAttTabContent();}
 window.switchAttTab=switchAttTab;
-
-// ============================================================
-// 出勤状況 — 画像
-// ============================================================
-function renderAttendance(){if(currentRoom!==1)return;renderAttImages();renderAttPdfs();}
-function renderAttImages(){const c=document.getElementById('attendance-images'),imgs=R1.attendanceImages;if(!imgs||imgs.length===0){c.innerHTML='<div class="text-muted" style="padding:8px;">画像がありません。「画像を貼り付け」から登録してください。</div>';return;}c.innerHTML=imgs.map((s,i)=>`<div class="attendance-img-wrap" onclick="openLightbox(${i})"><img src="${s}" alt="出勤${i+1}"><button class="attendance-img-del" onclick="event.stopPropagation();delAtt(${i})">✕</button></div>`).join('');}
-async function pasteAttendanceImage(){try{const items=await navigator.clipboard.read();let f=false;for(const it of items){for(const tp of it.types){if(tp.startsWith('image/')){const bl=await it.getType(tp);const rd=new FileReader();rd.onload=async e=>{R1.attendanceImages.push(e.target.result);await saveR1();renderAttImages();showToast('画像を登録しました');};rd.readAsDataURL(bl);f=true;break;}}if(f)break;}if(!f)showToast('クリップボードに画像がありません');}catch(e){showToast('Ctrl+V で貼り付けてください');}}
+async function addAttTab(){if(!isAttEditable())return;if(!R1.attendanceTabs)R1.attendanceTabs=[];const name=prompt('新しいタブの名前を入力してください',`出勤表${R1.attendanceTabs.length+1}`);if(name===null)return;R1.attendanceTabs.push({id:Date.now(),name:name.trim()||`出勤表${R1.attendanceTabs.length+1}`,addedAt:new Date().toISOString(),images:[]});currentAttTab=R1.attendanceTabs.length-1;await saveR1();renderAttendance();showToast('タブを追加しました');}
+window.addAttTab=addAttTab;
+async function renameAttTab(i){if(!isAttEditable())return;const tab=R1.attendanceTabs[i];if(!tab)return;const name=prompt('タブ名を入力してください',tab.name||'');if(name===null)return;tab.name=name.trim()||tab.name;await saveR1();renderAttendance();showToast('タブ名を変更しました');}
+window.renameAttTab=renameAttTab;
+async function moveAttTab(i,dir){if(!isAttEditable())return;const arr=R1.attendanceTabs;const j=i+dir;if(j<0||j>=arr.length)return;[arr[i],arr[j]]=[arr[j],arr[i]];currentAttTab=j;await saveR1();renderAttendance();}
+window.moveAttTab=moveAttTab;
+async function deleteAttTab(i){if(!isAttEditable())return;const tab=R1.attendanceTabs[i];if(!tab)return;if(!confirm(`タブ「${tab.name}」を削除しますか？（画像も削除されます）`))return;R1.attendanceTabs.splice(i,1);if(currentAttTab>=R1.attendanceTabs.length)currentAttTab=Math.max(0,R1.attendanceTabs.length-1);await saveR1();renderAttendance();showToast('タブを削除しました');}
+window.deleteAttTab=deleteAttTab;
+async function addImageToCurrentTab(dataUrl){if(!isAttEditable())return;if(!R1.attendanceTabs||R1.attendanceTabs.length===0){R1.attendanceTabs=[{id:Date.now(),name:'出勤表1',addedAt:new Date().toISOString(),images:[]}];currentAttTab=0;}const tab=R1.attendanceTabs[currentAttTab];if(!tab)return;tab.images.push(dataUrl);await saveR1();renderAttendance();showToast('画像を登録しました');}
+async function pasteAttendanceImage(){if(!isAttEditable())return;try{const items=await navigator.clipboard.read();let f=false;for(const it of items){for(const tp of it.types){if(tp.startsWith('image/')){const bl=await it.getType(tp);const rd=new FileReader();rd.onload=e=>addImageToCurrentTab(e.target.result);rd.readAsDataURL(bl);f=true;break;}}if(f)break;}if(!f)showToast('クリップボードに画像がありません');}catch(e){showToast('Ctrl+V で貼り付けてください');}}
 window.pasteAttendanceImage=pasteAttendanceImage;
-document.addEventListener('paste',async e=>{if(currentRoom!==1||currentAttTab!=='img')return;const items=(e.clipboardData||window.clipboardData).items;for(const it of items){if(it.type.startsWith('image/')){const bl=it.getAsFile();const rd=new FileReader();rd.onload=async ev=>{R1.attendanceImages.push(ev.target.result);await saveR1();renderAttImages();showToast('画像を登録しました');};rd.readAsDataURL(bl);e.preventDefault();break;}}});
-async function delAtt(i){if(!confirm('削除しますか？'))return;R1.attendanceImages.splice(i,1);await saveR1();renderAttImages();}
-window.delAtt=delAtt;
-function openLightbox(i){document.getElementById('lightbox-img').src=R1.attendanceImages[i];document.getElementById('lightbox').classList.add('open');}
+document.addEventListener('paste',e=>{if(!isAttEditable())return;const items=(e.clipboardData||window.clipboardData).items;for(const it of items){if(it.type.startsWith('image/')){const bl=it.getAsFile();const rd=new FileReader();rd.onload=ev=>addImageToCurrentTab(ev.target.result);rd.readAsDataURL(bl);e.preventDefault();break;}}});
+async function delAttImg(ti,i){if(!isAttEditable())return;if(!confirm('この画像を削除しますか？'))return;const tab=R1.attendanceTabs[ti];if(!tab)return;tab.images.splice(i,1);await saveR1();renderAttendance();}
+window.delAttImg=delAttImg;
+function openLightbox(ti,i){const rd=getAttData();const tab=rd.attendanceTabs?.[ti];if(!tab)return;document.getElementById('lightbox-img').src=tab.images[i];document.getElementById('lightbox').classList.add('open');}
 window.openLightbox=openLightbox;
 function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
 window.closeLightbox=closeLightbox;
 
 // ============================================================
-// 出勤状況 — PDF
-// ============================================================
-function fmtSize(bytes){if(bytes<1024)return`${bytes}B`;if(bytes<1024*1024)return`${(bytes/1024).toFixed(1)}KB`;return`${(bytes/1024/1024).toFixed(2)}MB`;}
-function pdfToBase64(file){return new Promise((res,rej)=>{const rd=new FileReader();rd.onload=e=>res(e.target.result);rd.onerror=rej;rd.readAsDataURL(file);});}
-window.onPdfDragOver=function(e){e.preventDefault();e.stopPropagation();document.getElementById('pdf-drop-zone').classList.add('drag-over');};
-window.onPdfDragLeave=function(e){e.stopPropagation();document.getElementById('pdf-drop-zone').classList.remove('drag-over');};
-window.onPdfDrop=async function(e){e.preventDefault();e.stopPropagation();document.getElementById('pdf-drop-zone').classList.remove('drag-over');const files=[...e.dataTransfer.files].filter(f=>f.type==='application/pdf');if(files.length===0){showToast('PDFファイルを選択してください');return;}await addPdfFiles(files);};
-window.onPdfFileSelect=async function(e){const files=[...e.target.files];e.target.value='';await addPdfFiles(files);};
-async function addPdfFiles(files){let added=0,skipped=0;for(const file of files){if(file.size>PDF_MAX_SIZE){showToast(`❌ ${file.name}（${fmtSize(file.size)}）はサイズが大きすぎます（上限約1MB）`);skipped++;continue;}if(file.size>PDF_WARN_SIZE){const ok=confirm(`⚠️ ${file.name}（${fmtSize(file.size)}）は700KBを超えています。\nFirestoreの容量制限に近い可能性があります。続けますか？`);if(!ok){skipped++;continue;}}try{const b64=await pdfToBase64(file);if(!R1.attendancePdfs)R1.attendancePdfs=[];R1.attendancePdfs.push({id:Date.now()+Math.random(),name:file.name,size:file.size,addedAt:new Date().toISOString(),data:b64});added++;}catch(e){showToast(`❌ ${file.name} の読み込みに失敗しました`);skipped++;}}if(added>0){await saveR1();renderAttPdfs();updatePdfBadge();showToast(`📄 ${added}件のPDFを登録しました${skipped>0?`（${skipped}件スキップ）`:''}`);}else if(skipped>0){showToast(`${skipped}件のPDFをスキップしました`);}}
-function renderAttPdfs(){if(!R1.attendancePdfs)R1.attendancePdfs=[];const list=document.getElementById('pdf-list');updatePdfBadge();if(R1.attendancePdfs.length===0){list.innerHTML='<div class="empty-state" style="padding:20px 0;"><div class="icon">📂</div>PDFがありません<br><span style="font-size:0.75rem;">下の追加エリアからPDFを登録してください</span></div>';return;}list.innerHTML=R1.attendancePdfs.map((pdf,i)=>{const addedDate=pdf.addedAt?new Date(pdf.addedAt).toLocaleDateString('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit'}):'';return`<div class="pdf-item" id="pdf-item-${i}"><div class="pdf-item-header"><div class="pdf-item-icon">📄</div><div class="pdf-item-info"><div class="pdf-item-name" title="${escHtml(pdf.name)}">${escHtml(pdf.name)}</div><div class="pdf-item-meta"><span>📦 ${fmtSize(pdf.size)}</span>${addedDate?`<span>📅 ${addedDate}</span>`:''}</div></div><div class="pdf-item-actions"><button class="btn btn-info btn-xs" onclick="openPdfLightbox(${i})" title="全画面表示">⛶ 全画面</button><button class="btn btn-success btn-xs" onclick="downloadPdf(${i})" title="ダウンロード">⬇️</button><button class="btn btn-danger btn-xs" onclick="delPdf(${i})" title="削除">🗑️</button></div></div><div class="pdf-preview-always"><iframe src="${escHtml(pdf.data)}" title="${escHtml(pdf.name)}"></iframe></div></div>`;}).join('');}
-window.openPdfLightbox=function(i){if(!R1.attendancePdfs[i])return;const pdf=R1.attendancePdfs[i];currentPdfLbData=pdf;document.getElementById('pdf-lb-title').textContent=pdf.name;document.getElementById('pdf-lb-iframe').src=pdf.data;document.getElementById('pdf-lightbox').classList.add('open');};
-window.closePdfLightbox=function(){document.getElementById('pdf-lightbox').classList.remove('open');document.getElementById('pdf-lb-iframe').src='';currentPdfLbData=null;};
-window.downloadPdfLb=function(){if(currentPdfLbData)downloadPdfById(currentPdfLbData);};
-window.downloadPdf=function(i){if(!R1.attendancePdfs[i])return;downloadPdfById(R1.attendancePdfs[i]);};
-function downloadPdfById(pdf){const a=document.createElement('a');a.href=pdf.data;a.download=pdf.name;document.body.appendChild(a);a.click();document.body.removeChild(a);showToast(`⬇️ ${pdf.name} をダウンロードしました`);}
-window.delPdf=async function(i){if(!confirm(`「${R1.attendancePdfs[i]?.name}」を削除しますか？`))return;R1.attendancePdfs.splice(i,1);await saveR1();renderAttPdfs();showToast('PDFを削除しました');};
-function updatePdfBadge(){const cnt=R1.attendancePdfs?.length||0;const badge=document.getElementById('pdf-count-badge');if(badge){badge.style.display=cnt>0?'':'none';badge.textContent=cnt;}}
-
-// ============================================================
-// 引継ぎ
+// 引継ぎ（r1/r2 のみ。表示専用教室は関与しない）
 // ============================================================
 function todayStr(){const n=new Date();return`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;}
 function hikiDateDisp(s){if(!s)return'';const p=s.split('-');if(p.length===3)return`${p[1]}/${p[2]}`;return s;}
@@ -991,22 +1202,21 @@ async function addHikitsugi(ti){
   getHL(tab.key).push(newItem);
   ed.innerHTML='';
   if(dateInput)dateInput.value=todayStr();
-  // アラートフラグをオンにしてから保存（onSnapshotで全端末に配信される）
+  if(tab.key.startsWith('r2_')&&R2){R2.hikitsugi[tab.key]=R1.hikitsugi[tab.key];}
   await setAlertOn(tab.key,'add',tab.label);
-  // setAlertOnの中でsaveR1が呼ばれるのでhikitsugiも同時に保存される
   refreshHL(ti);updateHikitsugiBadge();
 }
 window.addHikitsugi=addHikitsugi;
 
-async function toggleHiki(ti,id){const tabs=getHikiTabs(),tab=tabs[ti];if(!tab)return;const it=getHL(tab.key).find(h=>h.id===id);if(it){it.done=!it.done;await saveHikiForTab(tab.key);refreshHL(ti);updateHikitsugiBadge();}}
+async function toggleHiki(ti,id){const tabs=getHikiTabs(),tab=tabs[ti];if(!tab)return;const it=getHL(tab.key).find(h=>h.id===id);if(it){it.done=!it.done;if(tab.key.startsWith('r2_')&&R2)R2.hikitsugi[tab.key]=R1.hikitsugi[tab.key];await saveHikiForTab(tab.key);refreshHL(ti);updateHikitsugiBadge();}}
 window.toggleHiki=toggleHiki;
-async function deleteHiki(ti,id){const tabs=getHikiTabs(),tab=tabs[ti];if(!tab)return;const list=getHL(tab.key),i=list.findIndex(h=>h.id===id);if(i>-1)list.splice(i,1);await saveHikiForTab(tab.key);refreshHL(ti);updateHikitsugiBadge();}
+async function deleteHiki(ti,id){const tabs=getHikiTabs(),tab=tabs[ti];if(!tab)return;const list=getHL(tab.key),i=list.findIndex(h=>h.id===id);if(i>-1)list.splice(i,1);if(tab.key.startsWith('r2_')&&R2)R2.hikitsugi[tab.key]=R1.hikitsugi[tab.key];await saveHikiForTab(tab.key);refreshHL(ti);updateHikitsugiBadge();}
 window.deleteHiki=deleteHiki;
 function editHiki(ti,id){const tabs=getHikiTabs(),tab=tabs[ti];if(!tab)return;const it=getHL(tab.key).find(h=>h.id===id);if(!it)return;const ct=document.getElementById(`hiki-item-${ti}-${id}`);if(!ct)return;const body=ct.querySelector('.hiki-item-body'),acts=ct.querySelector('.hiki-saved-item-actions');const curDate=it.date||todayStr();body.innerHTML=`<div class="rich-editor-wrap" style="flex:1;"><div class="rich-toolbar" style="padding:4px 6px;"><button onclick="hEC('hiki-edit-${ti}-${id}','bold')"><b>B</b></button><button onclick="hEC('hiki-edit-${ti}-${id}','italic')"><i>I</i></button><button onclick="hEC('hiki-edit-${ti}-${id}','underline')"><u>U</u></button><button onclick="hEC('hiki-edit-${ti}-${id}','removeFormat')">✕</button></div><div id="hiki-edit-${ti}-${id}" class="rich-editor" contenteditable="true" spellcheck="false" style="min-height:60px;">${it.html}</div></div><div style="margin-top:6px;display:flex;align-items:center;gap:6px;"><label style="font-size:0.73rem;color:var(--text-light);font-weight:600;">📅 日付：</label><input type="date" id="hiki-edit-date-${ti}-${id}" value="${curDate}" style="border:1.5px solid var(--border);border-radius:6px;padding:4px 8px;font-size:0.78rem;font-family:inherit;"></div>`;acts.innerHTML=`<button class="btn btn-success btn-xs" onclick="saveHE(${ti},${id})">保存</button><button class="btn btn-gray btn-xs" onclick="refreshHL(${ti})">取消</button>`;}
 window.editHiki=editHiki;
 function hEC(eid,cmd){const ed=document.getElementById(eid);if(ed){ed.focus();document.execCommand(cmd,false,null);}}
 window.hEC=hEC;
-async function saveHE(ti,id){const tabs=getHikiTabs(),tab=tabs[ti];if(!tab)return;const it=getHL(tab.key).find(h=>h.id===id);if(!it)return;const ed=document.getElementById(`hiki-edit-${ti}-${id}`);if(ed)it.html=ed.innerHTML.trim();const di=document.getElementById(`hiki-edit-date-${ti}-${id}`);if(di)it.date=di.value;await saveHikiForTab(tab.key);refreshHL(ti);}
+async function saveHE(ti,id){const tabs=getHikiTabs(),tab=tabs[ti];if(!tab)return;const it=getHL(tab.key).find(h=>h.id===id);if(!it)return;const ed=document.getElementById(`hiki-edit-${ti}-${id}`);if(ed)it.html=ed.innerHTML.trim();const di=document.getElementById(`hiki-edit-date-${ti}-${id}`);if(di)it.date=di.value;if(tab.key.startsWith('r2_')&&R2)R2.hikitsugi[tab.key]=R1.hikitsugi[tab.key];await saveHikiForTab(tab.key);refreshHL(ti);}
 window.saveHE=saveHE;
 
 async function addReply(ti,itemId){
@@ -1018,24 +1228,20 @@ async function addReply(ti,itemId){
   const author=asel?asel.value:'';
   const rawText=(tinp?tinp.value:'').trim();
   if(!rawText){showToast('返信内容を入力してください');return;}
-  // 改行を<br>に変換してHTML形式で保存
   const text=escHtml(rawText).replace(/\n/g,'<br>');
   const newReply={id:Date.now(),author,text,date:todayStr()};
   it.replies.push(newReply);
   if(tinp)tinp.value='';
+  if(tab.key.startsWith('r2_')&&R2)R2.hikitsugi[tab.key]=R1.hikitsugi[tab.key];
   await setAlertOn(tab.key,'reply',tab.label);
   refreshHL(ti);
 }
 window.addReply=addReply;
-// Enter単体で送信、Shift+Enterで改行
 function onReplyKeyDown(e,ti,itemId){
-  if(e.key==='Enter'&&!e.shiftKey){
-    e.preventDefault();
-    addReply(ti,itemId);
-  }
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();addReply(ti,itemId);}
 }
 window.onReplyKeyDown=onReplyKeyDown;
-async function deleteReply(ti,itemId,replyId){if(!confirm('この返信を削除しますか？'))return;const tabs=getHikiTabs(),tab=tabs[ti];if(!tab)return;const it=getHL(tab.key).find(h=>h.id===itemId);if(!it||!it.replies)return;it.replies=it.replies.filter(r=>r.id!==replyId);await saveHikiForTab(tab.key);refreshHL(ti);}
+async function deleteReply(ti,itemId,replyId){if(!confirm('この返信を削除しますか？'))return;const tabs=getHikiTabs(),tab=tabs[ti];if(!tab)return;const it=getHL(tab.key).find(h=>h.id===itemId);if(!it||!it.replies)return;it.replies=it.replies.filter(r=>r.id!==replyId);if(tab.key.startsWith('r2_')&&R2)R2.hikitsugi[tab.key]=R1.hikitsugi[tab.key];await saveHikiForTab(tab.key);refreshHL(ti);}
 window.deleteReply=deleteReply;
 function refreshHL(ti){const tabs=getHikiTabs(),tab=tabs[ti];if(!tab)return;const items=getHL(tab.key),le=document.getElementById(`hiki-list-${ti}`);if(!le)return;if(items.length===0){le.innerHTML='<div class="empty-state" style="padding:12px 0;"><div class="icon">📭</div>引継ぎ事項はありません</div>';return;}le.innerHTML=items.map(it=>buildHikiItemHTML(it,ti)).join('');}
 window.refreshHL=refreshHL;
@@ -1068,7 +1274,7 @@ function renderMemos(){if(currentRoom!==1)return;const list=document.getElementB
 // ユーティリティ
 // ============================================================
 function showToast(msg){let t=document.getElementById('toast');if(!t){t=document.createElement('div');t.id='toast';t.style.cssText='position:fixed;bottom:54px;left:50%;transform:translateX(-50%) translateY(60px);background:#2c3e50;color:#fff;padding:9px 20px;border-radius:22px;font-size:0.85rem;z-index:99999;transition:transform 0.22s,opacity 0.22s;opacity:0;pointer-events:none;';document.body.appendChild(t);}t.textContent=msg;t.style.transform='translateX(-50%) translateY(0)';t.style.opacity='1';clearTimeout(t._t);t._t=setTimeout(()=>{t.style.transform='translateX(-50%) translateY(60px)';t.style.opacity='0';},2500);}
-function escHtml(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function escHtml(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 </script>
 </body>
 </html>
