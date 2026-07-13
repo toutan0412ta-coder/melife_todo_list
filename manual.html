@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教室管理TODOリスト｜使い方マニュアル</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --primary:#4f6ef7;--primary-dark:#3a56d4;--danger:#e74c3c;--success:#27ae60;
+  --warning:#f39c12;--info:#2980b9;--bg:#f0f2f7;--card:#fff;--border:#dde1ef;
+  --text:#2c3e50;--text-light:#7f8c9a;--radius:12px;--shadow:0 2px 12px rgba(0,0,0,.08);
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{font-family:'Segoe UI','Hiragino Sans','Yu Gothic',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;word-break:break-word;}
+img,svg{max-width:100%;height:auto;}
+/* ===== レイアウト ===== */
+.manual-header{background:linear-gradient(135deg,#4f6ef7,#6c8cfa);color:#fff;padding:34px 20px 30px;text-align:center;box-shadow:0 3px 12px rgba(79,110,247,.3);}
+.manual-header h1{font-size:clamp(1.2rem,4vw,1.7rem);font-weight:800;letter-spacing:.03em;margin-bottom:6px;}
+.manual-header p{font-size:clamp(.78rem,2.5vw,.9rem);opacity:.9;}
+.wrap{max-width:900px;margin:0 auto;padding:24px 16px 80px;display:flex;gap:24px;align-items:flex-start;}
+/* 目次 */
+.toc{position:sticky;top:16px;flex-shrink:0;width:220px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 14px;font-size:.85rem;}
+.toc-title{font-weight:800;color:var(--primary);margin-bottom:10px;font-size:.9rem;border-bottom:2px solid var(--border);padding-bottom:8px;display:flex;align-items:center;justify-content:space-between;}
+.toc-toggle{display:none;background:none;border:none;color:var(--primary);font-size:1rem;cursor:pointer;padding:0 4px;}
+.toc-links a{display:block;color:var(--text);text-decoration:none;padding:6px 8px;border-radius:6px;transition:.15s;border-left:3px solid transparent;}
+.toc-links a:hover{background:#eef1ff;color:var(--primary);border-left-color:var(--primary);}
+.content{flex:1;min-width:0;}
+/* セクション */
+.section{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 22px;margin-bottom:22px;scroll-margin-top:16px;}
+.section h2{font-size:clamp(1.05rem,3.2vw,1.25rem);color:var(--primary);font-weight:800;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.section h3{font-size:1.02rem;color:var(--text);font-weight:700;margin:20px 0 10px;padding-left:10px;border-left:4px solid var(--primary);}
+.section p{margin-bottom:12px;font-size:.92rem;}
+.section ol,.section ul{margin:0 0 14px 22px;font-size:.92rem;}
+.section li{margin-bottom:7px;}
+.tag{display:inline-block;background:var(--primary);color:#fff;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:20px;vertical-align:middle;}
+.note{background:#f0f7ff;border:1.5px solid #b8d4f7;border-radius:8px;padding:12px 15px;font-size:.86rem;color:#2471a3;margin:14px 0;}
+.note strong{color:#1a5a8a;}
+.warn{background:#fff8ef;border:1.5px solid #f5c88a;border-radius:8px;padding:12px 15px;font-size:.86rem;color:#b06000;margin:14px 0;}
+.tip{background:#effaf3;border:1.5px solid #a8dbbe;border-radius:8px;padding:12px 15px;font-size:.86rem;color:#1a7a3c;margin:14px 0;}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:var(--primary);color:#fff;border-radius:50%;font-size:.78rem;font-weight:700;margin-right:6px;flex-shrink:0;}
+kbd{background:#2c3e50;color:#fff;border-radius:5px;padding:2px 8px;font-size:.8rem;font-family:'Courier New',monospace;font-weight:700;white-space:nowrap;}
+/* 模擬スクショ枠 */
+.mock{border:1.5px solid var(--border);border-radius:10px;overflow:hidden;margin:14px 0;box-shadow:0 2px 10px rgba(0,0,0,.07);background:#fff;}
+.mock-cap{font-size:.78rem;color:var(--text-light);text-align:center;margin:-6px 0 16px;font-style:italic;}
+/* ===== UIモック共通パーツ ===== */
+.m-topbar{background:#2c3e50;min-height:26px;display:flex;align-items:center;gap:8px;padding:5px 14px;flex-wrap:wrap;}
+.m-topbar span{background:rgba(255,255,255,.15);color:#fff;font-size:.6rem;padding:2px 9px;border-radius:3px;}
+.m-header{background:linear-gradient(135deg,#4f6ef7,#6c8cfa);color:#fff;padding:9px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.m-header .m-logo{width:26px;height:26px;background:rgba(255,255,255,.25);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;}
+.m-header .m-title{font-weight:700;font-size:.8rem;}
+.m-room{display:flex;gap:5px;}
+.m-room span{border:1.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.15);color:#fff;font-size:.66rem;padding:3px 12px;border-radius:14px;font-weight:700;}
+.m-room span.on{background:#fff;color:var(--primary);}
+.m-header .m-right{margin-left:auto;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.m-chip{background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.3);border-radius:14px;padding:3px 10px;font-size:.64rem;display:flex;align-items:center;gap:4px;}
+.m-btn{background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.4);color:#fff;font-size:.64rem;padding:3px 8px;border-radius:6px;}
+.m-body{padding:12px;background:var(--bg);}
+.m-card{background:#fff;border-radius:8px;padding:12px;box-shadow:0 1px 6px rgba(0,0,0,.06);}
+.m-card-title{font-size:.78rem;font-weight:700;color:var(--primary);border-bottom:2px solid var(--border);padding-bottom:6px;margin-bottom:9px;}
+.m-form{background:#f7f9ff;border:1.5px solid var(--border);border-radius:6px;padding:9px;display:flex;gap:6px;flex-wrap:wrap;align-items:flex-end;}
+.m-fg{display:flex;flex-direction:column;gap:2px;}
+.m-fg label{font-size:.58rem;color:var(--text-light);font-weight:700;}
+.m-fg .box{border:1.5px solid var(--border);border-radius:5px;background:#fff;font-size:.64rem;padding:4px 7px;color:var(--text);min-width:52px;}
+.m-fg .box.sel::after{content:' ▾';color:var(--primary);}
+.m-add{background:var(--primary);color:#fff;font-size:.66rem;font-weight:700;padding:5px 11px;border-radius:6px;}
+.m-tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.m-tbl{width:100%;border-collapse:collapse;margin-top:9px;font-size:.66rem;min-width:340px;}
+.m-tbl th{background:#f0f2f7;color:var(--text-light);font-weight:700;padding:5px 6px;text-align:left;border-bottom:2px solid var(--border);white-space:nowrap;}
+.m-tbl td{padding:5px 6px;border-bottom:1px solid var(--border);}
+.m-itag{color:#fff;font-size:.6rem;font-weight:700;padding:1px 6px;border-radius:10px;white-space:nowrap;}
+.tg-set{background:#8e44ad;}.tg-nyu{background:#2980b9;}.tg-kak{background:#e67e22;}.tg-chu{background:#e74c3c;}.tg-koz{background:#16a085;}.tg-shi{background:#d35400;}.tg-tei{background:#c0392b;}
+.m-sbadge{color:#fff;font-size:.56rem;font-weight:700;padding:1px 5px;border-radius:3px;white-space:nowrap;}
+.sb-g{background:#8e44ad;}.sb-j{background:#16a085;}
+.m-atttabs{display:flex;gap:4px;border-bottom:2px solid var(--border);margin-bottom:8px;flex-wrap:wrap;align-items:center;}
+.m-atttabs .t{font-size:.66rem;font-weight:700;padding:5px 10px;color:var(--text-light);border-bottom:3px solid transparent;margin-bottom:-2px;}
+.m-atttabs .t.on{color:var(--primary);border-bottom-color:var(--primary);}
+.m-atttabs .add{font-size:.64rem;font-weight:700;color:var(--primary);border:1.5px dashed var(--border);border-radius:5px;padding:3px 8px;background:#fafbff;}
+.m-toolbar{display:flex;gap:5px;flex-wrap:wrap;align-items:center;background:#f7f9ff;border:1.5px solid var(--border);border-radius:6px;padding:6px 8px;margin-bottom:8px;}
+.m-toolbar .tb{font-size:.6rem;font-weight:700;color:#fff;padding:3px 7px;border-radius:4px;}
+.tb-i{background:#2980b9;}.tb-w{background:#f39c12;}.tb-g{background:#bdc3c7;}.tb-d{background:#e74c3c;}
+.m-toolbar .date{margin-left:auto;font-size:.6rem;color:var(--text-light);}
+.m-imgbox{border:1.5px solid var(--border);border-radius:6px;background:#fff;min-height:56px;display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:.66rem;text-align:center;padding:10px;}
+.m-weather-panel{border:1.5px solid var(--border);border-radius:10px;overflow:hidden;max-width:320px;margin:0 auto;box-shadow:0 4px 16px rgba(0,0,0,.12);}
+.m-wp-head{background:linear-gradient(135deg,#4f6ef7,#6c8cfa);color:#fff;padding:10px 13px;}
+.m-wp-loc{font-size:.62rem;opacity:.85;font-weight:700;}
+.m-wp-now{display:flex;align-items:center;gap:9px;margin-top:4px;}
+.m-wp-ic{font-size:1.7rem;}
+.m-wp-t{font-size:1rem;font-weight:800;}
+.m-wp-d{font-size:.66rem;opacity:.9;}
+.m-wp-lbl{font-size:.6rem;font-weight:700;color:var(--text-light);padding:6px 12px 3px;background:#fafbff;border-top:1px solid var(--border);}
+.m-wp-hours{display:flex;gap:5px;padding:6px 10px 9px;background:#fafbff;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.m-wp-h{background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:5px 4px;text-align:center;min-width:40px;flex-shrink:0;}
+.m-wp-h.now{background:#eef1ff;border-color:var(--primary);}
+.m-wp-h .hh{font-size:.56rem;font-weight:700;color:var(--text-light);}
+.m-wp-h .hi{font-size:1rem;}
+.m-wp-h .ht{font-size:.6rem;font-weight:800;}
+.m-set-row{margin-bottom:10px;}
+.m-set-row label{display:block;font-size:.66rem;font-weight:700;margin-bottom:3px;}
+.m-set-row .inp{border:1.5px solid var(--border);border-radius:5px;padding:6px 9px;font-size:.66rem;background:#fff;color:var(--text);}
+.m-set-row .inp.wide{width:100%;}
+.m-loc-row{display:flex;gap:6px;flex-wrap:wrap;}
+.m-loc-row .inp{flex:1;min-width:120px;}
+.m-search{background:#16a085;color:#fff;font-size:.66rem;font-weight:700;padding:6px 11px;border-radius:6px;white-space:nowrap;}
+.m-loc-ok{font-size:.62rem;color:var(--success);font-weight:700;margin-top:4px;}
+.m-hiki-tabs{display:flex;gap:4px;border-bottom:2px solid var(--border);flex-wrap:wrap;margin-bottom:9px;}
+.m-hiki-tabs .t{font-size:.64rem;font-weight:700;padding:5px 9px;color:var(--text-light);border-bottom:3px solid transparent;margin-bottom:-2px;display:flex;align-items:center;gap:3px;}
+.m-hiki-tabs .t.on{color:var(--primary);border-bottom-color:var(--primary);}
+.m-rl{font-size:.54rem;font-weight:700;padding:1px 5px;border-radius:6px;white-space:nowrap;}
+.rl1{background:#e8ecff;color:var(--primary);border:1px solid #c5cef7;}
+.rl2{background:#e8f8ee;color:#1a7a3c;border:1px solid #a8dbbe;}
+.m-hiki-item{background:#f7f9ff;border:1.5px solid var(--border);border-left:3px solid var(--primary);border-radius:6px;padding:8px 10px;font-size:.66rem;}
+.m-hiki-item .meta{display:flex;gap:5px;align-items:center;margin-bottom:4px;flex-wrap:wrap;}
+.m-authbadge{font-size:.54rem;font-weight:700;background:#e8ecff;color:var(--primary);border:1px solid #c5cef7;border-radius:8px;padding:1px 6px;}
+.m-datebadge{font-size:.54rem;font-weight:700;background:#eef1ff;color:var(--primary);border:1px solid #c5cef7;border-radius:8px;padding:1px 6px;}
+.m-nl{font-size:.6rem;font-weight:700;color:#fff;background:#e74c3c;border-radius:12px;padding:3px 8px;display:inline-flex;align-items:center;gap:4px;}
+.faq-q{font-weight:700;color:var(--primary);margin-top:16px;margin-bottom:4px;font-size:.95rem;}
+.faq-q::before{content:'Q. ';}
+.faq-a{font-size:.9rem;padding-left:4px;}
+.faq-a::before{content:'A. ';font-weight:700;color:var(--success);}
+.footer{text-align:center;color:var(--text-light);font-size:.78rem;padding:20px;}
+/* ===== レスポンシブ ===== */
+@media(max-width:760px){
+  .wrap{flex-direction:column;gap:16px;padding:16px 12px 60px;}
+  .toc{position:static;width:100%;}
+  .toc-toggle{display:inline-block;}
+  .toc-links{display:none;margin-top:6px;}
+  .toc-links.open{display:block;}
+  .toc-links{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+  .toc-links.open{display:grid;}
+  .section{padding:18px 15px;margin-bottom:16px;}
+  .section p,.section ol,.section ul{font-size:.88rem;}
+}
+@media(max-width:520px){
+  .manual-header{padding:24px 14px 22px;}
+  .wrap{padding:12px 8px 50px;}
+  .section{padding:15px 12px;border-radius:10px;}
+  .section h3{font-size:.96rem;}
+  .section p,.section ol,.section ul{font-size:.85rem;}
+  .section ol,.section ul{margin-left:18px;}
+  .toc-links{grid-template-columns:1fr;}
+  .note,.warn,.tip{padding:10px 12px;font-size:.82rem;}
+  .faq-q{font-size:.9rem;}
+  .faq-a{font-size:.85rem;}
+  .m-header .m-right{width:100%;margin-left:0;margin-top:6px;justify-content:flex-start;}
+  .m-form{gap:5px;}
+  .m-fg .box{min-width:44px;}
+  .mock-cap{font-size:.72rem;}
+}
+@media(max-width:380px){
+  .m-topbar span{font-size:.54rem;}
+  .m-header .m-title{font-size:.72rem;}
+  .m-room span{padding:3px 9px;font-size:.6rem;}
+}
+</style>
+</head>
+<body>
+<div class="manual-header">
+  <h1>📖 教室管理TODOリスト 使い方マニュアル</h1>
+  <p>初めての方でも迷わず使えるように、機能ごとに手順を解説します</p>
+</div>
+<div class="wrap">
+  <!-- 目次 -->
+  <nav class="toc">
+    <div class="toc-title"><span>📑 目次</span><button class="toc-toggle" onclick="document.getElementById('tocLinks').classList.toggle('open')" aria-label="目次を開閉">▼</button></div>
+    <div class="toc-links open" id="tocLinks">
+      <a href="#login">1. ログイン</a>
+      <a href="#screen">2. 画面の見方</a>
+      <a href="#todo">3. TODOの追加</a>
+      <a href="#shiken">4. 試験項目</a>
+      <a href="#edit">5. 編集・並べ替え</a>
+      <a href="#attendance">6. 出勤状況（画像タブ）</a>
+      <a href="#memo">7. メモ</a>
+      <a href="#hikitsugi">8. 引継ぎ事項</a>
+      <a href="#alert">9. アラート通知</a>
+      <a href="#weather">10. 天気・地域設定</a>
+      <a href="#settings">11. 設定・教室追加</a>
+      <a href="#backup">12. バックアップ</a>
+      <a href="#faq">13. よくある質問</a>
+    </div>
+  </nav>
+
+  <div class="content">
+
+  <!-- はじめに -->
+  <div class="section" id="intro">
+    <h2>👋 はじめに</h2>
+    <p>このアプリは、教室の日々のTODO・出勤状況・引継ぎ事項などをまとめて管理するためのツールです。入力したデータはクラウド（Firestore）に自動保存され、同じファイルを開いているすべての端末にリアルタイムで反映されます。</p>
+    <div class="note"><strong>💡 自動保存について：</strong> 「保存ボタン」を毎回押す必要はありません。追加・編集・削除の操作をすると、画面右下に「✅ 保存しました」と表示され、自動的にクラウドへ保存されます。</div>
+  </div>
+
+  <!-- 1. ログイン -->
+  <div class="section" id="login">
+    <h2>🔐 1. ログイン</h2>
+    <p>アプリを開くと、最初にログイン画面が表示されます。</p>
+    <ol>
+      <li><span class="step-num">1</span>初回のみ、<strong>メールアドレス</strong>と<strong>パスワード</strong>を入力します。</li>
+      <li><span class="step-num">2</span>「ログイン」ボタンを押します。</li>
+      <li><span class="step-num">3</span>2回目以降は、そのファイルは最初にログインしたメールアドレス専用になり、パスワードだけで入れます。</li>
+    </ol>
+    <div class="warn"><strong>⚠️ 注意：</strong> 1つのHTMLファイルは、最初にログインした1つのメールアドレスに固定されます。別のアカウントでは使えなくなるので、共有アカウントを使う場合は事前に決めておいてください。</div>
+  </div>
+
+  <!-- 2. 画面の見方 -->
+  <div class="section" id="screen">
+    <h2>🖥️ 2. 画面の見方</h2>
+    <p>ログイン後のメイン画面は、上部のヘッダーと、下に並ぶ3つのカード（TODO・出勤状況・メモ）で構成されています。</p>
+    <div class="mock">
+      <div class="m-topbar"><span>🌐 WEB管理システム</span><span>📨 受信管理システム</span></div>
+      <div class="m-header">
+        <div class="m-logo">🏫</div><div class="m-title">○○教室Todoリスト</div>
+        <div class="m-room"><span class="on">教室1</span><span>教室2</span></div>
+        <div class="m-right">
+          <span class="m-nl">📌 引継ぎ追加あり</span>
+          <span class="m-chip">2/11(火) 🌤️ 12°C</span>
+          <span class="m-btn">📝 引継ぎ</span><span class="m-btn">⚙️ 設定</span>
+        </div>
+      </div>
+      <div class="m-body"><div class="m-card"><div class="m-card-title">📋 Todoリスト</div><div style="font-size:.66rem;color:var(--text-light);text-align:center;padding:10px;">…この下にTODO入力欄と一覧が表示されます…</div></div></div>
+    </div>
+    <div class="mock-cap">▲ メイン画面の上部イメージ</div>
+    <p>ヘッダーの主な要素は次のとおりです。</p>
+    <ul>
+      <li><strong>教室1／教室2の切替ボタン</strong>：連携している教室を切り替えます。</li>
+      <li><strong>アラート通知</strong>（赤や橙のチップ）：引継ぎの追加・返信があると表示されます。</li>
+      <li><strong>日付・天気</strong>：クリックすると詳しい天気予報パネルが開きます。</li>
+      <li><strong>📝引継ぎ</strong>／<strong>⚙️設定</strong>：それぞれの画面を開きます。</li>
+    </ul>
+  </div>
+
+  <!-- 3. TODO追加 -->
+  <div class="section" id="todo">
+    <h2>📋 3. TODOの追加</h2>
+    <p>「Todoリスト」カードの入力欄から、予定ややることを登録します。</p>
+    <div class="mock">
+      <div class="m-body" style="background:#fff;">
+        <div class="m-form">
+          <div class="m-fg"><label>日付</label><div class="box sel">02/11</div></div>
+          <div class="m-fg"><label>項目</label><div class="box sel">説明会</div></div>
+          <div class="m-fg"><label>時間</label><div class="box sel">14時</div></div>
+          <div class="m-fg" style="flex:1;"><label>内容</label><div class="box" style="width:100%;">体験希望のお客様対応</div></div>
+          <div class="m-fg"><label>&nbsp;</label><div style="font-size:.6rem;color:var(--text-light);">☐太字 ☐赤字</div></div>
+          <div class="m-add">＋ 追加</div>
+        </div>
+      </div>
+    </div>
+    <div class="mock-cap">▲ TODO入力欄</div>
+    <ol>
+      <li><span class="step-num">1</span><strong>日付</strong>：カレンダーアイコンを押して日付を選びます（省略も可能）。</li>
+      <li><span class="step-num">2</span><strong>項目</strong>：説明会・入学者・確認・注意・個人レッスン・講座・提出物・試験・その他から選びます。</li>
+      <li><span class="step-num">3</span><strong>時間</strong>：時間を選びます。「その他」を選ぶと自由入力できます。</li>
+      <li><span class="step-num">4</span><strong>内容</strong>：具体的な内容を入力します。</li>
+      <li><span class="step-num">5</span>必要に応じて<strong>太字／赤字</strong>にチェックを入れ、<strong>＋追加</strong>を押します。</li>
+    </ol>
+    <div class="tip"><strong>✅ ヒント：</strong>「講座」「提出物」「注意」を選ぶと<strong>期限</strong>欄が、「試験」を選ぶと<strong>区分</strong>欄が追加で表示されます。</div>
+    <div class="note"><strong>💡 コピー機能：</strong>「説明会」「入学者」のTODOには📋ボタンが付き、押すと「説：」「入：」を付けた文章をワンタッチでコピーできます。</div>
+  </div>
+
+  <!-- 4. 試験 -->
+  <div class="section" id="shiken">
+    <h2>📝 4. 試験項目（外部／受講生）</h2>
+    <p>項目で「試験」を選ぶと、期限欄の代わりに<strong>「外部」か「受講生」を選ぶ区分欄</strong>が表示されます。</p>
+    <div class="mock">
+      <div class="m-body" style="background:#fff;">
+        <div class="m-form">
+          <div class="m-fg"><label>日付</label><div class="box sel">02/20</div></div>
+          <div class="m-fg"><label>項目</label><div class="box sel">試験</div></div>
+          <div class="m-fg"><label>時間</label><div class="box sel">10時</div></div>
+          <div class="m-fg" style="flex:1;"><label>内容</label><div class="box" style="width:100%;">検定試験</div></div>
+          <div class="m-fg"><label>区分</label><div class="box sel" style="border-color:#d35400;color:#d35400;">外部</div></div>
+          <div class="m-add">＋ 追加</div>
+        </div>
+      </div>
+    </div>
+    <div class="mock-cap">▲ 試験を選ぶと「区分」欄が表示される</div>
+    <p>一覧では、区分が色付きバッジで表示されます。</p>
+    <div class="mock">
+      <div class="m-body">
+        <div class="m-tbl-wrap">
+        <table class="m-tbl">
+          <tr><th>日付</th><th>項目</th><th>時間</th><th>内容</th></tr>
+          <tr><td>02/20 <span class="m-sbadge sb-g">外部</span></td><td><span class="m-itag tg-shi">試験</span></td><td>10時</td><td>検定試験</td></tr>
+          <tr><td>02/22 <span class="m-sbadge sb-j">受講生</span></td><td><span class="m-itag tg-shi">試験</span></td><td>13時</td><td>修了テスト</td></tr>
+        </table>
+        </div>
+      </div>
+    </div>
+    <div class="mock-cap">▲ 紫＝外部、緑＝受講生 のバッジで区別</div>
+  </div>
+
+  <!-- 5. 編集・並べ替え -->
+  <div class="section" id="edit">
+    <h2>✏️ 5. 編集・削除・並べ替え</h2>
+    <h3>編集・削除</h3>
+    <p>一覧の各行の右端にあるボタンで操作します。<strong>✏️</strong>で編集モード、<strong>🗑️</strong>で削除できます。</p>
+    <div class="mock">
+      <div class="m-body">
+        <div class="m-tbl-wrap">
+        <table class="m-tbl">
+          <tr><th>日付</th><th>項目</th><th>時間</th><th>内容</th><th style="text-align:right;">操作</th></tr>
+          <tr><td>—</td><td><span class="m-itag tg-chu">注意</span></td><td></td><td>鍵の返却忘れ注意</td><td style="text-align:right;white-space:nowrap;"><span class="m-sbadge tb-w" style="padding:2px 5px;">✏️</span> <span class="m-sbadge" style="background:#e74c3c;padding:2px 5px;">🗑️</span></td></tr>
+          <tr><td>02/11</td><td><span class="m-itag tg-set">説明会</span></td><td>14時</td><td>体験希望対応</td><td style="text-align:right;white-space:nowrap;"><span class="m-sbadge" style="background:#27ae60;padding:2px 5px;">📋</span> <span class="m-sbadge tb-w" style="padding:2px 5px;">✏️</span> <span class="m-sbadge" style="background:#e74c3c;padding:2px 5px;">🗑️</span></td></tr>
+        </table>
+        </div>
+      </div>
+    </div>
+    <div class="mock-cap">▲ 各行の右端に操作ボタン</div>
+    <h3>並べ替え（ソート）</h3>
+    <p>表の見出し（日付・項目・時間）の横にある小さな<strong>▲▼</strong>ボタンを押すと、その列で昇順・降順に並び替えできます。</p>
+    <div class="tip"><strong>✅ ヒント：</strong>「注意」「確認」で日付を入れていないものは、常に一覧の上部にまとめて表示されます。</div>
+  </div>
+
+  <!-- 6. 出勤状況 -->
+  <div class="section" id="attendance">
+    <h2>📅 6. 出勤状況（画像タブ）</h2>
+    <p>出勤表などの画像を、<strong>タブごとに分けて</strong>管理できます。タブは自由に追加・名前変更・並び替え・削除ができ、各タブに追加日時が表示されます。</p>
+    <div class="mock">
+      <div class="m-body">
+        <div class="m-card">
+          <div class="m-card-title">📅 出勤状況</div>
+          <div class="m-atttabs"><span class="t on">🖼️ 2月出勤表</span><span class="t">🖼️ 3月出勤表</span><span class="add">＋ タブ追加</span></div>
+          <div class="m-toolbar">
+            <span class="tb tb-i">📋 画像を貼り付け</span>
+            <span class="tb tb-w">✏️ 名前変更</span>
+            <span class="tb tb-g">◀ 左へ</span><span class="tb tb-g">右へ ▶</span>
+            <span class="tb tb-d">🗑️ タブ削除</span>
+            <span class="date">🕒 追加日時：2026/02/01 09:12</span>
+          </div>
+          <div class="m-imgbox">📋 ここに貼り付けた出勤表の画像が表示されます</div>
+        </div>
+      </div>
+    </div>
+    <div class="mock-cap">▲ タブ式の出勤状況管理</div>
+    <h3>画像の追加方法</h3>
+    <ol>
+      <li><span class="step-num">1</span>「＋タブ追加」で出勤表のタブを作成し、名前を入力します。</li>
+      <li><span class="step-num">2</span>画像をコピーした状態で、そのタブを選び<kbd>Ctrl</kbd>+<kbd>V</kbd>を押すか、「📋画像を貼り付け」ボタンを押します。</li>
+      <li><span class="step-num">3</span>画像をクリックすると拡大表示されます。</li>
+    </ol>
+    <div class="note"><strong>💡 タブ操作：</strong>「✏️名前変更」でタブ名を変更、「◀左へ／右へ▶」でタブの順番を入れ替え、「🗑️タブ削除」でタブごと削除できます。</div>
+  </div>
+
+  <!-- 7. メモ -->
+  <div class="section" id="memo">
+    <h2>📝 7. メモ</h2>
+    <p>自由なメモを、文字色・背景色・太字などの装飾付きで残せます。</p>
+    <ol>
+      <li><span class="step-num">1</span>メモカードの入力欄に文章を入力します。</li>
+      <li><span class="step-num">2</span>ツールバー（B/I/U、色、リストなど）で装飾できます。</li>
+      <li><span class="step-num">3</span>「💾登録」を押すと保存され、上に一覧表示されます。</li>
+    </ol>
+    <p>登録済みメモは、右上の<strong>✏️</strong>で編集、<strong>🗑️</strong>で削除できます。</p>
+  </div>
+
+  <!-- 8. 引継ぎ -->
+  <div class="section" id="hikitsugi">
+    <h2>📝 8. 引継ぎ事項</h2>
+    <p>ヘッダーの<strong>「📝引継ぎ」</strong>ボタンから、講師ごとの引継ぎ事項を管理できます。講師ごとにタブが分かれています。</p>
+    <div class="mock">
+      <div class="m-body">
+        <div class="m-card">
+          <div class="m-card-title">📝 引継ぎ事項</div>
+          <div class="m-hiki-tabs"><span class="t on"><span class="m-rl rl1">○○教室</span>田中宛て <span class="m-nl" style="padding:1px 6px;font-size:.5rem;">1</span></span><span class="t"><span class="m-rl rl1">○○教室</span>佐藤宛て</span><span class="t"><span class="m-rl rl2">△△教室</span>鈴木宛て</span></div>
+          <div class="m-hiki-item">
+            <div class="meta"><span style="font-size:.66rem;">☑</span><span class="m-authbadge">✍️ 佐藤</span><span class="m-datebadge">📅 2/11</span></div>
+            <div>火曜の教材、棚の上に置いてあります。確認お願いします。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mock-cap">▲ 講師ごとのタブと引継ぎ事項</div>
+    <h3>引継ぎの追加</h3>
+    <ol>
+      <li><span class="step-num">1</span>宛先の講師タブを選びます。</li>
+      <li><span class="step-num">2</span>入力欄に内容を書き、追加者・日付を選びます。</li>
+      <li><span class="step-num">3</span>「＋追加」を押すと登録され、宛先の人にアラートが届きます。</li>
+    </ol>
+    <h3>返信・完了チェック・印刷</h3>
+    <ul>
+      <li><strong>返信</strong>：各項目の下の返信欄から返信できます（<kbd>Enter</kbd>で送信、<kbd>Shift</kbd>+<kbd>Enter</kbd>で改行）。</li>
+      <li><strong>完了チェック</strong>：左のチェックボックスを入れると、完了として取り消し線が付きます。</li>
+      <li><strong>印刷</strong>：右上の「🖨️印刷」で、表示中のタブの引継ぎ一覧を印刷できます。</li>
+    </ul>
+  </div>
+
+  <!-- 9. アラート -->
+  <div class="section" id="alert">
+    <h2>🔔 9. アラート通知</h2>
+    <p>引継ぎが追加されたり返信が来たりすると、ヘッダーに通知チップが表示されます。</p>
+    <div class="mock">
+      <div class="m-header">
+        <div class="m-logo">🏫</div><div class="m-title">○○教室</div>
+        <div class="m-right"><span class="m-nl">📌 引継ぎ追加あり ✓</span><span class="m-nl" style="background:#e67e22;">↩️ 返信あり ✓</span></div>
+      </div>
+    </div>
+    <div class="mock-cap">▲ 赤＝追加通知、橙＝返信通知</div>
+    <ul>
+      <li><strong>📌 赤いチップ</strong>：新しい引継ぎが追加されたとき。</li>
+      <li><strong>↩️ 橙のチップ</strong>：引継ぎに返信があったとき。</li>
+      <li>チップを押すと引継ぎ画面が開きます。確認したら<strong>✓</strong>を押すと通知が消えます。</li>
+    </ul>
+    <div class="tip"><strong>✅ 教室2について：</strong>教室2の講師宛てに追加・返信した場合、教室2側の画面にもアラートが表示されます（教室2のファイルも最新版になっている必要があります）。</div>
+  </div>
+
+  <!-- 10. 天気・地域 -->
+  <div class="section" id="weather">
+    <h2>🌤️ 10. 天気・地域設定</h2>
+    <p>ヘッダーの日付・天気の部分をクリックすると、時間別・4日間の詳しい天気予報が開きます。</p>
+    <div class="m-weather-panel">
+      <div class="m-wp-head">
+        <div class="m-wp-loc">📍 大阪・京橋</div>
+        <div class="m-wp-now"><div class="m-wp-ic">⛅</div><div><div class="m-wp-t">12°C</div><div class="m-wp-d">曇り時々晴</div></div></div>
+      </div>
+      <div class="m-wp-lbl">⏰ 時間別予報</div>
+      <div class="m-wp-hours">
+        <div class="m-wp-h now"><div class="hh">今12時</div><div class="hi">⛅</div><div class="ht">12°</div></div>
+        <div class="m-wp-h"><div class="hh">13時</div><div class="hi">🌤️</div><div class="ht">13°</div></div>
+        <div class="m-wp-h"><div class="hh">14時</div><div class="hi">☀️</div><div class="ht">14°</div></div>
+        <div class="m-wp-h"><div class="hh">15時</div><div class="hi">🌧️</div><div class="ht">11°</div></div>
+        <div class="m-wp-h"><div class="hh">16時</div><div class="hi">☁️</div><div class="ht">10°</div></div>
+      </div>
+    </div>
+    <div class="mock-cap">▲ 天気予報パネル（アイコンはカラー絵文字で表示）</div>
+    <h3>地域の変更方法</h3>
+    <ol>
+      <li><span class="step-num">1</span>ヘッダーの「⚙️設定」を開きます。</li>
+      <li><span class="step-num">2</span>「🌤️天気予報の地域」欄に地域名（例：大阪市、札幌、京橋 など）を入力します。</li>
+      <li><span class="step-num">3</span>「🔍検索」を押すと候補が確定します（✅表示が出ます）。</li>
+      <li><span class="step-num">4</span>「💾保存」を押すと、その地域の天気に切り替わります。</li>
+    </ol>
+    <div class="mock">
+      <div class="m-body" style="background:#fff;">
+        <div class="m-set-row">
+          <label>🌤️ 天気予報の地域</label>
+          <div class="m-loc-row"><div class="inp" style="flex:1;">大阪市</div><div class="m-search">🔍 検索</div></div>
+          <div class="m-loc-ok">✅ 大阪市・大阪府（緯度34.69, 経度135.50）※保存で反映</div>
+        </div>
+      </div>
+    </div>
+    <div class="mock-cap">▲ 設定画面の天気地域入力欄</div>
+    <div class="warn"><strong>⚠️ 地域設定はファイルごと：</strong>天気の地域は、各HTMLファイル（教室）ごとに個別に保存されます。あるファイルで設定した地域が、他のファイルに影響することはありません。同じファイルを複数端末で開いている場合は共通で反映されます。</div>
+  </div>
+
+  <!-- 11. 設定 -->
+  <div class="section" id="settings">
+    <h2>⚙️ 11. 設定・教室追加</h2>
+    <p>「⚙️設定」からは次の項目を変更できます。</p>
+    <ul>
+      <li><strong>アイコン選択</strong>：ヘッダーのアイコンを5種類から選べます。</li>
+      <li><strong>教室名</strong>：タイトルや切替ボタンに表示される名前。</li>
+      <li><strong>天気予報の地域</strong>：前章参照。</li>
+      <li><strong>講師名（1〜4）</strong>：引継ぎのタブや宛先に使われます。</li>
+    </ul>
+    <h3>教室を追加して連携する</h3>
+    <p>設定画面の一番下「🏫教室を追加する」に、連携したい教室のドキュメントIDを入力し「📂読み込む」を押すと、教室2として表示・連携できます。</p>
+    <div class="note"><strong>💡 教室2の扱い：</strong>教室2のTODO・出勤状況は<strong>閲覧のみ</strong>（このファイルからは編集できません）。ただし引継ぎは教室2の講師宛てにも書き込めます。</div>
+  </div>
+
+  <!-- 12. バックアップ -->
+  <div class="section" id="backup">
+    <h2>💾 12. バックアップ・インポート</h2>
+    <p>設定画面の「💾バックアップ」からデータの保存・復元ができます。</p>
+    <ul>
+      <li><strong>⬇️バックアップ</strong>：現在のデータをJSONファイルとしてダウンロードします。</li>
+      <li><strong>⬆️インポート</strong>：バックアップしたJSONファイルを読み込んで復元します。</li>
+    </ul>
+    <div class="warn"><strong>⚠️ 重要：</strong>大きな変更やアプリの入れ替えをする前には、必ず一度バックアップを取っておくことを強くおすすめします。インポートは既存データを上書きするので、実行前によく確認してください。</div>
+  </div>
+
+  <!-- 13. FAQ -->
+  <div class="section" id="faq">
+    <h2>❓ 13. よくある質問</h2>
+    <div class="faq-q">保存ボタンはどこですか？</div>
+    <div class="faq-a">TODOや出勤画像などは自動保存されるため、保存ボタンはありません。操作後に右下の「✅保存しました」を確認してください（メモと設定のみ登録・保存ボタンがあります）。</div>
+    <div class="faq-q">別のパソコンでも同じデータが見られますか？</div>
+    <div class="faq-a">はい。同じHTMLファイル（同じ教室）を同じアカウントで開けば、どの端末でも同じデータがリアルタイムで表示されます。</div>
+    <div class="faq-q">天気が「--」になって表示されません。</div>
+    <div class="faq-a">インターネット接続を確認し、少し待つか画面を再読み込みしてください。地域設定が正しく検索・保存されているかもご確認ください。</div>
+    <div class="faq-q">教室2の予定を編集したいです。</div>
+    <div class="faq-a">教室2のTODO・出勤状況は閲覧専用です。編集は、その教室のファイルを直接開いて行ってください。</div>
+    <div class="faq-q">アラート（通知）が消えません。</div>
+    <div class="faq-a">通知チップの「✓」ボタンを押すと確認済みになり消えます。教室2宛ての通知は、教室2側のファイルも最新版になっている必要があります。</div>
+    <div class="faq-q">間違えてデータを消してしまいました。</div>
+    <div class="faq-a">事前にバックアップを取っていれば、設定画面の「⬆️インポート」で復元できます。日頃から定期的なバックアップをおすすめします。</div>
+  </div>
+
+  </div>
+</div>
+<div class="footer">教室管理TODOリスト｜使い方マニュアル</div>
+</body>
+</html>
