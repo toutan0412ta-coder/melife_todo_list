@@ -15,7 +15,7 @@
   --shadow: 0 2px 12px rgba(0,0,0,0.10); --radius: 12px; --radius-sm: 8px;
   --c-setsumeikai: #8e44ad; --c-nyugakusha: #2980b9; --c-kakunin: #e67e22;
   --c-chui: #e74c3c; --c-kojin: #7f8c8d; --c-sonota: #95a5a6;
-  --c-koza: #16a085; --c-teishutsu: #c0392b; --c-shiken: #d35400;
+  --c-koza: #16a085; --c-teishutsu: #c0392b; --c-shiken: #db7093;
 }
 html { scroll-behavior: smooth; }
 body { font-family: 'Segoe UI','Hiragino Sans','Yu Gothic',sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
@@ -40,7 +40,18 @@ body { font-family: 'Segoe UI','Hiragino Sans','Yu Gothic',sans-serif; backgroun
 .top-links-bar { background:#2c3e50;display:flex;align-items:center;gap:8px;padding:4px 20px;min-height:36px;flex-wrap:wrap; }
 .top-link-btn { display:inline-flex;align-items:center;gap:5px;padding:4px 14px;border-radius:4px;border:none;cursor:pointer;font-size:0.75rem;font-weight:600;text-decoration:none;color:#fff;transition:all 0.15s;background:rgba(255,255,255,0.12); }
 .top-link-btn:hover { background:rgba(255,255,255,0.28); }
-header { background:linear-gradient(135deg,#4f6ef7 0%,#6c8cfa 100%);color:#fff;padding:0 20px;display:flex;align-items:center;justify-content:space-between;min-height:58px;box-shadow:0 2px 8px rgba(79,110,247,0.3);gap:8px;flex-wrap:wrap; }
+header { background:linear-gradient(135deg,var(--header-color-1,#4f6ef7) 0%,var(--header-color-2,#6c8cfa) 100%);color:var(--header-text-color,#fff);padding:0 20px;display:flex;align-items:center;justify-content:space-between;min-height:58px;box-shadow:0 2px 8px rgba(79,110,247,0.3);gap:8px;flex-wrap:wrap; }
+.top-link-dropdown{position:relative;display:inline-flex;}
+.top-link-dropdown .dropdown-toggle{cursor:pointer;}
+.top-link-dropdown .dd-caret{font-size:0.65rem;margin-left:2px;transition:transform 0.15s;display:inline-block;}
+.top-link-dropdown.open .dd-caret{transform:rotate(180deg);}
+.top-link-dropdown-menu{display:none;position:absolute;top:calc(100% + 4px);left:0;background:#2c3e50;border-radius:6px;box-shadow:0 6px 20px rgba(0,0,0,0.3);padding:5px;min-width:150px;z-index:300;flex-direction:column;gap:2px;border:1px solid rgba(255,255,255,0.12);}
+.top-link-dropdown.open .top-link-dropdown-menu{display:flex;}
+.top-link-dropdown-item{display:block;padding:6px 12px;border-radius:4px;font-size:0.75rem;font-weight:600;color:#fff;text-decoration:none;white-space:nowrap;transition:background 0.15s;}
+.top-link-dropdown-item:hover{background:rgba(255,255,255,0.18);}
+.header-color-row{display:flex;align-items:center;gap:10px;}
+.header-color-row input[type=color]{width:52px;height:34px;border:1.5px solid var(--border);border-radius:8px;padding:2px;cursor:pointer;background:#fff;}
+.header-color-reset{font-size:0.72rem;color:var(--primary);background:none;border:none;cursor:pointer;text-decoration:underline;padding:2px 4px;}
 .header-left { display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1; }
 header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:nowrap; }
 .header-right { display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;max-width:100%; }
@@ -59,10 +70,10 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
 .header-weather-wrap { position:relative;flex-shrink:0; }
 .header-datetime-weather { display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);border-radius:20px;padding:5px 14px;white-space:nowrap;cursor:pointer;transition:background 0.15s;user-select:none;border:1.5px solid rgba(255,255,255,0.25); }
 .header-datetime-weather:hover { background:rgba(255,255,255,0.28); }
-.header-date-str { font-size:0.82rem;font-weight:700;color:#fff; }
+.header-date-str { font-size:0.82rem;font-weight:700;color:var(--header-text-color,#fff); }
 .header-weather-icon { font-size:1.3rem;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.35)); }
-.header-weather-temp { font-size:0.85rem;color:rgba(255,255,255,0.95);font-weight:700; }
-.header-weather-desc { font-size:0.72rem;color:rgba(255,255,255,0.82);margin-left:2px; }
+.header-weather-temp { font-size:0.85rem;color:var(--header-text-color,#fff);font-weight:700; }
+.header-weather-desc { font-size:0.72rem;color:var(--header-text-color,#fff);opacity:0.82;margin-left:2px; }
 .weather-caret { font-size:0.6rem;color:rgba(255,255,255,0.7);margin-left:2px;transition:transform 0.2s; }
 .header-datetime-weather.open .weather-caret { transform:rotate(180deg); }
 #weather-panel { display:none;position:absolute;top:calc(100% + 8px);right:0;z-index:9999;background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,0.22);width:340px;max-width:calc(100vw - 24px);overflow:hidden;border:1.5px solid var(--border);animation:panel-drop 0.2s ease; }
@@ -114,7 +125,7 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
 .btn { display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-size:0.8rem;font-weight:600;transition:all 0.18s;white-space:nowrap;font-family:inherit; }
 .btn:active { transform:scale(0.97); }
 .btn-primary{background:var(--primary);color:#fff;}.btn-primary:hover{background:var(--primary-dark);}
-.btn-white{background:rgba(255,255,255,0.2);color:#fff;border:1.5px solid rgba(255,255,255,0.4);}.btn-white:hover{background:rgba(255,255,255,0.35);}
+.btn-white{background:rgba(255,255,255,0.2);color:var(--header-text-color,#fff);border:1.5px solid rgba(255,255,255,0.4);}.btn-white:hover{background:rgba(255,255,255,0.35);}
 .btn-success{background:var(--success);color:#fff;}.btn-success:hover{background:#1e9449;}
 .btn-danger{background:var(--danger);color:#fff;}.btn-danger:hover{background:#c0392b;}
 .btn-warning{background:var(--warning);color:#fff;}.btn-warning:hover{background:#d68910;}
@@ -311,11 +322,23 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
 <div class="sticky-top">
     <div class="top-links-bar">
         <a class="top-link-btn" href="https://pcci-school.jp/Default.aspx" target="_blank" rel="noopener">🌐 WEB管理システム</a>
-    <a class="top-link-btn" id="reserve-btn-1" href="#" target="_blank" rel="noopener">📅 予約状況</a>
-    <a class="top-link-btn" id="reserve-btn-2" href="#" target="_blank" rel="noopener">📅 予約状況</a>
+    <div class="top-link-dropdown" id="dropdown-reserve">
+      <button type="button" class="top-link-btn dropdown-toggle" onclick="toggleTopDropdown('dropdown-reserve')">📅 予約状況 <span class="dd-caret">▾</span></button>
+      <div class="top-link-dropdown-menu">
+        <a class="top-link-dropdown-item" id="reserve-btn-1" href="#" target="_blank" rel="noopener">予約状況</a>
+        <a class="top-link-dropdown-item" id="reserve-btn-2" href="#" target="_blank" rel="noopener">予約状況</a>
+      </div>
+    </div>
     <a class="top-link-btn" href="https://www.pcci-school.com/free-trial/staff/trial-register/login.php" target="_blank" rel="noopener">📨 受信管理システム</a>
-    <a class="top-link-btn" href="https://melife.jp/intr/syorui/syorui.htm" target="_blank" rel="noopener noreferrer">📄 提出書類一覧</a>
-    <a class="top-link-btn" href="https://melife.jp/intr/kakunin/kakunin2.html" target="_blank" rel="noopener noreferrer">🖨️ 補助プリント</a>
+    <a class="top-link-btn" href="https://pcci-school.jp/electronickarute/StaffSelect.aspx" target="_blank" rel="noopener">🩺 電子カルテ</a>
+    <div class="top-link-dropdown" id="dropdown-intra">
+      <button type="button" class="top-link-btn dropdown-toggle" onclick="toggleTopDropdown('dropdown-intra')">🏠 イントラ <span class="dd-caret">▾</span></button>
+      <div class="top-link-dropdown-menu">
+        <a class="top-link-dropdown-item" href="https://melife.jp/intr/" target="_blank" rel="noopener noreferrer">イントラ</a>
+        <a class="top-link-dropdown-item" href="https://melife.jp/intr/syorui/syorui.htm" target="_blank" rel="noopener noreferrer">提出書類一覧</a>
+        <a class="top-link-dropdown-item" href="https://melife.jp/intr/kakunin/kakunin2.html" target="_blank" rel="noopener noreferrer">補助プリント</a>
+      </div>
+    </div>
     <a class="top-link-btn" href="https://toutan0412ta-coder.github.io/melife_todo_list/manual.html" target="_blank" rel="noopener">📖 マニュアル</a>
   </div>
   <header>
@@ -439,6 +462,20 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
       <div class="setting-row"><label>教室ID（Firestoreドキュメント）</label><span class="setting-id-display" id="disp-r1-id"></span></div>
       <div class="setting-row"><label>教室名</label><input type="text" id="s-classroom" placeholder="例: ○○教室"></div>
       <div class="setting-row">
+        <label>🎨 ヘッダーの背景色</label>
+        <div class="header-color-row">
+          <input type="color" id="s-header-color" value="#4f6ef7">
+          <button type="button" class="header-color-reset" onclick="document.getElementById('s-header-color').value='#4f6ef7'">初期色に戻す</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <label>🔤 ヘッダーの文字色</label>
+        <div class="header-color-row">
+          <input type="color" id="s-header-text-color" value="#ffffff">
+          <button type="button" class="header-color-reset" onclick="document.getElementById('s-header-text-color').value='#ffffff'">初期色に戻す</button>
+        </div>
+      </div>
+      <div class="setting-row">
         <label>🌤️ 天気予報の地域</label>
         <div class="weather-loc-row">
           <input type="text" id="s-weather-loc" placeholder="例: 大阪市, 京橋, 札幌 など" onkeydown="if(event.key==='Enter'){event.preventDefault();lookupWeatherLoc();}">
@@ -479,6 +516,11 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
         <button class="btn btn-success btn-sm" onclick="exportJson(2)">⬇️ バックアップ</button>
         <button class="btn btn-info btn-sm" onclick="triggerImport(2)">⬆️ インポート</button>
         <input type="file" id="import-input-2" accept=".json" style="display:none" onchange="importJson(event,2)">
+      </div>
+      <div class="add-room-box" id="remove-room-box-r2">
+        <label>🔓 教室2の連携を解除する</label>
+        <p>教室2との連携を解除します。教室2側のデータ自体は削除されません。</p>
+        <button class="btn btn-danger btn-sm" onclick="removeRoom2()">🗑️ 教室2を解除する</button>
       </div>
     </div>
     <div id="settings-extra" style="display:none;">
@@ -644,6 +686,7 @@ onAuthStateChanged(auth,async user=>{
 // ============================================================
 const COLLECTION='rooms';
 let unsubscribeR1=null,unsubscribeR2=null;
+let r1Initialized=false; // 教室1のFirestore初回データ取得が完了したか（完了前の保存を禁止し、登録済みの教室2・表示専用教室が誤って初期化されるのを防ぐ）
 const extraUnsubs={}; // {roomId: unsubscribe}
 
 async function fsGet(id){const r=doc(db,COLLECTION,id),s=await getDoc(r);if(!s.exists())throw new Error(`ドキュメント ${id} が存在しません`);return s.data();}
@@ -654,6 +697,7 @@ async function fsPut(id,data){
 
 // ============================================================
 // 自動バックアップ（各ファイル＝各教室ごとに1日1回、Firestoreの backups コレクションへ保存）
+// ドキュメント名は「ファイル名_bk」固定（1ファイルにつき1ドキュメントを毎日上書き）
 // ============================================================
 const BACKUP_COLLECTION='backups';
 function backupDateStr(){const n=new Date();return`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;}
@@ -661,12 +705,12 @@ async function performDailyBackupIfNeeded(id,data){
   if(!id||!data)return;
   try{
     const today=backupDateStr();
-    const bref=doc(db,BACKUP_COLLECTION,`${id}_${today}`);
+    const bref=doc(db,BACKUP_COLLECTION,`${id}_bk`);
     const bsnap=await getDoc(bref);
-    if(bsnap.exists())return; // 本日分はすでにバックアップ済み
+    if(bsnap.exists()&&bsnap.data()&&bsnap.data().date===today)return; // 本日分はすでにバックアップ済み
     const c=JSON.parse(JSON.stringify(data));
     await setDoc(bref,{id,date:today,backedUpAt:new Date().toISOString(),data:c},{merge:false});
-    console.log(`📦 ${id} の本日分バックアップを作成しました`);
+    console.log(`📦 ${id}_bk に本日分のバックアップを保存しました`);
   }catch(e){console.warn(`バックアップ失敗（${id}）:`,e.message);}
 }
 
@@ -681,6 +725,7 @@ function startSnapshotR1(){
     renderAlerts();
     if(!initialized){
       initialized=true;
+      r1Initialized=true; // Firestoreからの初回データ取得完了＝以降のsaveR1()を許可（登録済み教室2・表示専用教室が空データで上書き＝初期化されるのを防止）
       if(R1.room2Id&&!room2Loaded){loadRoom2(R1.room2Id).catch(e=>console.warn('教室2読み込み失敗:',e.message));}
       if(ALLOW_EXTRA_ROOMS&&Array.isArray(R1.extraRooms)){R1.extraRooms.forEach(er=>{if(er&&er.id&&!extraRooms[er.id])loadExtraRoom(er.id,er.name).catch(e=>console.warn('表示専用教室読み込み失敗:',e.message));});}
       applyRoomButtons();renderAll();applySettings();updateHikitsugiBadge();updateSortButtons();
@@ -756,9 +801,27 @@ let calYear,calMonth,dlCalYear,dlCalMonth;
 let weatherData=null,weatherPanelOpen=false;
 const DEFAULT_LAT=34.6961,DEFAULT_LON=135.5322,DEFAULT_CITY='大阪・京橋';
 let currentAttTab=0;
-let R1=emptyRoom(HTML_ID),R2=null,room2Id='';
 const extraRooms={}; // {id: {id, name, todos:[], remoteClassroom:''}}
-function emptyRoom(id){return{id,settings:{classroom:'',inst1:'',inst2:'',inst3:'',inst4:'',weatherLat:DEFAULT_LAT,weatherLon:DEFAULT_LON,weatherCity:DEFAULT_CITY},todos:[],hikitsugi:{},attendanceTabs:[],memos:[],room2Id:'',alertFlags:{},extraRooms:[]};}
+const DEFAULT_HEADER_COLOR='#4f6ef7';
+const DEFAULT_HEADER_TEXT_COLOR='#ffffff';
+function emptyRoom(id){return{id,settings:{classroom:'',inst1:'',inst2:'',inst3:'',inst4:'',weatherLat:DEFAULT_LAT,weatherLon:DEFAULT_LON,weatherCity:DEFAULT_CITY,headerColor:DEFAULT_HEADER_COLOR,headerTextColor:DEFAULT_HEADER_TEXT_COLOR},todos:[],hikitsugi:{},attendanceTabs:[],memos:[],room2Id:'',alertFlags:{},extraRooms:[]};}
+let R1=emptyRoom(HTML_ID),R2=null,room2Id='';
+// hex色を白方向に混ぜて明るいグラデーション用の色を作る
+function lightenHex(hex,ratio){
+  let h=(hex||DEFAULT_HEADER_COLOR).replace('#','');
+  if(h.length===3)h=h.split('').map(c=>c+c).join('');
+  const n=parseInt(h,16);if(isNaN(n))return'#6c8cfa';
+  let r=(n>>16)&255,g=(n>>8)&255,b=n&255;
+  r=Math.round(r+(255-r)*ratio);g=Math.round(g+(255-g)*ratio);b=Math.round(b+(255-b)*ratio);
+  return`#${[r,g,b].map(v=>v.toString(16).padStart(2,'0')).join('')}`;
+}
+function applyHeaderColor(){
+  const c=(R1.settings&&R1.settings.headerColor)||DEFAULT_HEADER_COLOR;
+  const tc=(R1.settings&&R1.settings.headerTextColor)||DEFAULT_HEADER_TEXT_COLOR;
+  document.documentElement.style.setProperty('--header-color-1',c);
+  document.documentElement.style.setProperty('--header-color-2',lightenHex(c,0.28));
+  document.documentElement.style.setProperty('--header-text-color',tc);
+}
 
 function getWeatherLat(){return R1.settings.weatherLat!=null?R1.settings.weatherLat:DEFAULT_LAT;}
 function getWeatherLon(){return R1.settings.weatherLon!=null?R1.settings.weatherLon:DEFAULT_LON;}
@@ -781,7 +844,7 @@ function payload2(){
   Object.keys(R2.hikitsugi).forEach(k=>{if(k.startsWith('r2_')&&!h[k])h[k]=R2.hikitsugi[k];});
   return{schemaVersion:3,id:room2Id,settings:R2.settings,todos:R2.todos,hikitsugi:h,attendanceTabs:R2.attendanceTabs||[],memos:R2.memos,room2Id:'',alertFlags:R2.alertFlags||{}};
 }
-async function saveR1(){await fsPut(HTML_ID,payload1());}
+async function saveR1(){if(!r1Initialized){console.warn('教室1データの初回読み込み前のため保存をスキップしました');return false;}return await fsPut(HTML_ID,payload1());}
 async function saveR2(){if(!room2Loaded||!room2Id)return;const p=payload2();if(p)await fsPut(room2Id,p);}
 async function saveHikiForTab(k){if(k.startsWith('r2_')){await saveR1();await saveR2();}else{await saveR1();}}
 
@@ -840,8 +903,20 @@ async function startApp(){
   document.addEventListener('click',e=>{
     document.querySelectorAll('.cal-popup.open').forEach(p=>{if(!p.closest('.cal-wrap')?.contains(e.target))p.classList.remove('open');});
     const wp=document.getElementById('weather-wrap');if(weatherPanelOpen&&wp&&!wp.contains(e.target)){closeWeatherPanel();}
+    document.querySelectorAll('.top-link-dropdown.open').forEach(d=>{if(!d.contains(e.target))d.classList.remove('open');});
   });
 }
+
+// ============================================================
+// ヘッダーリンクのドロップダウン開閉
+// ============================================================
+function toggleTopDropdown(id){
+  const el=document.getElementById(id);if(!el)return;
+  const willOpen=!el.classList.contains('open');
+  document.querySelectorAll('.top-link-dropdown.open').forEach(d=>d.classList.remove('open'));
+  if(willOpen)el.classList.add('open');
+}
+window.toggleTopDropdown=toggleTopDropdown;
 
 async function loadRoom2(id){
   const d=await fsGet(id);
@@ -932,6 +1007,22 @@ window.lookupWeatherLoc=lookupWeatherLoc;
 // ============================================================
 async function addRoomById(){const id=(document.getElementById('add-room-id').value||'').trim();if(!id){alert('IDを入力してください');return;}if(id===HTML_ID){alert('自分自身のIDは指定できません');return;}if(room2Loaded&&room2Id===id){showToast('すでに読み込まれています');return;}try{showToast('📂 読み込み中...');await loadRoom2(id);R1.room2Id=id;await saveR1();document.getElementById('add-room-id').value='';applyRoomButtons();buildHikitsugiModal();updateHikitsugiBadge();switchRoom(2);showToast(`✅ 教室2「${R2.settings.classroom||id}」を読み込みました`);}catch(e){alert(`読み込みに失敗しました。\n${e.message}`);}}
 window.addRoomById=addRoomById;
+
+async function removeRoom2(){
+  if(!room2Loaded||!room2Id)return;
+  if(!confirm('教室2との連携を解除しますか？（教室2側のデータは削除されません）'))return;
+  if(unsubscribeR2){unsubscribeR2();unsubscribeR2=null;}
+  // 教室1側に取り込んでいた教室2宛ての引継ぎ（r2_*）は連携解除に伴い削除
+  Object.keys(R1.hikitsugi).forEach(k=>{if(k.startsWith('r2_'))delete R1.hikitsugi[k];});
+  R1.room2Id='';
+  R2=null;room2Id='';room2Loaded=false;
+  if(currentRoom===2)currentRoom=1;
+  await saveR1();
+  closeSettings();
+  applyRoomButtons();buildHikitsugiModal();updateHikitsugiBadge();switchRoom(currentRoom);
+  showToast('教室2の連携を解除しました');
+}
+window.removeRoom2=removeRoom2;
 
 // ============================================================
 // 表示専用教室（3〜6）追加
@@ -1036,6 +1127,8 @@ function openSettings(){
     r1El.style.display='';
     document.getElementById('disp-r1-id').textContent=HTML_ID;
     document.getElementById('s-classroom').value=R1.settings.classroom||'';
+    document.getElementById('s-header-color').value=R1.settings.headerColor||DEFAULT_HEADER_COLOR;
+    document.getElementById('s-header-text-color').value=R1.settings.headerTextColor||DEFAULT_HEADER_TEXT_COLOR;
     document.getElementById('s-inst1').value=R1.settings.inst1||'';
     document.getElementById('s-inst2').value=R1.settings.inst2||'';
     document.getElementById('s-inst3').value=R1.settings.inst3||'';
@@ -1068,6 +1161,8 @@ async function saveSettings(){
   const eb=document.getElementById('settings-error');eb.className='error-box';
   if(currentRoom===1){
     R1.settings.classroom=document.getElementById('s-classroom').value.trim();
+    R1.settings.headerColor=document.getElementById('s-header-color').value||DEFAULT_HEADER_COLOR;
+    R1.settings.headerTextColor=document.getElementById('s-header-text-color').value||DEFAULT_HEADER_TEXT_COLOR;
     R1.settings.inst1=document.getElementById('s-inst1').value.trim()||'講師1';
     R1.settings.inst2=document.getElementById('s-inst2').value.trim();
     R1.settings.inst3=document.getElementById('s-inst3').value.trim();
@@ -1089,7 +1184,7 @@ async function saveSettings(){
 window.saveSettings=saveSettings;
 function applySettings(){
   document.getElementById('main-title-text').textContent=R1.settings.classroom?`${R1.settings.classroom}教室Todoリスト`:'教室Todoリスト';
-  updateIcon();updatePageTitle();updatePrintBtnLabel();renderTodos();
+  updateIcon();updatePageTitle();updatePrintBtnLabel();renderTodos();applyHeaderColor();
 }
 function renderAll(){renderTodos();buildHikitsugiModal();renderAttendance();renderMemos();}
 
@@ -1379,7 +1474,7 @@ function updateReserveButtons(){
   // 当月
   const b1=document.getElementById('reserve-btn-1');
   if(b1){
-    b1.textContent=`📅 ${curM}月予約状況`;
+    b1.textContent=`${curM}月予約状況`;
     b1.href=`https://pcci-school.jp/count_sheet.aspx?yID=${curY}&mID=${curM}`;
   }
   // 翌月（12月→翌年1月）
@@ -1387,7 +1482,7 @@ function updateReserveButtons(){
   if(nextM>12){nextM=1;nextY=curY+1;}
   const b2=document.getElementById('reserve-btn-2');
   if(b2){
-    b2.textContent=`📅 ${nextM}月予約状況`;
+    b2.textContent=`${nextM}月予約状況`;
     b2.href=`https://pcci-school.jp/count_sheet.aspx?yID=${nextY}&mID=${nextM}`;
   }
 }
