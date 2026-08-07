@@ -523,6 +523,30 @@ function getBoundEmail(){return localStorage.getItem(BOUND_EMAIL_KEY)||null;}
 function setBoundEmail(e){localStorage.setItem(BOUND_EMAIL_KEY,e.toLowerCase().trim());}
 
 // ============================================================
+// アクセス制限（このファイルに登録されたメールアドレス＋IDでのみ利用可能）
+// ============================================================
+const ACCESS_COLLECTION='access';
+async function checkAndRegisterAccess(user){
+  const ref=doc(db,ACCESS_COLLECTION,HTML_ID);
+  const ue=user.email.toLowerCase().trim();
+  let snap;
+  try{snap=await getDoc(ref);}
+  catch(e){console.warn('アクセス設定の確認に失敗しました:',e.message);return{ok:true};} // 確認できない場合は従来動作を維持
+  if(snap.exists()){
+    const d=snap.data();
+    const emailOk=!d.email||d.email.toLowerCase().trim()===ue;
+    const uidOk=!d.uid||d.uid===user.uid;
+    if(!emailOk||!uidOk)return{ok:false,allowedEmail:d.email||''};
+    return{ok:true};
+  }else{
+    // 初回ログイン：このメールアドレス＋IDをこのファイル専用として登録
+    try{await setDoc(ref,{email:ue,uid:user.uid,htmlId:HTML_ID,registeredAt:new Date().toISOString()});}
+    catch(e){console.warn('アクセス登録に失敗しました:',e.message);}
+    return{ok:true};
+  }
+}
+
+// ============================================================
 // アラートフラグ管理
 // ============================================================
 function mergedAlertFlags(){
@@ -602,6 +626,15 @@ onAuthStateChanged(auth,async user=>{
   if(user){
     const be=getBoundEmail(),ue=user.email.toLowerCase().trim();
     if(be&&ue!==be){await signOut(auth);setupLoginUI();document.getElementById('login-overlay').classList.add('show');const er=document.getElementById('login-error');er.textContent=`このHTMLは ${be} 専用です。`;er.className='login-error show';return;}
+    const access=await checkAndRegisterAccess(user);
+    if(!access.ok){
+      await signOut(auth);setupLoginUI();document.getElementById('login-overlay').classList.add('show');
+      const er=document.getElementById('login-error');
+      er.textContent=access.allowedEmail?`このファイルは ${access.allowedEmail} 専用として登録されています。`:'このアカウントではこのファイルにアクセスできません。';
+      er.className='login-error show';
+      const btn=document.getElementById('login-btn');btn.disabled=false;btn.textContent='ログイン';
+      return;
+    }
     document.getElementById('login-overlay').classList.remove('show');if(!be&&user.email)setBoundEmail(user.email);if(!appStarted){appStarted=true;startApp();}
   }else{setupLoginUI();document.getElementById('login-overlay').classList.add('show');const btn=document.getElementById('login-btn');btn.disabled=false;btn.textContent='ログイン';}
 });
@@ -619,6 +652,24 @@ async function fsPut(id,data){
   catch(e){showSaveInd('err','❌ 保存失敗: '+e.message);console.error(e);return false;}
 }
 
+// ============================================================
+// 自動バックアップ（各ファイル＝各教室ごとに1日1回、Firestoreの backups コレクションへ保存）
+// ============================================================
+const BACKUP_COLLECTION='backups';
+function backupDateStr(){const n=new Date();return`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;}
+async function performDailyBackupIfNeeded(id,data){
+  if(!id||!data)return;
+  try{
+    const today=backupDateStr();
+    const bref=doc(db,BACKUP_COLLECTION,`${id}_${today}`);
+    const bsnap=await getDoc(bref);
+    if(bsnap.exists())return; // 本日分はすでにバックアップ済み
+    const c=JSON.parse(JSON.stringify(data));
+    await setDoc(bref,{id,date:today,backedUpAt:new Date().toISOString(),data:c},{merge:false});
+    console.log(`📦 ${id} の本日分バックアップを作成しました`);
+  }catch(e){console.warn(`バックアップ失敗（${id}）:`,e.message);}
+}
+
 function startSnapshotR1(){
   if(unsubscribeR1)unsubscribeR1();
   const r=doc(db,COLLECTION,HTML_ID);
@@ -633,6 +684,7 @@ function startSnapshotR1(){
       if(R1.room2Id&&!room2Loaded){loadRoom2(R1.room2Id).catch(e=>console.warn('教室2読み込み失敗:',e.message));}
       if(ALLOW_EXTRA_ROOMS&&Array.isArray(R1.extraRooms)){R1.extraRooms.forEach(er=>{if(er&&er.id&&!extraRooms[er.id])loadExtraRoom(er.id,er.name).catch(e=>console.warn('表示専用教室読み込み失敗:',e.message));});}
       applyRoomButtons();renderAll();applySettings();updateHikitsugiBadge();updateSortButtons();
+      performDailyBackupIfNeeded(HTML_ID,data);
     }else{
       if(document.getElementById('modal-hikitsugi').classList.contains('open'))buildHikitsugiModal();
       updateHikitsugiBadge();renderTodos();applyRoomButtons();
@@ -654,6 +706,7 @@ function startSnapshotR2(id){
       Object.keys(R2.hikitsugi).forEach(k=>{if(k.startsWith('r2_'))R1.hikitsugi[k]=R2.hikitsugi[k];});
       room2Loaded=true;
       applyRoomButtons();buildHikitsugiModal();updateHikitsugiBadge();renderAlerts();
+      performDailyBackupIfNeeded(id,data);
     }else{
       applyData(data,2);
       Object.keys(R2.hikitsugi).forEach(k=>{if(k.startsWith('r2_'))R1.hikitsugi[k]=R2.hikitsugi[k];});
@@ -803,6 +856,7 @@ async function loadRoom2(id){
 async function loadExtraRoom(id,name){
   const d=await fsGet(id);
   extraRooms[id]={id,name:name||((d.settings&&d.settings.classroom)||`教室`),todos:Array.isArray(d.todos)?d.todos:[],remoteClassroom:(d.settings&&d.settings.classroom)||''};
+  performDailyBackupIfNeeded(id,d);
   startSnapshotExtra(id);
 }
 
@@ -1186,7 +1240,7 @@ window.openHikitsugi=openHikitsugi;
 function closeHikitsugi(){document.getElementById('modal-hikitsugi').classList.remove('open');}
 window.closeHikitsugi=closeHikitsugi;
 function buildHikitsugiModal(){const tabs=getHikiTabs();if(currentHikiTab>=tabs.length)currentHikiTab=0;document.getElementById('hiki-tabs').innerHTML=tabs.map((t,i)=>{const rCls=t.room===2?'r2':'r1';const rLabel=`<span class="hiki-room-label ${rCls}">${escHtml(t.roomName)}</span>`;const undone=getHL(t.key).filter(h=>!h.done).length;const badge=undone>0?`<span class="badge" style="margin-left:4px;">${undone}</span>`:'';return`<button class="hiki-tab-btn-item${i===currentHikiTab?' active':''}" onclick="switchHikiTab(${i})">${rLabel}${escHtml(t.label)}${badge}</button>`;}).join('');document.getElementById('hiki-tab-contents').innerHTML=tabs.map((t,i)=>buildHikiContent(t,i)).join('');updatePrintBtnLabel();updateHikitsugiBadge();}
-function buildHikiItemHTML(it,ti){const dateBadge=it.date?`<span class="${hikiDateBadgeClass(it.date)}">📅 ${hikiDateDisp(it.date)}</span>`:'';const replies=it.replies||[];const replyHTML=replies.length>0?`<div class="hiki-replies">${replies.map(r=>`<div class="hiki-reply-item" id="reply-${ti}-${it.id}-${r.id}"><div class="hiki-reply-header"><span class="hiki-reply-author">↩️ ${escHtml(r.author||'不明')}</span><span class="hiki-reply-date">${r.date?hikiDateDisp(r.date):''}</span></div><div>${r.text}</div><div class="hiki-reply-actions"><button class="btn btn-danger btn-xs" onclick="deleteReply(${ti},${it.id},${r.id})">🗑️</button></div></div>`).join('')}</div>`:'';const allInst=getAllInstructors();const rAuthorOpts=allInst.map(a=>`<option value="${escHtml(a)}">${escHtml(a)}</option>`).join('');const replyForm=`<div class="hiki-reply-add-row" id="reply-form-${ti}-${it.id}"><select id="reply-author-${ti}-${it.id}" style="min-width:80px;">${rAuthorOpts}</select><textarea id="reply-text-${ti}-${it.id}" placeholder="返信内容を入力… (Shift+Enterで改行)" rows="2" onkeydown="onReplyKeyDown(event,${ti},${it.id})" style="flex:1;min-width:120px;border:1.5px solid var(--border);border-radius:6px;padding:5px 8px;font-size:0.78rem;font-family:inherit;resize:vertical;line-height:1.5;"></textarea><button class="btn btn-warning btn-xs" onclick="addReply(${ti},${it.id})">↩️ 返信</button></div>`;
+function buildHikiItemHTML(it,ti){const dateBadge=it.date?`<span class="${hikiDateBadgeClass(it.date)}">📅 ${hikiDateDisp(it.date)}</span>`:'';const replies=it.replies||[];const replyHTML=replies.length>0?`<div class="hiki-replies">${replies.map(r=>`<div class="hiki-reply-item" id="reply-${ti}-${it.id}-${r.id}"><div class="hiki-reply-header"><span class="hiki-reply-author">↩️ ${escHtml(r.author||'不明')}</span><span class="hiki-reply-date">${r.date?hikiDateDisp(r.date):''}</span></div><div>${r.text}</div><div class="hiki-reply-actions"><button class="btn btn-warning btn-xs" onclick="editReply(${ti},${it.id},${r.id})">✏️</button><button class="btn btn-danger btn-xs" onclick="deleteReply(${ti},${it.id},${r.id})">🗑️</button></div></div>`).join('')}</div>`:'';const allInst=getAllInstructors();const rAuthorOpts=allInst.map(a=>`<option value="${escHtml(a)}">${escHtml(a)}</option>`).join('');const replyForm=`<div class="hiki-reply-add-row" id="reply-form-${ti}-${it.id}"><select id="reply-author-${ti}-${it.id}" style="min-width:80px;">${rAuthorOpts}</select><textarea id="reply-text-${ti}-${it.id}" placeholder="返信内容を入力… (Shift+Enterで改行)" rows="2" onkeydown="onReplyKeyDown(event,${ti},${it.id})" style="flex:1;min-width:120px;border:1.5px solid var(--border);border-radius:6px;padding:5px 8px;font-size:0.78rem;font-family:inherit;resize:vertical;line-height:1.5;"></textarea><button class="btn btn-warning btn-xs" onclick="addReply(${ti},${it.id})">↩️ 返信</button></div>`;
 return`<div class="hiki-saved-item${it.date?' has-date':''}" id="hiki-item-${ti}-${it.id}"><div class="hiki-item-header"><input type="checkbox" ${it.done?'checked':''} onchange="toggleHiki(${ti},${it.id})" style="accent-color:var(--success);flex-shrink:0;">${it.author?`<span class="hiki-author-badge">✍️ ${escHtml(it.author)}</span>`:''}${dateBadge}</div><div class="hiki-item-body${it.done?' done':''}">${it.html}</div>${replyHTML}${replyForm}<div class="hiki-saved-item-actions"><button class="btn btn-warning btn-xs" onclick="editHiki(${ti},${it.id})">✏️</button><button class="btn btn-danger btn-xs" onclick="deleteHiki(${ti},${it.id})">🗑️</button></div></div>`;}
 function buildHikiContent(tab,ti){const items=getHL(tab.key);const authors=getAuthorOptions(tab.key);const ao=authors.map(a=>`<option value="${escHtml(a.name)}">[${escHtml(a.roomName)}] ${escHtml(a.name)}</option>`).join('');const lh=items.length===0?'<div class="empty-state" style="padding:12px 0;"><div class="icon">📭</div>引継ぎ事項はありません</div>':items.map(it=>buildHikiItemHTML(it,ti)).join('');const authorWrap=authors.length>0?`<div class="hiki-author-select-wrap"><label>追加者：</label><select id="hiki-author-${ti}">${ao}</select></div>`:`<div class="hiki-author-select-wrap"><span style="font-size:0.73rem;color:var(--text-light);">追加者なし</span></div>`;const dateWrap=`<div class="hiki-date-input-wrap"><label>📅 日付：</label><input type="date" id="hiki-date-${ti}" value="${todayStr()}"></div>`;return`<div class="hiki-tab-content-item${ti===currentHikiTab?' active':''}" id="htab-content-${ti}"><div class="hiki-saved-list" id="hiki-list-${ti}">${lh}</div><div class="rich-editor-wrap"><div class="rich-toolbar"><button onclick="hikiCmd(${ti},'bold')"><b>B</b></button><button onclick="hikiCmd(${ti},'italic')"><i>I</i></button><button onclick="hikiCmd(${ti},'underline')"><u>U</u></button><button onclick="hikiCmd(${ti},'strikeThrough')"><s>S</s></button><select onchange="hikiCmd(${ti},'fontSize',this.value);this.value=''"><option value="">サイズ</option><option value="1">極小</option><option value="2">小</option><option value="3">標準</option><option value="4">大</option><option value="5">特大</option></select><select onchange="hikiCmd(${ti},'foreColor',this.value);this.value=''"><option value="">文字色</option><option value="#e74c3c">赤</option><option value="#e67e22">橙</option><option value="#27ae60">緑</option><option value="#2980b9">青</option><option value="#8e44ad">紫</option><option value="#2c3e50">黒</option></select><select onchange="hikiCmd(${ti},'hiliteColor',this.value);this.value=''"><option value="">背景色</option><option value="#ffeaa7">黄</option><option value="#fab1a0">赤</option><option value="#a8edea">水色</option><option value="transparent">なし</option></select><button onclick="hikiCmd(${ti},'insertUnorderedList')">≡</button><button onclick="hikiCmd(${ti},'removeFormat')">✕</button></div><div class="rich-editor" id="hiki-editor-${ti}" contenteditable="true" spellcheck="false" style="min-height:80px;"></div></div><div class="hiki-add-row"><div class="hiki-add-left">${authorWrap}${dateWrap}</div><button class="btn btn-primary hiki-add-btn" onclick="addHikitsugi(${ti})">＋ 追加</button></div></div>`;}
 function switchHikiTab(i){currentHikiTab=i;document.querySelectorAll('#hiki-tabs .hiki-tab-btn-item').forEach((b,j)=>b.classList.toggle('active',j===i));document.querySelectorAll('#hiki-tab-contents .hiki-tab-content-item').forEach((c,j)=>c.classList.toggle('active',j===i));updatePrintBtnLabel();}
@@ -1249,6 +1303,41 @@ function onReplyKeyDown(e,ti,itemId){
 window.onReplyKeyDown=onReplyKeyDown;
 async function deleteReply(ti,itemId,replyId){if(!confirm('この返信を削除しますか？'))return;const tabs=getHikiTabs(),tab=tabs[ti];if(!tab)return;const it=getHL(tab.key).find(h=>h.id===itemId);if(!it||!it.replies)return;it.replies=it.replies.filter(r=>r.id!==replyId);if(tab.key.startsWith('r2_')&&R2)R2.hikitsugi[tab.key]=R1.hikitsugi[tab.key];await saveHikiForTab(tab.key);refreshHL(ti);}
 window.deleteReply=deleteReply;
+function replyPlainText(html){
+  return(html||'').replace(/<br\s*\/?>/gi,'\n').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,'&');
+}
+function editReply(ti,itemId,replyId){
+  const tabs=getHikiTabs(),tab=tabs[ti];if(!tab)return;
+  const it=getHL(tab.key).find(h=>h.id===itemId);if(!it||!it.replies)return;
+  const r=it.replies.find(x=>x.id===replyId);if(!r)return;
+  const el=document.getElementById(`reply-${ti}-${itemId}-${replyId}`);if(!el)return;
+  const allInst=getAllInstructors();
+  const opts=allInst.map(a=>`<option value="${escHtml(a)}"${a===r.author?' selected':''}>${escHtml(a)}</option>`).join('');
+  el.innerHTML=`<div class="hiki-reply-edit-row" style="display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start;">
+    <select id="reply-edit-author-${ti}-${itemId}-${replyId}" style="min-width:80px;">${opts}</select>
+    <textarea id="reply-edit-text-${ti}-${itemId}-${replyId}" rows="2" style="flex:1;min-width:120px;border:1.5px solid var(--border);border-radius:6px;padding:5px 8px;font-size:0.78rem;font-family:inherit;resize:vertical;line-height:1.5;">${escHtml(replyPlainText(r.text))}</textarea>
+  </div>
+  <div style="display:flex;gap:6px;margin-top:4px;">
+    <button class="btn btn-success btn-xs" onclick="saveReplyEdit(${ti},${itemId},${replyId})">保存</button>
+    <button class="btn btn-gray btn-xs" onclick="refreshHL(${ti})">取消</button>
+  </div>`;
+}
+window.editReply=editReply;
+async function saveReplyEdit(ti,itemId,replyId){
+  const tabs=getHikiTabs(),tab=tabs[ti];if(!tab)return;
+  const it=getHL(tab.key).find(h=>h.id===itemId);if(!it||!it.replies)return;
+  const r=it.replies.find(x=>x.id===replyId);if(!r)return;
+  const asel=document.getElementById(`reply-edit-author-${ti}-${itemId}-${replyId}`);
+  const tinp=document.getElementById(`reply-edit-text-${ti}-${itemId}-${replyId}`);
+  const rawText=(tinp?tinp.value:'').trim();
+  if(!rawText){showToast('返信内容を入力してください');return;}
+  r.author=asel?asel.value:r.author;
+  r.text=escHtml(rawText).replace(/\n/g,'<br>');
+  if(tab.key.startsWith('r2_')&&R2)R2.hikitsugi[tab.key]=R1.hikitsugi[tab.key];
+  await saveHikiForTab(tab.key);
+  refreshHL(ti);
+}
+window.saveReplyEdit=saveReplyEdit;
 function refreshHL(ti){const tabs=getHikiTabs(),tab=tabs[ti];if(!tab)return;const items=getHL(tab.key),le=document.getElementById(`hiki-list-${ti}`);if(!le)return;if(items.length===0){le.innerHTML='<div class="empty-state" style="padding:12px 0;"><div class="icon">📭</div>引継ぎ事項はありません</div>';return;}le.innerHTML=items.map(it=>buildHikiItemHTML(it,ti)).join('');}
 window.refreshHL=refreshHL;
 function updateHikitsugiBadge(){const tabs=getHikiTabs();let total=0;tabs.forEach(t=>{if(t.key.startsWith('r1_'))total+=getHL(t.key).filter(h=>!h.done).length;});const b=document.getElementById('hikitsugi-badge');b.style.display=total>0?'':'none';b.textContent=total;}
