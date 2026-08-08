@@ -205,6 +205,7 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
 .weather-loc-status.err{color:var(--danger);font-weight:600}
 .setting-io-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 12px;background:#f7f9ff;border:1.5px solid var(--border);border-radius:var(--radius-sm);margin-bottom:14px}
 .setting-io-row .io-label{font-size:0.73rem;color:var(--text-light);font-weight:600;width:100%}
+.setting-io-row .backup-date-info{font-size:0.72rem;color:var(--text-light);width:100%;margin-top:2px;}
 .inst-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin-bottom:14px;}
 .inst-grid .inst-cell{display:flex;flex-direction:column;gap:3px;}
 .inst-grid .inst-cell label{font-size:0.8rem;font-weight:600;color:var(--text-light);}
@@ -491,10 +492,10 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
         <div class="inst-cell"><label>講師4</label><input type="text" id="s-inst4" placeholder="例: 高橋"></div>
       </div>
       <div class="setting-io-row">
-        <div class="io-label">💾 バックアップ</div>
-        <button class="btn btn-success btn-sm" onclick="exportJson(1)">⬇️ バックアップ</button>
-        <button class="btn btn-info btn-sm" onclick="triggerImport(1)">⬆️ インポート</button>
-        <input type="file" id="import-input-1" accept=".json" style="display:none" onchange="importJson(event,1)">
+        <div class="io-label">💾 バックアップ（Firebase）</div>
+        <button class="btn btn-success btn-sm" onclick="exportJson(1)">💾 バックアップ</button>
+        <button class="btn btn-info btn-sm" onclick="importFromFirebase(1)">♻️ インポート（復元）</button>
+        <div class="backup-date-info" id="backup-date-r1">🕒 最終バックアップ: —</div>
       </div>
       <div class="add-room-box" id="add-room-box-r2">
         <label>🏫 教室2を追加する（フル機能）</label>
@@ -512,10 +513,10 @@ header h1 { font-size:1.05rem;font-weight:700;letter-spacing:0.04em;white-space:
       <div class="setting-row"><label>教室2 ID</label><span class="setting-id-display" id="disp-r2-id"></span></div>
       <div class="setting-row"><label>教室名</label><input type="text" id="s-classroom-r2" placeholder="例: ○○教室"></div>
       <div class="setting-io-row">
-        <div class="io-label">💾 バックアップ</div>
-        <button class="btn btn-success btn-sm" onclick="exportJson(2)">⬇️ バックアップ</button>
-        <button class="btn btn-info btn-sm" onclick="triggerImport(2)">⬆️ インポート</button>
-        <input type="file" id="import-input-2" accept=".json" style="display:none" onchange="importJson(event,2)">
+        <div class="io-label">💾 バックアップ（Firebase）</div>
+        <button class="btn btn-success btn-sm" onclick="exportJson(2)">💾 バックアップ</button>
+        <button class="btn btn-info btn-sm" onclick="importFromFirebase(2)">♻️ インポート（復元）</button>
+        <div class="backup-date-info" id="backup-date-r2">🕒 最終バックアップ: —</div>
       </div>
       <div class="add-room-box" id="remove-room-box-r2">
         <label>🔓 教室2の連携を解除する</label>
@@ -701,6 +702,47 @@ async function fsPut(id,data){
 // ============================================================
 const BACKUP_COLLECTION='backups';
 function backupDateStr(){const n=new Date();return`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;}
+
+// ============================================================
+// 手動バックアップ（設定画面の「バックアップ」ボタン）
+// Firestoreの rooms コレクションに「ファイル名_bk」ドキュメントとして保存する
+// ============================================================
+const backupDateCache={}; // {id: 'YYYY-MM-DD'} 設定画面表示用キャッシュ
+async function writeManualBackup(id,payload){
+  if(!id||!payload)return null;
+  try{
+    const bref=doc(db,COLLECTION,`${id}_bk`);
+    const c=JSON.parse(JSON.stringify(payload));
+    const dstr=backupDateStr();
+    c.backupDate=dstr;
+    c.backedUpAt=new Date().toISOString();
+    await setDoc(bref,c,{merge:false});
+    backupDateCache[id]=dstr;
+    console.log(`📦 ${id}_bk（roomsコレクション）に手動バックアップを保存しました`);
+    return dstr;
+  }catch(e){
+    console.warn(`手動バックアップ失敗（${id}）:`,e.message);
+    return null;
+  }
+}
+async function fetchBackupDate(id,elId){
+  const el=document.getElementById(elId);
+  if(!el||!id)return;
+  if(backupDateCache[id]){el.textContent=`🕒 最終バックアップ: ${backupDateCache[id]}`;return;}
+  el.textContent='🕒 最終バックアップ: 確認中…';
+  try{
+    const bref=doc(db,COLLECTION,`${id}_bk`);
+    const bsnap=await getDoc(bref);
+    if(bsnap.exists()&&bsnap.data()&&bsnap.data().backupDate){
+      backupDateCache[id]=bsnap.data().backupDate;
+      el.textContent=`🕒 最終バックアップ: ${bsnap.data().backupDate}`;
+    }else{
+      el.textContent='🕒 最終バックアップ: なし';
+    }
+  }catch(e){
+    el.textContent='🕒 最終バックアップ: 取得失敗';
+  }
+}
 async function performDailyBackupIfNeeded(id,data){
   if(!id||!data)return;
   try{
@@ -851,12 +893,77 @@ async function saveHikiForTab(k){if(k.startsWith('r2_')){await saveR1();await sa
 // ============================================================
 // バックアップ
 // ============================================================
-function exportJson(r){const p=r===2?payload2():payload1();if(!p){showToast('データがありません');return;}const id=r===2?room2Id:HTML_ID;const bl=new Blob([JSON.stringify(p,null,2)],{type:'application/json'});const u=URL.createObjectURL(bl),a=document.createElement('a');a.href=u;a.download=`${id}.json`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);showToast('⬇️ バックアップしました');}
+async function buildFullBackupPayload(){
+  // 教室1のバックアップには、引継ぎ情報（教室1・教室2両方）と
+  // 教室2〜教室6（表示専用教室）の実データも含めて記録する。
+  const base=payload1();
+  base.hikitsugi=JSON.parse(JSON.stringify(R1.hikitsugi||{})); // r1_/r2_ 両方の引継ぎ情報を丸ごと保存
+  base.room2Data=null;
+  if(R1.room2Id){
+    try{
+      const snap=await getDoc(doc(db,COLLECTION,R1.room2Id));
+      if(snap.exists())base.room2Data=snap.data();
+    }catch(e){console.warn('教室2データ取得失敗（バックアップ）:',e.message);}
+  }
+  base.extraRoomsData={};
+  if(Array.isArray(R1.extraRooms)){
+    for(const er of R1.extraRooms){
+      if(!er||!er.id)continue;
+      try{
+        const snap=await getDoc(doc(db,COLLECTION,er.id));
+        if(snap.exists())base.extraRoomsData[er.id]=snap.data();
+      }catch(e){console.warn(`表示専用教室(${er.id})データ取得失敗（バックアップ）:`,e.message);}
+    }
+  }
+  return base;
+}
+async function exportJson(r){
+  const id=r===2?room2Id:HTML_ID;
+  if(r===2&&(!room2Loaded||!room2Id)){showToast('教室2が読み込まれていません');return;}
+  const p=r===2?payload2():await buildFullBackupPayload();
+  if(!p){showToast('データがありません');return;}
+  const dstr=await writeManualBackup(id,p);
+  const elId=r===2?'backup-date-r2':'backup-date-r1';
+  const el=document.getElementById(elId);
+  if(el)el.textContent=`🕒 最終バックアップ: ${dstr||'保存失敗'}`;
+  showToast(dstr?'💾 バックアップを保存しました（Firebase）':'❌ バックアップの保存に失敗しました');
+}
 window.exportJson=exportJson;
-function triggerImport(r){document.getElementById(`import-input-${r}`).click();}
-window.triggerImport=triggerImport;
-async function importJson(e,r){const f=e.target.files[0];if(!f)return;e.target.value='';const rd=new FileReader();rd.onload=async ev=>{try{const d=JSON.parse(ev.target.result);if(r===1){applyData(d,1);const ok=await fsPut(HTML_ID,payload1());if(ok){renderAll();applySettings();applyRoomButtons();buildHikitsugiModal();showToast('✅ インポートしました（教室1）');}}else{if(!room2Loaded||!room2Id){showToast('教室2が読み込まれていません');return;}applyData(d,2);Object.keys(R2.hikitsugi).forEach(k=>{if(k.startsWith('r2_'))R1.hikitsugi[k]=R2.hikitsugi[k];});const ok=await fsPut(room2Id,payload2());if(ok){renderAll();buildHikitsugiModal();showToast('✅ インポートしました（教室2）');}}}catch(err){showToast('❌ インポート失敗: '+err.message);}};rd.readAsText(f);}
-window.importJson=importJson;
+async function importFromFirebase(r){
+  const id=r===2?room2Id:HTML_ID;
+  if(r===2&&(!room2Loaded||!room2Id)){showToast('教室2が読み込まれていません');return;}
+  if(!confirm(`Firebase上のバックアップ（${id}_bk）で現在のデータを上書きします。よろしいですか？`))return;
+  try{
+    const bref=doc(db,COLLECTION,`${id}_bk`);
+    const bsnap=await getDoc(bref);
+    if(!bsnap.exists()||!bsnap.data()){showToast('❌ バックアップが見つかりません');return;}
+    const d=bsnap.data();
+    if(r===1){
+      applyData(d,1);
+      const ok=await fsPut(HTML_ID,payload1());
+      if(!ok){showToast('❌ 復元に失敗しました');return;}
+      // バックアップに含まれる教室2・表示専用教室（教室3〜6）のデータも復元する
+      if(d.room2Data&&d.room2Data.id){
+        try{await fsPut(d.room2Data.id,d.room2Data);}catch(e){console.warn('教室2データ復元失敗:',e.message);}
+      }
+      if(d.extraRoomsData){
+        for(const rid of Object.keys(d.extraRoomsData)){
+          try{await fsPut(rid,d.extraRoomsData[rid]);}catch(e){console.warn(`教室(${rid})データ復元失敗:`,e.message);}
+        }
+      }
+      showToast('✅ 復元しました。再読み込みします…');
+      setTimeout(()=>location.reload(),900);
+    }else{
+      applyData(d,2);
+      Object.keys(R2.hikitsugi).forEach(k=>{if(k.startsWith('r2_'))R1.hikitsugi[k]=R2.hikitsugi[k];});
+      const ok=await fsPut(room2Id,payload2());
+      if(!ok){showToast('❌ 復元に失敗しました');return;}
+      showToast('✅ 復元しました。再読み込みします…');
+      setTimeout(()=>location.reload(),900);
+    }
+  }catch(err){showToast('❌ インポート失敗: '+err.message);}
+}
+window.importFromFirebase=importFromFirebase;
 function showSaveInd(type,msg){const el=document.getElementById('save-indicator');el.textContent=msg;el.className=`save-indicator show ${type}`;clearTimeout(el._t);el._t=setTimeout(()=>{el.className='save-indicator';},3000);}
 
 // ============================================================
@@ -1140,11 +1247,13 @@ function openSettings(){
     document.getElementById('add-room-box-extra').style.display=ALLOW_EXTRA_ROOMS?'':'none';
     if(ALLOW_EXTRA_ROOMS)renderExtraRoomList();
     buildIconSelector();
+    fetchBackupDate(HTML_ID,'backup-date-r1');
   }else if(r===2){
     document.getElementById('settings-room-label').textContent='教室2';
     r2El.style.display='';
     document.getElementById('disp-r2-id').textContent=room2Id;
     document.getElementById('s-classroom-r2').value=R2?.settings.classroom||'';
+    fetchBackupDate(room2Id,'backup-date-r2');
   }else if(isExtraRoom(r)){
     const room=extraRooms[r];const idx=(R1.extraRooms||[]).findIndex(er=>er.id===r);
     document.getElementById('settings-room-label').textContent=`教室${3+(idx<0?0:idx)}（表示専用）`;
